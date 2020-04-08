@@ -1,35 +1,51 @@
 package base
 
+import "encoding/json"
+
 type (
-	Epg struct {
-		Timestart int64
-		Timestop  int64
-		Title     string
-		Desc      string
-		Rating    int
-		Genre     []string
-		Category  []string
+	Programm struct {
+		Timestart string `json:"timestart"`
+		Timestop  string `json:"timestop"`
+		Title     string `json:"title"`
 	}
 
-	Response struct {
-		Days map[int64]Epg
+	Channel struct {
+		Name      string     `json:"name"`
+		Icon      string     `json:"icon"`
+		Programms []Programm `json:"programms"`
+	}
+
+	Common struct {
+		Channels map[string]*Channel `json:"channels"`
 	}
 )
 
 type IParse interface {
-	Parse() Response
+	BaseUrl()
+	Parse()
+	Marshal() string
 }
 
-// todo methods which may come in handy
-
-func (response *Response) IssetDay() bool {
-	return true
+func (common *Common) AppendProgramm(name string, programm Programm) {
+	common.Channels[name].Programms = append(common.Channels[name].Programms, programm)
 }
 
-func (response *Response) CreateDay() {
-	// todo
+func (common *Common) AppendChannel(name string, channel *Channel) {
+	common.Channels[name] = channel
 }
 
-func (response *Response) AppendProgramm() {
-	// todo
+func (common *Common) ChannelExist(name string) bool {
+	_, exist := common.Channels[name]
+
+	return exist
+}
+
+func (common *Common) Marshal() string {
+	jsonString, err := json.Marshal(common.Channels)
+
+	if err != nil {
+		panic(err)
+	}
+
+	return string(jsonString)
 }
