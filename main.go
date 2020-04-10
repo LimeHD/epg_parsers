@@ -6,7 +6,7 @@ import (
 )
 
 func main() {
-	digea := parsers.Digea{}
+	digea := parsers.Ept{}
 	digea.Parse()
 
 	fmt.Println(digea.Marshal())
