@@ -1,8 +1,8 @@
 package main
 
 import (
-	"./parsers"
 	"fmt"
+	"github.com/LimeHD/parser/parsers"
 )
 
 func main() {
