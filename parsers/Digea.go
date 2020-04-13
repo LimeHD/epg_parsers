@@ -5,6 +5,7 @@ import (
 	"github.com/LimeHD/parser/utils"
 	"github.com/PuerkitoBio/goquery"
 	"log"
+	"strings"
 )
 
 type Digea struct {
@@ -12,6 +13,9 @@ type Digea struct {
 }
 
 func (digea *Digea) Parse() {
+	// required
+	digea.BootstrapLocalTime("Europe/Athens")
+
 	status, reader := utils.GetHtmlDocumentReader(digea.BaseUrl())
 	defer reader.Close()
 
@@ -42,24 +46,26 @@ func (digea *Digea) Parse() {
 		// У каналов есть только начало телепередачи
 		prev := ""
 		s.Find("ul.epg-list > li.list-group-item").Each(func(ii int, ss *goquery.Selection) {
-			time := ss.Find("span.time").Text()
+			times := ss.Find("span.time").Text()
 			title := ss.Find("span.tv-show").Text()
 
+			times = digea.LocalTime.RFC3339local(strings.TrimSpace(times))
+
 			if prev == "" {
-				prev = time
+				prev = times
 			}
 
 			// интересная особенность, передачи могут заканчиваться в то же время, что и начинаются
 			// парадоксально, однако
-			if prev != time {
+			if prev != times {
 				digea.AppendProgramm(channelName, base.Programm{
 					Timestart: prev,
-					Timestop:  time,
+					Timestop:  times,
 					Title:     title,
 				})
 			}
 
-			prev = time
+			prev = times
 		})
 	})
 }

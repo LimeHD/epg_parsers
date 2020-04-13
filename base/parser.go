@@ -4,7 +4,10 @@ import (
 	"encoding/json"
 	"fmt"
 	"strings"
+	"time"
 )
+
+const RFC3339local = "2006-01-02T15:04:05Z"
 
 type (
 	Programm struct {
@@ -20,8 +23,16 @@ type (
 	}
 
 	Common struct {
-		baseUrl  string
-		Channels map[string]*Channel `json:"channels"`
+		baseUrl   string
+		LocalTime Time
+		Channels  map[string]*Channel `json:"channels"`
+	}
+
+	Time struct {
+		Location *time.Location
+		Year     int
+		Month    time.Month
+		Day      int
 	}
 
 	Day struct {
@@ -48,6 +59,37 @@ type IParse interface {
 	BaseUrl()
 	Parse()
 	Marshal() string
+}
+
+func (common *Common) BootstrapLocalTime(location string) {
+	loc, err := time.LoadLocation(location)
+
+	if err != nil {
+		panic(err)
+	}
+
+	currentTime := time.Now().In(loc)
+
+	common.LocalTime = Time{
+		Year:     currentTime.Year(),
+		Month:    currentTime.Month(),
+		Day:      currentTime.Day(),
+		Location: loc,
+	}
+}
+
+func (t *Time) RFC3339local(times string) string {
+	layout := fmt.Sprintf("%d-%02d-%02dT%s:00Z",
+		t.Year,
+		t.Month,
+		t.Day,
+		times,
+	)
+
+	tt, _ := time.Parse(RFC3339local, layout)
+	timeFormatted := tt.In(t.Location).Format(time.RFC3339)
+
+	return timeFormatted
 }
 
 func (common *Common) AppendProgramm(name string, programm Programm) {
