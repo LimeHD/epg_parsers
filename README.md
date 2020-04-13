@@ -13,6 +13,8 @@
 
 # Список парсеров
 
+- [Digea](https://www.digea.gr)
+- [EPT](https://program.ert.gr)
 
 # Вывод парсера
 
@@ -30,3 +32,7 @@
 
 
 ## Ядро которое собирает спарсенные данные и складывает в базу.
+
+### Список всех зон для инициализации локальных временных зон
+
+- [List of tz database time zones](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones)
