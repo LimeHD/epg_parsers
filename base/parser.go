@@ -7,6 +7,7 @@ import (
 	"time"
 )
 
+// main layout of date time string
 const RFC3339local = "2006-01-02T15:04:05Z"
 
 type (
