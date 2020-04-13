@@ -11,10 +11,6 @@ type Digea struct {
 	base.Common
 }
 
-func (digea *Digea) BaseUrl() string {
-	return "https://www.digea.gr/EPG/el"
-}
-
 func (digea *Digea) Parse() {
 	status, reader := utils.GetHtmlDocumentReader(digea.BaseUrl())
 	defer reader.Close()
