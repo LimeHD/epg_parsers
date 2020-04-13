@@ -1,12 +1,12 @@
 package main
 
 import (
-	"./parsers"
 	"fmt"
+	"github.com/LimeHD/parser/parsers"
 )
 
 func main() {
-	digea := parsers.Digea{}
+	digea := parsers.Ept{}
 	digea.Parse()
 
 	fmt.Println(digea.Marshal())
