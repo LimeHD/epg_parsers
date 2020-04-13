@@ -1,6 +1,10 @@
 package base
 
-import "encoding/json"
+import (
+	"encoding/json"
+	"fmt"
+	"strings"
+)
 
 type (
 	Programm struct {
@@ -48,4 +52,22 @@ func (common *Common) Marshal() string {
 	}
 
 	return string(jsonString)
+}
+
+func (common *Common) ToCSV() []string {
+	csv := []string{}
+
+	for _, c := range common.Channels {
+		for _, p := range c.Programms {
+			csv = append(csv, fmt.Sprintf("%s;%s;%s;%s;%s",
+				strings.TrimSpace(c.Name),
+				strings.TrimSpace(c.Icon),
+				strings.TrimSpace(p.Title),
+				strings.TrimSpace(p.Timestart),
+				strings.TrimSpace(p.Timestop),
+			))
+		}
+	}
+
+	return csv
 }

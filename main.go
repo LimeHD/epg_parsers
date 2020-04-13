@@ -6,8 +6,10 @@ import (
 )
 
 func main() {
-	digea := parsers.Ept{}
+	digea := parsers.Digea{}
 	digea.Parse()
 
-	fmt.Println(digea.Marshal())
+	for _, v := range digea.ToCSV() {
+		fmt.Println(v)
+	}
 }

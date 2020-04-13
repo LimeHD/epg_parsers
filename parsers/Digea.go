@@ -16,7 +16,7 @@ func (digea *Digea) BaseUrl() string {
 }
 
 func (digea *Digea) Parse() {
-	status, reader := utils.GetHtmlDocumentReader("https://www.digea.gr/EPG/el")
+	status, reader := utils.GetHtmlDocumentReader(digea.BaseUrl())
 	defer reader.Close()
 
 	if status != 200 {
