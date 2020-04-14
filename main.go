@@ -7,6 +7,7 @@ import (
 	"github.com/urfave/cli"
 	"log"
 	"os"
+	"time"
 )
 
 func main() {
@@ -28,7 +29,7 @@ func main() {
 
 		// 5 - это для теста, сколько дней вперед парсить, включая текущий день
 		for i := 0; i <= 5; i++ {
-			key := fmt.Sprintf("Day - %d", i)
+			key := time.Now().AddDate(0, 0, i).Format("20060102")
 
 			if !epg.DayExist(key) {
 				epg.AppendDay(key, &base.Day{
@@ -46,11 +47,11 @@ func main() {
 
 		// todo пока что временно так, потом заревакторю
 		if format == "csv" {
-			for _, v := range epg.Days["Day - 3"].ToCSV() {
+			for _, v := range epg.Days["20200417"].ToCSV() {
 				fmt.Println(v)
 			}
 		} else {
-			fmt.Println(epg.Days["Day - 3"].Common.Marshal())
+			fmt.Println(epg.Days["20200417"].Common.Marshal())
 		}
 
 		return nil
