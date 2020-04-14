@@ -12,7 +12,7 @@ type Digea struct {
 	base.Common
 }
 
-func (digea *Digea) Parse() {
+func (digea *Digea) Parse(day int) {
 	// required
 	digea.BootstrapLocalTime("Europe/Athens")
 
@@ -49,7 +49,7 @@ func (digea *Digea) Parse() {
 			times := ss.Find("span.time").Text()
 			title := ss.Find("span.tv-show").Text()
 
-			times = digea.LocalTime.RFC3339local(strings.TrimSpace(times))
+			times = digea.LocalTime.RFC3339local(strings.TrimSpace(times), day)
 
 			if prev == "" {
 				prev = times

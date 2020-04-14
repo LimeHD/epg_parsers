@@ -22,12 +22,12 @@ func main() {
 
 		digea := parsers.Digea{}
 		digea.SetBaseUrl(fmt.Sprintf("https://www.digea.gr/EPG?day=%d", i))
-		digea.Parse()
+		digea.Parse(i)
 
 		epg.Days[key].Common = &digea.Common
 	}
 
-	for _, v := range epg.Days["Day - 1"].ToCSV() {
+	for _, v := range epg.Days["Day - 3"].ToCSV() {
 		fmt.Println(v)
 	}
 }
