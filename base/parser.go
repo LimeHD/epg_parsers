@@ -3,6 +3,9 @@ package base
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/LimeHD/parser/utils"
+	"github.com/PuerkitoBio/goquery"
+	"log"
 	"strings"
 	"time"
 )
@@ -11,6 +14,8 @@ import (
 const RFC3339local = "2006-01-02T15:04:05Z"
 
 type (
+	Parser struct{}
+
 	Programm struct {
 		Timestart string `json:"timestart"`
 		Timestop  string `json:"timestop"`
@@ -24,9 +29,10 @@ type (
 	}
 
 	Common struct {
-		baseUrl   string
-		LocalTime Time
-		Channels  map[string]*Channel `json:"channels"`
+		baseUrl       string
+		localTimeBase string
+		LocalTime     Time
+		Channels      map[string]*Channel `json:"channels"`
 	}
 
 	Time struct {
@@ -46,6 +52,22 @@ type (
 	}
 )
 
+func (p *Parser) RunComposeWith(parser IParse) {
+	status, reader := utils.GetHtmlDocumentReader(parser.BaseUrl())
+	defer reader.Close()
+
+	if status != 200 {
+		log.Fatalf("Не могу получить данные, что-то пошло не так, HTTP код: %d", status)
+	}
+
+	doc, err := goquery.NewDocumentFromReader(reader)
+	if err != nil {
+		log.Fatal(err)
+	}
+	parser.BootstrapLocalTime(parser.GetLocalTime())
+	parser.Parse(doc)
+}
+
 func (epg *Epg) AppendDay(name string, day *Day) {
 	epg.Days[name] = day
 }
@@ -58,8 +80,24 @@ func (epg *Epg) DayExist(day string) bool {
 
 type IParse interface {
 	BaseUrl() string
-	Parse(day int)
+	Parse(doc *goquery.Document, day int)
 	Marshal() string
+	BootstrapLocalTime(local string)
+	GetLocalTime() string
+}
+
+func (common *Common) SetLocalTime(local string) *Common {
+	common.localTimeBase = local
+
+	return common
+}
+
+func (common *Common) GetLocalTime() string {
+	if common.localTimeBase == "" {
+		panic("Not initialize local time")
+	}
+
+	return common.localTimeBase
 }
 
 func (common *Common) BootstrapLocalTime(location string) {
@@ -117,8 +155,10 @@ func (common *Common) Marshal() string {
 	return string(jsonString)
 }
 
-func (common *Common) SetBaseUrl(url string) {
+func (common *Common) SetBaseUrl(url string) *Common {
 	common.baseUrl = url
+
+	return common
 }
 
 func (common *Common) BaseUrl() string {

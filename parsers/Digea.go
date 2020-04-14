@@ -2,9 +2,7 @@ package parsers
 
 import (
 	"github.com/LimeHD/parser/base"
-	"github.com/LimeHD/parser/utils"
 	"github.com/PuerkitoBio/goquery"
-	"log"
 	"strings"
 )
 
@@ -12,22 +10,12 @@ type Digea struct {
 	base.Common
 }
 
-func (digea *Digea) Parse(day int) {
+func (digea *Digea) GetLocalTime() string {
+	return "Europe/Athens"
+}
+
+func (digea *Digea) Parse(doc *goquery.Document, day int) {
 	// required
-	digea.BootstrapLocalTime("Europe/Athens")
-
-	status, reader := utils.GetHtmlDocumentReader(digea.BaseUrl())
-	defer reader.Close()
-
-	if status != 200 {
-		log.Fatalf("Не могу получить данные, что-то пошло не так, HTTP код: %d", status)
-	}
-
-	doc, err := goquery.NewDocumentFromReader(reader)
-	if err != nil {
-		log.Fatal(err)
-	}
-
 	digea.Channels = make(map[string]*base.Channel)
 
 	doc.Find(".epg-table-row > .col-lg-4").Each(func(i int, s *goquery.Selection) {

@@ -8,6 +8,7 @@ import (
 
 func main() {
 	epg := base.Epg{Days: map[string]*base.Day{}}
+	parser := &base.Parser{}
 
 	// 5 - это для теста, сколько дней вперед парсить, включая текущий день
 	for i := 0; i <= 5; i++ {
@@ -22,8 +23,8 @@ func main() {
 
 		digea := parsers.Digea{}
 		digea.SetBaseUrl(fmt.Sprintf("https://www.digea.gr/EPG?day=%d", i))
-		digea.Parse(i)
 
+		parser.RunComposeWith(&digea)
 		epg.Days[key].Common = &digea.Common
 	}
 
