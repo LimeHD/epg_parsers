@@ -24,7 +24,7 @@ func main() {
 		digea := parsers.Digea{}
 		digea.SetBaseUrl(fmt.Sprintf("https://www.digea.gr/EPG?day=%d", i))
 
-		parser.RunComposeWith(&digea)
+		parser.RunComposeWith(&digea, i)
 		epg.Days[key].Common = &digea.Common
 	}
 

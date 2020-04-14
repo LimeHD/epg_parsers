@@ -52,7 +52,7 @@ type (
 	}
 )
 
-func (p *Parser) RunComposeWith(parser IParse) {
+func (p *Parser) RunComposeWith(parser IParse, day int) {
 	status, reader := utils.GetHtmlDocumentReader(parser.BaseUrl())
 	defer reader.Close()
 
@@ -65,7 +65,7 @@ func (p *Parser) RunComposeWith(parser IParse) {
 		log.Fatal(err)
 	}
 	parser.BootstrapLocalTime(parser.GetLocalTime())
-	parser.Parse(doc)
+	parser.Parse(doc, day)
 }
 
 func (epg *Epg) AppendDay(name string, day *Day) {
