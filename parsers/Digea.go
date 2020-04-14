@@ -14,7 +14,7 @@ func (digea *Digea) GetLocalTime() string {
 	return "Europe/Athens"
 }
 
-func (digea *Digea) Parse(doc *goquery.Document) {
+func (digea *Digea) Parse(doc *goquery.Document, day int) {
 	// required
 	digea.Channels = make(map[string]*base.Channel)
 
@@ -37,7 +37,7 @@ func (digea *Digea) Parse(doc *goquery.Document) {
 			times := ss.Find("span.time").Text()
 			title := ss.Find("span.tv-show").Text()
 
-			times = digea.LocalTime.RFC3339local(strings.TrimSpace(times))
+			times = digea.LocalTime.RFC3339local(strings.TrimSpace(times), day)
 
 			if prev == "" {
 				prev = times

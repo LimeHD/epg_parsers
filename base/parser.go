@@ -80,7 +80,7 @@ func (epg *Epg) DayExist(day string) bool {
 
 type IParse interface {
 	BaseUrl() string
-	Parse(doc *goquery.Document)
+	Parse(doc *goquery.Document, day int)
 	Marshal() string
 	BootstrapLocalTime(local string)
 	GetLocalTime() string
@@ -117,7 +117,7 @@ func (common *Common) BootstrapLocalTime(location string) {
 	}
 }
 
-func (t *Time) RFC3339local(times string) string {
+func (t *Time) RFC3339local(times string, day int) string {
 	layout := fmt.Sprintf("%d-%02d-%02dT%s:00Z",
 		t.Year,
 		t.Month,
@@ -126,7 +126,7 @@ func (t *Time) RFC3339local(times string) string {
 	)
 
 	tt, _ := time.Parse(RFC3339local, layout)
-	timeFormatted := tt.In(t.Location).Format(time.RFC3339)
+	timeFormatted := tt.AddDate(0, 0, day).In(t.Location).Format(time.RFC3339)
 
 	return timeFormatted
 }
