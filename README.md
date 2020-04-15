@@ -7,8 +7,13 @@
 5. Парсеры имеют логирование.
 6. Если парсер не может толком распарсить, он пишет ошибку в лог и завершается с ошибкой (status > 0)
 
-# Как запустить парсер?
+# Как собрать проект
 
+??
+
+# Как запустить парсер
+
+???
  - without build: `go run . -format {format}`, format is optional one of [`csv`, `json`] default format `csv`
  - with build `go build && ./main -format {format}` _(позвеж немного изменится)_
 
