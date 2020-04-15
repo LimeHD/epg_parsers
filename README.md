@@ -9,13 +9,14 @@
 
 # Как собрать проект
 
-??
+### Digea
+
+- `make build-digea`
 
 # Как запустить парсер
 
 ### Digea
 
-- `make build-digea`
 - `make digea`
 
 ## Чтобы получить больше информации
