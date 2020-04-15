@@ -1,8 +1,8 @@
 package parsers
 
 import (
-	"github.com/LimeHD/parser/base"
-	"github.com/LimeHD/parser/utils"
+	"github.com/LimeHD/epg_parsers/base"
+	"github.com/LimeHD/epg_parsers/utils"
 	"github.com/PuerkitoBio/goquery"
 	"log"
 )

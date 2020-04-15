@@ -2,9 +2,9 @@ package main
 
 import (
 	"fmt"
-	"github.com/LimeHD/parser/base"
-	"github.com/LimeHD/parser/parsers"
-	"github.com/LimeHD/parser/utils"
+	"github.com/LimeHD/epg_parsers/base"
+	"github.com/LimeHD/epg_parsers/parsers"
+	"github.com/LimeHD/epg_parsers/utils"
 	"github.com/urfave/cli"
 	"log"
 	"os"

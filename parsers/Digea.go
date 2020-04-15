@@ -2,7 +2,7 @@ package parsers
 
 import (
 	"fmt"
-	"github.com/LimeHD/parser/base"
+	"github.com/LimeHD/epg_parsers/base"
 	"github.com/PuerkitoBio/goquery"
 	"strings"
 )
