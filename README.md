@@ -7,40 +7,40 @@
 5. Парсеры имеют логирование.
 6. Если парсер не может толком распарсить, он пишет ошибку в лог и завершается с ошибкой (status > 0)
 
-# Как собрать проект
+# Парсеры
 
-### Digea
+- [digea_parser](https://www.digea.gr)
+- [ept_parser](//program.ert.gr)
 
-- `make build-digea`
+# Как собрать парсеры
 
-# Как запустить парсер
+- `make build`
 
-### Digea
+# Как запустить
 
-- `make digea`
-
-## Чтобы получить больше информации
-
-- `make`
-
-# Список парсеров
-
-- [Digea](https://www.digea.gr)
-- [EPT](https://program.ert.gr)
+```
+./digea_parser --format csv --output ./output
+./ept_parser --format csv --output ./output
+```
 
 # Вывод парсера
 
-### CSV, separated by ";"
+Вывод в формате CSV, separated by ";". 1 - строка - одна передача.
 
-1 - строка - одна передача.
+Следующие строки:
 
-* День (дата [yyyymmdd], строка)
-* Канал (название, строка)
-* Лого канала (URL, строка)
-* Передача (название, строка)
 * Дата и время начала
 * Дата и время конца
+* Канал (название, строка)
+* Передача (название, строка)
+* Лого канала (URL, строка)
 * Описание передачи (текст)
+
+Обязательный заголовок:
+
+```csv
+datetime_start;datetime_finish;channel;broardcast;channel_logo_url;description
+```
 
 Пример (10 строк):
 
