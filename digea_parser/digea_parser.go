@@ -1,10 +1,10 @@
 package main
 
 import (
+	"epg_parsers/digea_parser/Digea"
+	"epg_parsers/parser"
+	"epg_parsers/utils"
 	"fmt"
-	"github.com/LimeHD/epg_parsers/base"
-	"github.com/LimeHD/epg_parsers/parsers"
-	"github.com/LimeHD/epg_parsers/utils"
 	"github.com/urfave/cli"
 	"log"
 	"os"

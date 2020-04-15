@@ -3,13 +3,13 @@ SCRIPT_VERSION=0.0.1.dev
 
 all: build
 
-build: digea_parser 
+build: bin/digea_parser 
 
-ept_parser:
-	go get && go build ./ept_parser.go
+bin/ept_parser:
+	go get && go build -o ./bin ./ept_parser
 
-digea_parser:
-	go get && go build ./digea_parser.go
+bin/digea_parser:
+	go get && go build -o ./bin ./digea_parser
 
 help:
 	@echo "make all  		: Build all parsers"

@@ -6,3 +6,5 @@ output/*
 !output/.gitkeep
 log/*
 !log/.gitkeep
+bin/*
+!bin/.gitkeep

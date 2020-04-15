@@ -1,8 +1,8 @@
 package parsers
 
 import (
+	"epg_parsers/parser"
 	"fmt"
-	"github.com/LimeHD/epg_parsers/base"
 	"github.com/PuerkitoBio/goquery"
 	"strings"
 )
