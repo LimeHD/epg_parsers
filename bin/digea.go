@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/LimeHD/parser/base"
 	"github.com/LimeHD/parser/parsers"
+	"github.com/LimeHD/parser/utils"
 	"github.com/urfave/cli"
 	"log"
 	"os"
@@ -18,18 +19,24 @@ func main() {
 				Value: "csv",
 				Usage: "Export data format",
 			},
+			&cli.StringFlag{
+				Name:  "output",
+				Value: "./output",
+				Usage: "Export data directory",
+			},
 		},
 	}
 
 	app.Action = func(c *cli.Context) error {
 		format := c.String("format")
+		output := c.String("output")
 
 		epg := base.Epg{Days: map[string]*base.Day{}}
 		parser := &base.Parser{}
 
 		// 5 - это для теста, сколько дней вперед парсить, включая текущий день
 		for i := 0; i <= 5; i++ {
-			key := time.Now().AddDate(0, 0, i).Format("20060102")
+			key := time.Now().AddDate(0, 0, i).Format(time.RFC1123Z)
 
 			if !epg.DayExist(key) {
 				epg.AppendDay(key, &base.Day{
@@ -45,13 +52,14 @@ func main() {
 			epg.Days[key].Common = &digea.Common
 		}
 
-		// todo пока что временно так, потом заревакторю
+		// todo пока что временно так, потом зарефакторю
 		if format == "csv" {
-			for _, v := range epg.Days["20200417"].ToCSV() {
-				fmt.Println(v)
+			// todo run with sync & goroutines
+			for _, day := range epg.Days {
+				utils.WriteCSV(output, "digea", day.ToCSV())
 			}
-		} else {
-			fmt.Println(epg.Days["20200417"].Common.Marshal())
+
+			fmt.Println("Finished for parse & export")
 		}
 
 		return nil

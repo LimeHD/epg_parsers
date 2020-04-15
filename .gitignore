@@ -1,1 +1,6 @@
 .idea
+
+# default output dir
+/bin/output/*.csv
+/bin/builds/*
+!/bin/builds/.gitkeep
