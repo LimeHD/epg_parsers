@@ -9,13 +9,19 @@
 
 # Как собрать проект
 
-??
+### Digea
+
+- `make build-digea`
 
 # Как запустить парсер
 
-???
- - without build: `go run . -format {format}`, format is optional one of [`csv`, `json`] default format `csv`
- - with build `go build && ./main -format {format}` _(позвеж немного изменится)_
+### Digea
+
+- `make digea`
+
+## Чтобы получить больше информации
+
+- `make`
 
 # Список парсеров
 
@@ -39,41 +45,30 @@
 Пример (10 строк):
 
 ```csv
-20200417;-KPHTH TV-;/images/channel-icons/KRHTH TV EPG.png;[K] Gormiti;2020-04-17T09:30:00+03:00;2020-04-17T10:00:00+03:00
-20200417;-KPHTH TV-;/images/channel-icons/KRHTH TV EPG.png;[K] Sissi - Η Μικρή Πριγκίπισσα;2020-04-17T10:00:00+03:00;2020-04-17T10:30:00+03:00
-20200417;-KPHTH TV-;/images/channel-icons/KRHTH TV EPG.png;[K8] Ακολουθία Των Μεγάλων Ωρών & Αποκαθήλωση;2020-04-17T10:30:00+03:00;2020-04-17T11:00:00+03:00
-20200417;-KPHTH TV-;/images/channel-icons/KRHTH TV EPG.png;[K8] Ύμνοι Μεγάλης Εβδομάδας - Κρητική Χορωδία;2020-04-17T11:00:00+03:00;2020-04-17T14:00:00+03:00
-20200417;-KPHTH TV-;/images/channel-icons/KRHTH TV EPG.png;[K] Πάνω Από Όλα  Η Υγεία Μας;2020-04-17T14:00:00+03:00;2020-04-17T14:30:00+03:00
-20200417;-KPHTH TV-;/images/channel-icons/KRHTH TV EPG.png;[K8] Ιστορίες Γης;2020-04-17T14:30:00+03:00;2020-04-17T15:00:00+03:00
-20200417;-KPHTH TV-;/images/channel-icons/KRHTH TV EPG.png;[K8] Πας Μαγειρεύοντας;2020-04-17T15:00:00+03:00;2020-04-17T15:30:00+03:00
-20200417;-KPHTH TV-;/images/channel-icons/KRHTH TV EPG.png;[K8] Πας Μαγειρεύοντας;2020-04-17T15:30:00+03:00;2020-04-17T16:00:00+03:00
-20200417;-KPHTH TV-;/images/channel-icons/KRHTH TV EPG.png;[K8] Κάνουμε Πράξη Την Αγάπη;2020-04-17T16:00:00+03:00;2020-04-17T16:30:00+03:00
-20200417;-KPHTH TV-;/images/channel-icons/KRHTH TV EPG.png;[K8] Bake My Day;2020-04-17T16:30:00+03:00;2020-04-17T17:00:00+03:00
-20200417;-KPHTH TV-;/images/channel-icons/KRHTH TV EPG.png;[K] Ειδήσεις - Σύντομο Δελτίο;2020-04-17T17:00:00+03:00;2020-04-17T17:30:00+03:00
-20200417;-KPHTH TV-;/images/channel-icons/KRHTH TV EPG.png;[K8] Καλό Μεσημέρι;2020-04-17T17:30:00+03:00;2020-04-17T18:00:00+03:00
-20200417;-KPHTH TV-;/images/channel-icons/KRHTH TV EPG.png;[K8] Biblical Mysteries;2020-04-17T18:00:00+03:00;2020-04-17T19:00:00+03:00
-20200417;-KPHTH TV-;/images/channel-icons/KRHTH TV EPG.png;[K] Ταξίδια Στον Όμορφο Κόσμο;2020-04-17T19:00:00+03:00;2020-04-17T20:00:00+03:00
-20200417;-KPHTH TV-;/images/channel-icons/KRHTH TV EPG.png;[K8] Η Κρήτη TV Θυμάται;2020-04-17T20:00:00+03:00;2020-04-17T20:15:00+03:00
-20200417;-KPHTH TV-;/images/channel-icons/KRHTH TV EPG.png;[K8] Hit The Road;2020-04-17T20:15:00+03:00;2020-04-17T20:30:00+03:00
-20200417;-KPHTH TV-;/images/channel-icons/KRHTH TV EPG.png;[K] Ειδήσεις - Κεντρικό Δελτίο;2020-04-17T20:30:00+03:00;2020-04-17T21:00:00+03:00
-20200417;-KPHTH TV-;/images/channel-icons/KRHTH TV EPG.png;[K] Η Ακολουθία Tου Επιταφίου Θρήνου;2020-04-17T21:00:00+03:00;2020-04-17T22:00:00+03:00
-20200417;-KPHTH TV-;/images/channel-icons/KRHTH TV EPG.png;[K] Βiblical Mysteries;2020-04-17T22:00:00+03:00;2020-04-18T01:00:00+03:00
-20200417;-KPHTH TV-;/images/channel-icons/KRHTH TV EPG.png;[K] Ξένη Ταινία;2020-04-18T01:00:00+03:00;2020-04-18T02:00:00+03:00
-20200417;-SYROS TV1 -;/images/channel-icons/TV 1 SYROS EPG.jpg;[K] Παιδική Ζώνη;2020-04-17T09:00:00+03:00;2020-04-17T12:00:00+03:00
-20200417;-SYROS TV1 -;/images/channel-icons/TV 1 SYROS EPG.jpg;[K8] Χρώματα Ελλάδας;2020-04-17T12:00:00+03:00;2020-04-17T13:00:00+03:00
-20200417;-SYROS TV1 -;/images/channel-icons/TV 1 SYROS EPG.jpg;[K8] Ίασις;2020-04-17T13:00:00+03:00;2020-04-17T14:00:00+03:00
-20200417;-SYROS TV1 -;/images/channel-icons/TV 1 SYROS EPG.jpg;[K8] Ντοκιμαντέρ;2020-04-17T14:00:00+03:00;2020-04-17T15:00:00+03:00
-20200417;-SYROS TV1 -;/images/channel-icons/TV 1 SYROS EPG.jpg;[K8] Άρωμα Ελλάδας;2020-04-17T15:00:00+03:00;2020-04-17T17:00:00+03:00
-20200417;-SYROS TV1 -;/images/channel-icons/TV 1 SYROS EPG.jpg;[K8] Τηλεαγορές;2020-04-17T17:00:00+03:00;2020-04-17T19:00:00+03:00
-20200417;-SYROS TV1 -;/images/channel-icons/TV 1 SYROS EPG.jpg;[K8] Μπροστά Από Τις Κάμερες;2020-04-17T19:00:00+03:00;2020-04-17T21:00:00+03:00
-20200417;-SYROS TV1 -;/images/channel-icons/TV 1 SYROS EPG.jpg;[K8] Ζωές Παράλληλες;2020-04-17T21:00:00+03:00;2020-04-17T22:00:00+03:00
-20200417;-SYROS TV1 -;/images/channel-icons/TV 1 SYROS EPG.jpg;[K8] Ειδήσεις;2020-04-17T22:00:00+03:00;2020-04-17T23:00:00+03:00
-20200417;-SYROS TV1 -;/images/channel-icons/TV 1 SYROS EPG.jpg;[K8] Σεργιάνι Στην Κρήτη;2020-04-17T23:00:00+03:00;2020-04-18T00:00:00+03:00
-20200417;-SYROS TV1 -;/images/channel-icons/TV 1 SYROS EPG.jpg;[K8] Ανατρεπτικό Δελτίο;2020-04-18T00:00:00+03:00;2020-04-18T01:00:00+03:00
-20200417;-SYROS TV1 -;/images/channel-icons/TV 1 SYROS EPG.jpg;[K8] Κόντρα Και Ρήξη;2020-04-18T01:00:00+03:00;2020-04-18T02:20:00+03:00
-20200417;-SYROS TV1 -;/images/channel-icons/TV 1 SYROS EPG.jpg;[K8] Ειδήσεις;2020-04-18T02:20:00+03:00;2020-04-17T03:20:00+03:00
-20200417;-SYROS TV1 -;/images/channel-icons/TV 1 SYROS EPG.jpg;[K8] Μη Μου Πεις;2020-04-17T03:20:00+03:00;2020-04-17T04:15:00+03:00
-20200417;-SYROS TV1 -;/images/channel-icons/TV 1 SYROS EPG.jpg;[K12] Ζώνη Ξένων Ταινιών;2020-04-17T04:15:00+03:00;2020-04-17T06:15:00+03:00
+Fri, 17 Apr 2020 16:53:15 +0300;-ALERT-;https://www.digea.gr//images/channel-icons/ALERT.jpg;[K8] Κόντρα Και Ρήξη - Τηλεπώληση;2020-04-17T19:00:00+03:00;2020-04-17T20:00:00+03:00
+Fri, 17 Apr 2020 16:53:15 +0300;-ALERT-;https://www.digea.gr//images/channel-icons/ALERT.jpg;[K8] El Kady;2020-04-17T20:00:00+03:00;2020-04-17T21:00:00+03:00
+Fri, 17 Apr 2020 16:53:15 +0300;-ALERT-;https://www.digea.gr//images/channel-icons/ALERT.jpg;[K8] Φίλτρα Νερού Nanofilter.gr - Τηλεπώληση;2020-04-17T21:00:00+03:00;2020-04-17T22:00:00+03:00
+Fri, 17 Apr 2020 16:53:15 +0300;-ALERT-;https://www.digea.gr//images/channel-icons/ALERT.jpg;[K8] Φίλτρα Νερού Nanofilter.gr - Τηλεπώληση;2020-04-17T22:00:00+03:00;2020-04-17T22:30:00+03:00
+Fri, 17 Apr 2020 16:53:15 +0300;-ALERT-;https://www.digea.gr//images/channel-icons/ALERT.jpg;[K8] Φίλτρα Νερού Nanofilter.gr - Τηλεπώληση;2020-04-17T22:30:00+03:00;2020-04-17T23:00:00+03:00
+Fri, 17 Apr 2020 16:53:15 +0300;-ALERT-;https://www.digea.gr//images/channel-icons/ALERT.jpg;[K8] Τα Νέα Της Αγοράς;2020-04-17T23:00:00+03:00;2020-04-18T00:00:00+03:00
+Fri, 17 Apr 2020 16:53:15 +0300;-ALERT-;https://www.digea.gr//images/channel-icons/ALERT.jpg;[K8] Ανατρεπτικό Δελτίο;2020-04-18T00:00:00+03:00;2020-04-18T01:00:00+03:00
+Fri, 17 Apr 2020 16:53:15 +0300;-ALERT-;https://www.digea.gr//images/channel-icons/ALERT.jpg;[K8] Κόντρα Και Ρήξη - Τηλεπώληση;2020-04-18T01:00:00+03:00;2020-04-18T02:30:00+03:00
+Fri, 17 Apr 2020 16:53:15 +0300;-VOLCANO-;https://www.digea.gr//images/channel-icons/VOLCANO TV EPG.jpg;Volcano;2020-04-17T09:00:00+03:00;2020-04-17T15:00:00+03:00
+Fri, 17 Apr 2020 16:53:15 +0300;-VOLCANO-;https://www.digea.gr//images/channel-icons/VOLCANO TV EPG.jpg;Volcano;2020-04-17T15:00:00+03:00;2020-04-17T21:00:00+03:00
+Fri, 17 Apr 2020 16:53:15 +0300;-VOLCANO-;https://www.digea.gr//images/channel-icons/VOLCANO TV EPG.jpg;Volcano;2020-04-17T21:00:00+03:00;2020-04-17T03:00:00+03:00
+Fri, 17 Apr 2020 16:53:15 +0300;-STAR-;https://www.digea.gr//images/channel-icons/star.png;[K8] Ντετέκτιβ Μονκ - 3ος Κύκλος;2020-04-17T18:00:00+03:00;2020-04-17T18:15:00+03:00
+Fri, 17 Apr 2020 16:53:15 +0300;-STAR-;https://www.digea.gr//images/channel-icons/star.png;[K8] Η Τρομερή Γκίλυ (The Great Gilly Hopkins);2020-04-17T18:15:00+03:00;2020-04-17T18:30:00+03:00
+Fri, 17 Apr 2020 16:53:15 +0300;-STAR-;https://www.digea.gr//images/channel-icons/star.png;[K8] Η Κιβωτός Του Νώε (Noah's Ark);2020-04-17T18:30:00+03:00;2020-04-17T19:15:00+03:00
+Fri, 17 Apr 2020 16:53:15 +0300;-STAR-;https://www.digea.gr//images/channel-icons/star.png;[K8] Μου Λείπεις Ήδη (Miss You Already);2020-04-17T19:15:00+03:00;2020-04-17T20:20:00+03:00
+Fri, 17 Apr 2020 16:53:15 +0300;-STAR-;https://www.digea.gr//images/channel-icons/star.png;[K] Star News;2020-04-17T20:20:00+03:00;2020-04-17T22:50:00+03:00
+Fri, 17 Apr 2020 16:53:15 +0300;-STAR-;https://www.digea.gr//images/channel-icons/star.png;[K8] Lion;2020-04-17T22:50:00+03:00;2020-04-18T00:00:00+03:00
+Fri, 17 Apr 2020 16:53:15 +0300;-STAR-;https://www.digea.gr//images/channel-icons/star.png;[K12] Μια Θάλασσα Από Δέντρα (The Sea Of Trees);2020-04-18T00:00:00+03:00;2020-04-18T02:30:00+03:00
+Fri, 17 Apr 2020 16:53:15 +0300;-STAR-;https://www.digea.gr//images/channel-icons/star.png;[K12] Η Σφαίρα (Sphere);2020-04-18T02:30:00+03:00;2020-04-17T05:00:00+03:00
+Fri, 17 Apr 2020 16:53:15 +0300;-STAR-;https://www.digea.gr//images/channel-icons/star.png;[K12] Η Κατάρα Της Σφίγγας (Sphinx);2020-04-17T05:00:00+03:00;2020-04-17T06:30:00+03:00
+Fri, 17 Apr 2020 16:53:15 +0300;-STAR-;https://www.digea.gr//images/channel-icons/star.png;[K8] Psych - 6ος Κύκλος;2020-04-17T06:30:00+03:00;2020-04-17T07:45:00+03:00
+Fri, 17 Apr 2020 16:53:15 +0300;-EURO CHANNEL-;https://www.digea.gr//images/channel-icons/SUPER TV EPG.jpg;Euro Channel;2020-04-17T09:00:00+03:00;2020-04-17T15:00:00+03:00
+Fri, 17 Apr 2020 16:53:15 +0300;-EURO CHANNEL-;https://www.digea.gr//images/channel-icons/SUPER TV EPG.jpg;Euro Channel;2020-04-17T15:00:00+03:00;2020-04-17T21:00:00+03:00
+Fri, 17 Apr 2020 16:53:15 +0300;-EURO CHANNEL-;https://www.digea.gr//images/channel-icons/SUPER TV EPG.jpg;Euro Channel;2020-04-17T21:00:00+03:00;2020-04-17T03:00:00+03:00
 ```
 
 ## Ядро которое собирает спарсенные данные и складывает в базу.
