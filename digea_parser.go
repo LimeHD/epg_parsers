@@ -21,7 +21,7 @@ func main() {
 			},
 			&cli.StringFlag{
 				Name:  "output",
-				Value: "./output",
+				Value: ".",
 				Usage: "Export data directory",
 			},
 		},
