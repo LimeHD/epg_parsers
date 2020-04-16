@@ -22,7 +22,7 @@ func (digea *Digea) Parse(doc *goquery.Document, day int) {
 	doc.Find(".epg-table-row > .col-lg-4").Each(func(i int, s *goquery.Selection) {
 		channelName := s.Find(".panel strong").Text()
 		icon, _ := s.Find(".panel .epg-icon").Children().Attr("src")
-		icon = fmt.Sprintf("https://www.digea.gr/%s", icon)
+		icon = fmt.Sprintf("https://www.digea.gr%s", icon)
 
 		if !digea.ChannelExist(channelName) {
 			digea.AppendChannel(channelName, &base.Channel{

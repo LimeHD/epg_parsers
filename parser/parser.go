@@ -186,17 +186,20 @@ func (common *Common) BaseUrl() string {
 
 func (d *Day) ToCSV() []string {
 	csv := []string{}
+	broardcast := "empty"
+	description := "empty"
 
 	// надо как-то разрулить этот O(N^2) на более высоком уровне дойдет и до куба...
 	for _, c := range d.Common.Channels {
 		for _, p := range c.Programms {
-			csv = append(csv, fmt.Sprintf("%s;%s;%s;%s;%s;%s",
-				strings.TrimSpace(d.Name),
-				strings.TrimSpace(c.Name),
-				strings.TrimSpace(c.Icon),
-				strings.TrimSpace(p.Title),
+			csv = append(csv, fmt.Sprintf("%s;%s;%s;%s;%s;%s;%s",
 				strings.TrimSpace(p.Timestart),
 				strings.TrimSpace(p.Timestop),
+				strings.TrimSpace(c.Name),
+				broardcast,
+				strings.TrimSpace(c.Icon),
+				strings.TrimSpace(p.Title),
+				description,
 			))
 		}
 	}
