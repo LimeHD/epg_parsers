@@ -34,8 +34,8 @@
   порядок и перечень колонок согласно описаниию ниже.
 * [ ] Аргумент `--output` вместо каталога ожидается что можно будет указвать
   конкретный файл куда выводить.
-* [ ] zabbix (удача/не удача)
-* [ ] bugsnag
+* [ ] zabbix (удача/не удача). (`--zabbix-server=zx.iptv2022.com --zabbix-port=10051 --zabbix-key=epg_parsers.digea --zabbix-host=epg.iptv2022.com`
+* [ ] bugsnag (`--bugsnag-api-key`)
 
 # Вывод парсера
 
