@@ -1,6 +1,10 @@
 .idea
 
-# default output dir
-/bin/output/*.csv
-/bin/builds/*
-!/bin/builds/.gitkeep
+ept_parser
+digea_parser
+output/*
+!output/.gitkeep
+log/*
+!log/.gitkeep
+bin/*
+!bin/.gitkeep

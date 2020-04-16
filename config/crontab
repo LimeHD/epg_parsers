@@ -1,0 +1,2 @@
+MAILTO="servers@limehd.tv"
+*/5 * * * * cd ~/cshooter/current; /usr/bin/timeout 4 /usr/bin/annotate-output env $(cat .env | xargs) ./run.sh >> ~/cshooter/shared/log/cshooter.log

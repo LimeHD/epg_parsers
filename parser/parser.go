@@ -2,8 +2,8 @@ package base
 
 import (
 	"encoding/json"
+	"epg_parsers/utils"
 	"fmt"
-	"github.com/LimeHD/parser/utils"
 	"github.com/PuerkitoBio/goquery"
 	"log"
 	"strings"

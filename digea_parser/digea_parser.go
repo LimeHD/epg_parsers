@@ -1,10 +1,10 @@
 package main
 
 import (
+	"epg_parsers/digea_parser/Digea"
+	"epg_parsers/parser"
+	"epg_parsers/utils"
 	"fmt"
-	"github.com/LimeHD/parser/base"
-	"github.com/LimeHD/parser/parsers"
-	"github.com/LimeHD/parser/utils"
 	"github.com/urfave/cli"
 	"log"
 	"os"
@@ -21,7 +21,7 @@ func main() {
 			},
 			&cli.StringFlag{
 				Name:  "output",
-				Value: "./output",
+				Value: ".",
 				Usage: "Export data directory",
 			},
 		},
