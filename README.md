@@ -59,12 +59,17 @@ datetime_start;datetime_finish;channel;broardcast;channel_logo_url;description
 Пример (10 строк):
 
 ```csv
-Fri, 17 Apr 2020 16:53:15 +0300;-ALERT-;https://www.digea.gr//images/channel-icons/ALERT.jpg;[K8] Κόντρα Και Ρήξη - Τηλεπώληση;2020-04-17T19:00:00+03:00;2020-04-17T20:00:00+03:00
-Fri, 17 Apr 2020 16:53:15 +0300;-ALERT-;https://www.digea.gr//images/channel-icons/ALERT.jpg;[K8] El Kady;2020-04-17T20:00:00+03:00;2020-04-17T21:00:00+03:00
-Fri, 17 Apr 2020 16:53:15 +0300;-ALERT-;https://www.digea.gr//images/channel-icons/ALERT.jpg;[K8] Φίλτρα Νερού Nanofilter.gr - Τηλεπώληση;2020-04-17T21:00:00+03:00;2020-04-17T22:00:00+03:00
-Fri, 17 Apr 2020 16:53:15 +0300;-ALERT-;https://www.digea.gr//images/channel-icons/ALERT.jpg;[K8] Φίλτρα Νερού Nanofilter.gr - Τηλεπώληση;2020-04-17T22:00:00+03:00;2020-04-17T22:30:00+03:00
-Fri, 17 Apr 2020 16:53:15 +0300;-ALERT-;https://www.digea.gr//images/channel-icons/ALERT.jpg;[K8] Φίλτρα Νερού Nanofilter.gr - Τηλεπώληση;2020-04-17T22:30:00+03:00;2020-04-17T23:00:00+03:00
-Fri, 17 Apr 2020 16:53:15 +0300;-ALERT-;https://www.digea.gr//images/channel-icons/ALERT.jpg;[K8] Τα Νέα Της Αγοράς;2020-04-17T23:00:00+03:00;2020-04-18T00:00:00+03:00
+2020-04-17T09:00:00+03:00;2020-04-17T09:30:00+03:00;-STAR K.E.-;;https://www.digea.gr//images/channel-icons/STAR KENTIKHS ELLADAS.jpg;[K] Be Μy Guest;
+2020-04-17T09:30:00+03:00;2020-04-17T10:00:00+03:00;-STAR K.E.-;;https://www.digea.gr//images/channel-icons/STAR KENTIKHS ELLADAS.jpg;[K] Παιδικό Πρόγραμμα;
+2020-04-17T10:00:00+03:00;2020-04-17T11:00:00+03:00;-STAR K.E.-;;https://www.digea.gr//images/channel-icons/STAR KENTIKHS ELLADAS.jpg;[K] 24 Ώρες Ρεπορτάζ (Ε);
+2020-04-17T11:00:00+03:00;2020-04-17T11:30:00+03:00;-STAR K.E.-;;https://www.digea.gr//images/channel-icons/STAR KENTIKHS ELLADAS.jpg;[K] Όρεξη Να ΄Χεις (Ε);
+2020-04-17T11:30:00+03:00;2020-04-17T12:00:00+03:00;-STAR K.E.-;;https://www.digea.gr//images/channel-icons/STAR KENTIKHS ELLADAS.jpg;[K] Αποκαθήλωση (Μ. Παρασκευή);
+2020-04-17T12:00:00+03:00;2020-04-17T14:30:00+03:00;-STAR K.E.-;;https://www.digea.gr//images/channel-icons/STAR KENTIKHS ELLADAS.jpg;[K] The Jesus Life;
+2020-04-17T14:30:00+03:00;2020-04-17T17:30:00+03:00;-STAR K.E.-;;https://www.digea.gr//images/channel-icons/STAR KENTIKHS ELLADAS.jpg;[K] Μεσημβρινό Δελτίο Ειδήσεων;
+2020-04-17T17:30:00+03:00;2020-04-17T18:30:00+03:00;-STAR K.E.-;;https://www.digea.gr//images/channel-icons/STAR KENTIKHS ELLADAS.jpg;[K] In Style;
+2020-04-17T18:30:00+03:00;2020-04-17T19:30:00+03:00;-STAR K.E.-;;https://www.digea.gr//images/channel-icons/STAR KENTIKHS ELLADAS.jpg;[K] Παιδικό Πρόγραμμα;
+2020-04-17T19:30:00+03:00;2020-04-17T20:55:00+03:00;-STAR K.E.-;;https://www.digea.gr//images/channel-icons/STAR KENTIKHS ELLADAS.jpg;[K] Σύντομα Γεγονότα;
+2020-04-17T20:55:00+03:00;2020-04-17T21:00:00+03:00;-STAR K.E.-;;https://www.digea.gr//images/channel-icons/STAR KENTIKHS ELLADAS.jpg;[K] Ακολουθία Επιταφίου;
 ```
 
 ## Ядро которое собирает спарсенные данные и складывает в базу.
