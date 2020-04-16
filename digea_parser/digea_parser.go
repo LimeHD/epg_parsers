@@ -5,6 +5,7 @@ import (
 	"epg_parsers/parser"
 	"epg_parsers/utils"
 	"fmt"
+	"github.com/blacked/go-zabbix"
 	"github.com/bugsnag/bugsnag-go"
 	"github.com/urfave/cli"
 	"log"
@@ -31,6 +32,22 @@ func main() {
 				Value: "",
 				Usage: "Export data directory",
 			},
+
+			&cli.StringFlag{
+				Name:  "zabbix_host",
+				Value: "",
+				Usage: "",
+			},
+			&cli.IntFlag{
+				Name:  "zabbix_port",
+				Value: 10051,
+				Usage: "",
+			},
+			&cli.StringFlag{
+				Name:  "zabbix_server",
+				Value: "",
+				Usage: "",
+			},
 		},
 	}
 
@@ -38,12 +55,17 @@ func main() {
 		format := c.String("format")
 		output := c.String("output")
 		bugsnagApiKey := c.String("bugsnag_api_key")
+		zHost := c.String("zabbix_host")
+		zPort := c.Int("zabbix_port")
+		zServer := c.String("zabbix_server")
 
 		bug := bugsnag.New(bugsnag.Configuration{
 			APIKey:          bugsnagApiKey,
 			AppVersion:      "0.0.1",
 			ProjectPackages: []string{"main", "github.com/LimeHD/epg_parsers"},
 		})
+
+		metrics := []*zabbix.Metric{}
 
 		epg := base.Epg{Days: map[string]*base.Day{}}
 		parser := &base.Parser{}
@@ -87,6 +109,19 @@ func main() {
 			}
 
 			fmt.Println("Finished for parse & export")
+		}
+
+		packet := zabbix.NewPacket(metrics)
+		metrics = append(metrics, zabbix.NewMetric(zServer, "Status", "OK"))
+		z := zabbix.NewSender(zHost, zPort)
+		_, err := z.Send(packet)
+
+		if err != nil {
+			_ = bug.Notify(err, bugsnag.MetaData{
+				"Parser": {
+					"Name": "Digea",
+				},
+			})
 		}
 
 		return nil
