@@ -5,6 +5,7 @@ import (
 	"epg_parsers/parser"
 	"epg_parsers/utils"
 	"fmt"
+	"github.com/bugsnag/bugsnag-go"
 	"github.com/urfave/cli"
 	"log"
 	"os"
@@ -24,15 +25,29 @@ func main() {
 				Value: ".",
 				Usage: "Export data directory",
 			},
+
+			&cli.StringFlag{
+				Name:  "bugsnag_api_key",
+				Value: "",
+				Usage: "Export data directory",
+			},
 		},
 	}
 
 	app.Action = func(c *cli.Context) error {
 		format := c.String("format")
 		output := c.String("output")
+		bugsnagApiKey := c.String("bugsnag_api_key")
+
+		bug := bugsnag.New(bugsnag.Configuration{
+			APIKey:          bugsnagApiKey,
+			AppVersion:      "0.0.1",
+			ProjectPackages: []string{"main", "github.com/LimeHD/epg_parsers"},
+		})
 
 		epg := base.Epg{Days: map[string]*base.Day{}}
 		parser := &base.Parser{}
+		base.PrintMeta("Digea", "0.0.1", output)
 
 		// 5 - это для теста, сколько дней вперед парсить, включая текущий день
 		for i := 0; i <= 5; i++ {
@@ -48,7 +63,19 @@ func main() {
 			digea := parsers.Digea{}
 			digea.SetBaseUrl(fmt.Sprintf("https://www.digea.gr/EPG?day=%d", i))
 
-			parser.RunComposeWith(&digea, i)
+			err := parser.RunComposeWith(&digea, i)
+
+			if err != nil {
+				_ = bug.Notify(err, bugsnag.MetaData{
+					"Parser": {
+						"Name": "Digea",
+					},
+				})
+
+				fmt.Println("Something went wrong... Information sent to bugsnag")
+				log.Fatal(err)
+			}
+
 			epg.Days[key].Common = &digea.Common
 		}
 

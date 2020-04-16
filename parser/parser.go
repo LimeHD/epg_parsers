@@ -3,9 +3,9 @@ package base
 import (
 	"encoding/json"
 	"epg_parsers/utils"
+	"errors"
 	"fmt"
 	"github.com/PuerkitoBio/goquery"
-	"log"
 	"strings"
 	"time"
 )
@@ -30,6 +30,8 @@ type (
 
 	Common struct {
 		baseUrl       string
+		BaseName      string
+		Version       string
 		localTimeBase string
 		LocalTime     Time
 		Channels      map[string]*Channel `json:"channels"`
@@ -52,20 +54,29 @@ type (
 	}
 )
 
-func (p *Parser) RunComposeWith(parser IParse, day int) {
+func (p *Parser) RunComposeWith(parser IParse, day int) error {
+	fmt.Println(fmt.Sprintf("Get HTML document from %s", parser.BaseUrl()))
+
 	status, reader := utils.GetHtmlDocumentReader(parser.BaseUrl())
 	defer reader.Close()
 
 	if status != 200 {
-		log.Fatalf("Не могу получить данные, что-то пошло не так, HTTP код: %d", status)
+		return errors.New(fmt.Sprintf("Не могу получить данные, что-то пошло не так, HTTP код: %d", status))
 	}
 
 	doc, err := goquery.NewDocumentFromReader(reader)
 	if err != nil {
-		log.Fatal(err)
+		return err
 	}
-	parser.BootstrapLocalTime(parser.GetLocalTime())
+
+	err = parser.BootstrapLocalTime(parser.GetLocalTime())
+	if err != nil {
+		return err
+	}
+
 	parser.Parse(doc, day)
+
+	return nil
 }
 
 func (epg *Epg) AppendDay(name string, day *Day) {
@@ -82,8 +93,14 @@ type IParse interface {
 	BaseUrl() string
 	Parse(doc *goquery.Document, day int)
 	Marshal() string
-	BootstrapLocalTime(local string)
+	BootstrapLocalTime(local string) error
 	GetLocalTime() string
+}
+
+func PrintMeta(name string, version string, output string) {
+	fmt.Println(fmt.Sprintf("Run parser: %s", name))
+	fmt.Println(fmt.Sprintf("Parser version: %s", version))
+	fmt.Println(fmt.Sprintf("Output to: %s", output))
 }
 
 func (common *Common) SetLocalTime(local string) *Common {
@@ -100,11 +117,11 @@ func (common *Common) GetLocalTime() string {
 	return common.localTimeBase
 }
 
-func (common *Common) BootstrapLocalTime(location string) {
+func (common *Common) BootstrapLocalTime(location string) error {
 	loc, err := time.LoadLocation(location)
 
 	if err != nil {
-		panic(err)
+		return err
 	}
 
 	currentTime := time.Now().In(loc)
@@ -115,6 +132,8 @@ func (common *Common) BootstrapLocalTime(location string) {
 		Day:      currentTime.Day(),
 		Location: loc,
 	}
+
+	return nil
 }
 
 func (t *Time) RFC3339local(times string, day int) string {
