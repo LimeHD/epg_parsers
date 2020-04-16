@@ -2,13 +2,12 @@ package utils
 
 import (
 	"bufio"
-	"fmt"
 	"log"
 	"os"
 )
 
-func WriteCSV(dir string, name string, data []string) {
-	file, err := os.OpenFile(fmt.Sprintf("%s/%s.csv", dir, name), os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+func WriteCSV(output string, data []string) {
+	file, err := os.OpenFile(output, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
 	defer file.Close()
 
 	if err != nil {

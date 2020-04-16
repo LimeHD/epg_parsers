@@ -22,7 +22,7 @@ func main() {
 			},
 			&cli.StringFlag{
 				Name:  "output",
-				Value: ".",
+				Value: "digea.csv",
 				Usage: "Export data directory",
 			},
 
@@ -83,7 +83,7 @@ func main() {
 		if format == "csv" {
 			// todo run with sync & goroutines
 			for _, day := range epg.Days {
-				utils.WriteCSV(output, "digea", day.ToCSV())
+				utils.WriteCSV(output, day.ToCSV())
 			}
 
 			fmt.Println("Finished for parse & export")
