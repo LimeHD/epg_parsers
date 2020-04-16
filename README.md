@@ -22,7 +22,7 @@
 
 ```
 ./bin/digea_parser # Собирает данные и сбрасывает в ./digea_parser.csv
-./bin/digea_parser --output ./output/digea_parser.csv
+./bin/digea_parser --output ./output/digea_parser.csv --bugsnag_api_key {key}
 ```
 
 # TODO
