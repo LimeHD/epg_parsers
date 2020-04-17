@@ -34,7 +34,7 @@ func main() {
 			},
 
 			&cli.StringFlag{
-				Name:  "zabbix_host",
+				Name:  "servrice_host",
 				Value: "",
 				Usage: "",
 			},
@@ -48,6 +48,11 @@ func main() {
 				Value: "",
 				Usage: "",
 			},
+			&cli.StringFlag{
+				Name:  "zabbix_metric",
+				Value: "",
+				Usage: "",
+			},
 		},
 	}
 
@@ -55,9 +60,10 @@ func main() {
 		format := c.String("format")
 		output := c.String("output")
 		bugsnagApiKey := c.String("bugsnag_api_key")
-		zHost := c.String("zabbix_host")
+		sHost := c.String("service_host")
 		zPort := c.Int("zabbix_port")
 		zServer := c.String("zabbix_server")
+		zMetric := c.String("zabbix_metric")
 
 		bug := bugsnag.New(bugsnag.Configuration{
 			APIKey:          bugsnagApiKey,
@@ -112,8 +118,9 @@ func main() {
 		}
 
 		packet := zabbix.NewPacket(metrics)
-		metrics = append(metrics, zabbix.NewMetric(zServer, "Status", "OK"))
-		z := zabbix.NewSender(zHost, zPort)
+		metrics = append(metrics, zabbix.NewMetric(zServer, "service", sHost))
+		metrics = append(metrics, zabbix.NewMetric(zServer, zMetric, "OK"))
+		z := zabbix.NewSender(zServer, zPort)
 		_, err := z.Send(packet)
 
 		if err != nil {
