@@ -70,7 +70,7 @@ func main() {
 			if err != nil {
 				_ = bug.Notify(err, bugsnag.MetaData{
 					"Parser": {
-						"Name": "Digea",
+						"Name": "EPT1",
 					},
 				})
 
