@@ -12,6 +12,9 @@ import (
 	"time"
 )
 
+// todo move in base implementation
+const VERSION = "0.0.2"
+
 func main() {
 	app := &cli.App{
 		Flags: []cli.Flag{
@@ -47,7 +50,7 @@ func main() {
 
 		epg := base.Epg{Days: map[string]*base.Day{}}
 		parser := &base.Parser{}
-		base.PrintMeta("Digea", "0.0.1", output)
+		base.PrintMeta("Digea", VERSION, output)
 
 		// 5 - это для теста, сколько дней вперед парсить, включая текущий день
 		for i := 0; i <= 5; i++ {
