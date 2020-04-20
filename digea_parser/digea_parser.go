@@ -83,7 +83,7 @@ func main() {
 		if format == "csv" {
 			// todo run with sync & goroutines
 			for _, day := range epg.Days {
-				utils.WriteCSV(output, day.ToCSV())
+				utils.WriteTSV(output, day.ToTSV())
 			}
 
 			fmt.Println("Finished for parse & export")

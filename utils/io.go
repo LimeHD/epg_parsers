@@ -6,7 +6,7 @@ import (
 	"os"
 )
 
-func WriteCSV(output string, data []string) {
+func WriteTSV(output string, data []string) {
 	file, err := os.OpenFile(output, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
 	defer file.Close()
 
@@ -25,5 +25,5 @@ func WriteCSV(output string, data []string) {
 }
 
 func WriteHeader(w *bufio.Writer) {
-	_, _ = w.WriteString("datetime_start;datetime_finish;channel;broardcast;channel_logo_url;description\n")
+	_, _ = w.WriteString("datetime_start\tdatetime_finish\tchannel\ttitle\tchannel_logo_url\tdescription\n")
 }
