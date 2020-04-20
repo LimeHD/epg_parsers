@@ -53,7 +53,7 @@
 Обязательный заголовок:
 
 ```csv
-datetime_start;datetime_finish;channel;broardcast;channel_logo_url;description
+datetime_start;datetime_finish;channel;title;channel_logo_url;description
 ```
 
 Пример (10 строк):
