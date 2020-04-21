@@ -17,9 +17,10 @@ type (
 	Parser struct{}
 
 	Programm struct {
-		Timestart string `json:"timestart"`
-		Timestop  string `json:"timestop"`
-		Title     string `json:"title"`
+		Timestart   string `json:"timestart"`
+		Timestop    string `json:"timestop"`
+		Title       string `json:"title"`
+		Description string `json:"description"`
 	}
 
 	Channel struct {
@@ -186,7 +187,6 @@ func (common *Common) BaseUrl() string {
 
 func (d *Day) ToTSV() []string {
 	csv := []string{}
-	description := ""
 
 	// надо как-то разрулить этот O(N^2) на более высоком уровне дойдет и до куба...
 	for _, c := range d.Common.Channels {
@@ -197,7 +197,7 @@ func (d *Day) ToTSV() []string {
 				strings.TrimSpace(c.Name),
 				strings.TrimSpace(p.Title),
 				strings.TrimSpace(c.Icon),
-				description,
+				p.Description,
 			))
 		}
 	}
