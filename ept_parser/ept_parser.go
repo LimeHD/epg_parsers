@@ -3,6 +3,7 @@ package main
 import (
 	parsers "epg_parsers/ept_parser/Ept"
 	base "epg_parsers/parser"
+	"epg_parsers/utils"
 	"fmt"
 	"github.com/bugsnag/bugsnag-go"
 	"github.com/urfave/cli"
@@ -53,7 +54,7 @@ func main() {
 		currentTime := time.Now().In(location)
 
 		// 5 - это для теста, сколько дней вперед парсить, включая текущий день
-		for i := 0; i <= 5; i++ {
+		for i := 0; i <= 0; i++ {
 			key := currentTime.AddDate(0, 0, i).Format("02/01/2006")
 
 			if !epg.DayExist(key) {
@@ -80,6 +81,12 @@ func main() {
 
 			epg.Days[key].Common = &ept.Common
 		}
+
+		for _, day := range epg.Days {
+			utils.WriteTSV(output, day.ToTSV())
+		}
+
+		fmt.Println("Finished for parse & export")
 
 		return nil
 	}
