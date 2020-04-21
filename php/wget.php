@@ -100,3 +100,12 @@ class EpgWget
         return (strlen($num) >= $lim) ? $num : $this->zeropad("0" . $num, $lim);
     }
 }
+
+function line($content, $countBreaks = 1)
+{
+    for ($i = 1; $i <= $countBreaks; ++$i) {
+        $content .= PHP_EOL;
+    }
+
+    echo ' [PARSER] --> ', $content;
+}
