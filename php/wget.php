@@ -5,8 +5,8 @@ use DateTime;
 class EpgWget
 {
     private $url = 'ftp.epgservice.ru';
-    private $login = 'infolink';
-    private $password = 'S32sMbSt';
+    private $login = '';
+    private $password = '';
     private $filename = 'TV_Pack.xml';
 
     /**
