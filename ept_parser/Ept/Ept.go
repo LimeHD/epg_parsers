@@ -50,8 +50,8 @@ func (ept *Ept) Parse(doc *goquery.Document, day int) {
 	})
 
 	for i := 0; i <= len(a)-1; i++ {
-		time := a[i]["data"]
-		timestop := a[i+3]["data"] // it is next programm start
+		time := ept.LocalTime.RFC3339local(a[i]["data"], day)
+		timestop := ept.LocalTime.RFC3339local(a[i+3]["data"], day) // it is next programm start
 		title := a[i+1]["data"]
 
 		// todo get meta from url

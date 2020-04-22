@@ -3,7 +3,6 @@ package main
 import (
 	"epg_parsers/digea_parser/Digea"
 	"epg_parsers/parser"
-	"epg_parsers/utils"
 	"fmt"
 	"github.com/blacked/go-zabbix"
 	"github.com/bugsnag/bugsnag-go"
@@ -113,10 +112,7 @@ func main() {
 		// todo пока что временно так, потом зарефакторю
 		if format == "csv" {
 			// todo run with sync & goroutines
-			for _, day := range epg.Days {
-				utils.WriteTSV(output, day.ToTSV())
-			}
-
+			base.WriteTSV(output, epg.Days)
 			fmt.Println("Finished for parse & export")
 		}
 

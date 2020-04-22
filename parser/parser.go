@@ -1,11 +1,14 @@
 package base
 
 import (
+	"bufio"
 	"encoding/json"
 	"epg_parsers/utils"
 	"errors"
 	"fmt"
 	"github.com/PuerkitoBio/goquery"
+	"log"
+	"os"
 	"strings"
 	"time"
 )
@@ -203,4 +206,28 @@ func (d *Day) ToTSV() []string {
 	}
 
 	return csv
+}
+
+func WriteTSV(output string, days map[string]*Day) {
+	file, err := os.OpenFile(output, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+	defer file.Close()
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	writer := bufio.NewWriter(file)
+
+	WriteHeader(writer)
+	for _, day := range days {
+		for _, data := range day.ToTSV() {
+			_, _ = writer.WriteString(data + "\n")
+		}
+	}
+
+	writer.Flush()
+}
+
+func WriteHeader(w *bufio.Writer) {
+	_, _ = w.WriteString("datetime_start\tdatetime_finish\tchannel\ttitle\tchannel_logo_url\tdescription\n")
 }
