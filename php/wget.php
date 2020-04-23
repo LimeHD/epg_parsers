@@ -1,13 +1,17 @@
 <?php
 
-use DateTime;
-
-class EpgWget
+class Wget
 {
     private $url = 'ftp.epgservice.ru';
     private $login = '';
     private $password = '';
     private $filename = 'TV_Pack.xml';
+
+    public function __construct(string $login, string $pass)
+    {
+        $this->login = $login;
+        $this->password = $pass;
+    }
 
     /**
      * @throws \Exception
@@ -69,14 +73,6 @@ class EpgWget
             if ($programDate >= $today) {
                 $timeStart = $start->format('Y-m-d H:i:s');
                 $timeStop = $stop->format('Y-m-d H:i:s');
-                $programGenre = [];
-
-                if (isset($row->category)) {
-                    foreach ($row->category as $item) {
-                        $name = (string)$item;
-                        $programGenre[] = $myGenre[$name];
-                    }
-                }
 
                 $program[$programDate][$id][] = [
                     'timestart' => $timeStart,
