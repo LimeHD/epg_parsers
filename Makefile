@@ -1,9 +1,12 @@
 SCRIPT_AUTHOR=Andrey Kapitonov <andrey.kapitonov.96@gmail.com>
 SCRIPT_VERSION=0.0.1.dev
 
-all: build
+all: clean build
 
 build: bin/digea_parser bin/ept_parser
+
+clean:
+	rm bin/*
 
 bin/ept_parser:
 	go get && go build -o ./bin ./ept_parser
