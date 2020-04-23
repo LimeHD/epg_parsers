@@ -3,7 +3,7 @@ SCRIPT_VERSION=0.0.1.dev
 
 all: build
 
-build: bin/digea_parser 
+build: bin/digea_parser bin/ept_parser
 
 bin/ept_parser:
 	go get && go build -o ./bin ./ept_parser
