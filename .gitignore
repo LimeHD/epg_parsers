@@ -8,3 +8,4 @@ log/*
 !log/.gitkeep
 bin/*
 !bin/.gitkeep
+*.csv
