@@ -6,7 +6,7 @@ all: clean build
 build: bin/digea_parser bin/ept_parser
 
 clean:
-	rm bin/*
+	rm -f bin/*
 
 bin/ept_parser:
 	go get && go build -o ./bin ./ept_parser
