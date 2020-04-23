@@ -25,6 +25,10 @@
 ./bin/digea_parser --output ./output/digea_parser.csv --bugsnag_api_key {key}
 ```
 
+#### PHP XML
+
+`php php/index.php -l login -p password`, создаст директорию `uploads` с xml-исходником и файл `export.csv`. 
+
 # TODO
 
 * [x] После запуска парсера писать в STDOUT название парсера, время и что он
