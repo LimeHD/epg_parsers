@@ -9,3 +9,7 @@ log/*
 bin/*
 !bin/.gitkeep
 *.csv
+tmp/output/*
+tmp/upload/*
+!tmp/output/.gitkeep
+!tmp/upload/.gitkeep
