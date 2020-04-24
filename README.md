@@ -11,6 +11,9 @@
 
 - `./bin/digea_parser` парсит https://www.digea.gr
 - `./bin/ept_parser` парсет http://program.ert.gr
+- `php php/index.php -l ftp_login -p ftp_password`, создаст директорию `uploads` с xml-исходником и файл `export.csv`. 
+
+Где ftp_login и ftp_password - пароли доступа к ftp
 
 # Сборка
 
@@ -24,10 +27,6 @@
 ./bin/digea_parser # Собирает данные и сбрасывает в ./digea_parser.csv
 ./bin/digea_parser --output ./output/digea_parser.csv --bugsnag_api_key {key}
 ```
-
-#### PHP XML
-
-`php php/index.php -l login -p password`, создаст директорию `uploads` с xml-исходником и файл `export.csv`. 
 
 # TODO
 
