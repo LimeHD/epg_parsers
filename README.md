@@ -11,9 +11,7 @@
 
 - `./bin/digea_parser` парсит https://www.digea.gr
 - `./bin/ept_parser` парсет http://program.ert.gr
-- `php php/index.php -l ftp_login -p ftp_password`, создаст директорию `uploads` с xml-исходником и файл `export.csv`. 
-
-Где ftp_login и ftp_password - пароли доступа к ftp
+- `php php/index.php -l login -p password` парсер XML основной телепрограммы, обязательные аргументы: `-h`, `-l`, `-p`, ftp хост, логин и пароль соответственно, опционально: `-o`, `-d` выходной файл, и директория куда скачивается xml
 
 # Сборка
 
