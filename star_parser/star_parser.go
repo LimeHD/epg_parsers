@@ -21,7 +21,7 @@ func main() {
 			},
 			&cli.StringFlag{
 				Name:  "output",
-				Value: "ept.csv",
+				Value: "star.csv",
 				Usage: "Export data directory",
 			},
 
@@ -50,7 +50,7 @@ func main() {
 		currentTime := time.Now().In(location)
 
 		for i := 0; i <= 5; i++ {
-			key := currentTime.AddDate(0, 0, i).Format("02/01/2006")
+			key := currentTime.AddDate(0, 0, i).Format("2006-01-02")
 
 			if !epg.DayExist(key) {
 				epg.AppendDay(key, &base.Day{
@@ -60,7 +60,7 @@ func main() {
 			}
 
 			ept := Star.Star{}
-			ept.SetBaseUrl(fmt.Sprintf("https://www.star.gr/tv/programma/analutiko-programma/#%s", key))
+			ept.SetBaseUrl(fmt.Sprintf("https://www.star.gr/tv/ajax/Atcom.Sites.StarTV.Components.Schedule.Detail?dateRequest=%sT00:00:00&la=1&ajax=true&view=AjaxDetail", key))
 			err := parser.RunComposeWith(&ept, i)
 
 			if err != nil {

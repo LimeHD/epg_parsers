@@ -11,6 +11,7 @@
 
 - `./bin/digea_parser` парсит https://www.digea.gr
 - `./bin/ept_parser` парсет http://program.ert.gr
+- `./bin/star_parser` парсет https://www.star.gr/
 - `php php/index.php -l ftp_login -p ftp_password`, создаст директорию `uploads` с xml-исходником и файл `export.csv`. 
 
 Где ftp_login и ftp_password - пароли доступа к ftp
