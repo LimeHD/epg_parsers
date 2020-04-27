@@ -1,16 +1,66 @@
 <?php
 
+class Options
+{
+    public $h;
+    public $l;
+    public $p;
+    public $o;
+    public $f;
+    public $d;
+
+    /**
+     * Options constructor.
+     * @param array $options
+     * @throws Exception
+     */
+    public function __construct(array $options)
+    {
+        if (!isset($options['h']) || !isset($options['l']) || !isset($options['p'])) {
+            throw new \Exception('Вы забыли указать логин, пароль или хост. -l {login} -p {password} -h {ftp_host}');
+        }
+
+        $this->h = $options['h'];
+        $this->l = $options['l'];
+        $this->p = $options['p'];
+
+        $root = dirname(dirname(__FILE__));
+        $this->o = sprintf("%s/php/export.csv", $root);
+        $this->d = sprintf("%s/tmp", $root);
+        $this->f = 'TV_Pack.xml';
+
+        if (isset($options['o'])) {
+            $this->o = $options['o'];
+        }
+
+        // todo: не понятно почему не работает...
+        /*if (isset($options['f'])) {
+            $this->f = $options['f'];
+        }*/
+
+        if (isset($options['d'])) {
+            $this->d = $options['d'];
+        }
+    }
+}
+
 class Wget
 {
-    private $url = 'ftp.epgservice.ru';
-    private $login = '';
+    private $url = '';
+    private $login;
     private $password = '';
-    private $filename = 'TV_Pack.xml';
+    private $filename;
+    private $upload;
+    public $output;
 
-    public function __construct(string $login, string $pass)
+    public function __construct(Options $options)
     {
-        $this->login = $login;
-        $this->password = $pass;
+        $this->login = $options->l;
+        $this->password = $options->p;
+        $this->url = $options->h;
+        $this->filename = $options->f;
+        $this->upload = $options->d;
+        $this->output = $options->o;
     }
 
     /**
@@ -18,15 +68,14 @@ class Wget
      */
     public function parse()
     {
-        $uploadDir = 'upload';
         $filename = date("Ymd_H") . '.xml';
         $today = date('Y-m-d');
 
-        if (!file_exists($uploadDir)) {
-            mkdir($uploadDir, 0777);
+        if (!file_exists($this->upload)) {
+            mkdir($this->upload, 0777);
         }
 
-        $filePath = sprintf('%s/%s', $uploadDir, $filename);
+        $filePath = sprintf('%s/%s', $this->upload, $filename);
         if (file_exists($filePath)) {
             $xmlFile = file_get_contents($filePath);
 
@@ -37,8 +86,8 @@ class Wget
             line(sprintf(' --start: %s', date('H:i:s', time())), 0);
 
             $xmlFile = file_get_contents('ftp://' . $this->login . ':' . $this->password . '@' . $this->url . '/' . $this->filename);
-            @chmod($uploadDir . '/' . $filename, 0777);
-            file_put_contents($uploadDir . '/' . $filename, $xmlFile);
+            @chmod($this->upload . '/' . $filename, 0777);
+            file_put_contents($this->upload . '/' . $filename, $xmlFile);
 
             line(sprintf(' --end: %s', date('H:i:s', time())));
         }
