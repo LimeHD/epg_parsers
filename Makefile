@@ -3,10 +3,13 @@ SCRIPT_VERSION=0.0.1.dev
 
 all: clean build
 
-build: bin/digea_parser bin/ept_parser
+build: bin/digea_parser bin/ept_parser bin/star_parser
 
 clean:
 	rm -f bin/*
+
+bin/star_parser:
+	go get && go build -o ./bin ./star_parser
 
 bin/ept_parser:
 	go get && go build -o ./bin ./ept_parser
