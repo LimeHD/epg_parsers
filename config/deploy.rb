@@ -31,6 +31,6 @@ end
 desc 'Transfer build'
 task :transfer_build do
   on release_roles(:app) do
-    upload! './bin', release_path
+    upload! './bin', release_path, recursive: true
   end
 end
