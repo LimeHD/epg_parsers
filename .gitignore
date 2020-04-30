@@ -11,3 +11,4 @@ bin/*
 *.csv
 tmp/*
 !tmp/.gitkeep
+.envrc
