@@ -25,7 +25,7 @@ class Options
         $this->p = $options['p'];
 
         $root = dirname(dirname(__FILE__));
-        $this->o = sprintf("%s/php/export.csv", $root);
+        $this->o = sprintf("%s/standard.csv", $root);
         $this->d = sprintf("%s/tmp", $root);
         $this->f = 'TV_Pack.xml';
 
