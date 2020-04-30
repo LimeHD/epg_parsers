@@ -10,9 +10,15 @@
 # Парсеры
 
 - `./bin/digea_parser` парсит https://www.digea.gr
-- `./bin/ept_parser` парсет http://program.ert.gr
-- `./bin/star_parser` парсет https://www.star.gr/
-- `php php/index.php -l login -p password` парсер XML основной телепрограммы, обязательные аргументы: `-h`, `-l`, `-p`, ftp хост, логин и пароль соответственно, опционально: `-o`, `-d` выходной файл, и директория куда скачивается xml
+- `./bin/ept_parser` парсит http://program.ert.gr
+- `./bin/star_parser` парсит https://www.star.gr
+- `./bin/standard_parser` парсет стандартюу xml с локального FTP-сервера
+
+# Стандартный парсер
+
+```
+php php/index.php -l login -p password` парсер XML основной телепрограммы, обязательные аргументы: `-h`, `-l`, `-p`, ftp хост, логин и пароль соответственно, опционально: `-o`, `-d` выходной файл, и директория куда скачивается xml
+```
 
 # Сборка
 
