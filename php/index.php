@@ -20,17 +20,26 @@ $options = getopt("l:p:h:o::f::d::");
     toFile($wget->output, $tsvStrings);
 })($options);
 
-function toTSV(int $id, array $programms) : string {
-    return sprintf("%s\t%s\t%d\t%s\t%s",
+function toTSV(int $id, array $programms) : array {
+    return [
         $programms['timestart'],
         $programms['timestop'],
         $id,
         $programms['title'],
         $programms['desc']
-    );
+    ];
 }
 
 function toFile(string $output, array $programms) {
-    file_put_contents($output, "datetime_start\tdatetime_finish\tchannel\ttitle\tdescription\n");
-    file_put_contents($output, implode(PHP_EOL, $programms), FILE_APPEND);
+    $fp = fopen($output, 'w');
+    $header = [
+        'datetime_start', 'datetime_finish', 'channel', 'title', 'description'
+    ];
+
+    fputcsv($fp, $header, "\t");
+    foreach ($programms as $programm) {
+        fputcsv($fp, $programm, "\t");
+    }
+
+    fclose($fp);
 }
