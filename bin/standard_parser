@@ -1,0 +1,1 @@
+php php/index.php -l ${FTP_LOGIN} -p ${FTP_PASSWORD} -h ${FTP_SERVER}
