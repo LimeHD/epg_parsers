@@ -5,7 +5,7 @@ set :user, 'master'
 
 set :repo_url, 'git@github.com:LimeHD/epg_parsers.git' if ENV['USE_LOCAL_REPO'].nil?
 
-# set :linked_files, %w(.env)
+set :linked_files, %w(.env)
 set :linked_dirs, %w(log output)
 
 if ENV['BRANCH'].nil?
@@ -18,8 +18,8 @@ set :deploy_to, -> { "/home/#{fetch(:user)}/#{fetch(:application)}" }
 
 namespace :deploy do
   after 'updated', :transfer_build
-  # after 'published', :reload_crontab
-  # after 'finishing_rollback', :reload_crontab
+  after 'published', :reload_crontab
+  after 'finishing_rollback', :reload_crontab
 end
 
 task :reload_crontab do

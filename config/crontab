@@ -1,2 +1,4 @@
 MAILTO="servers@limehd.tv"
-*/5 * * * * cd ~/cshooter/current; /usr/bin/timeout 4 /usr/bin/annotate-output env $(cat .env | xargs) ./run.sh >> ~/cshooter/shared/log/cshooter.log
+17 */3 * * * cd ~/epg_parsers/current; ./bin/digea_parser --output ~/epg_parsers/shared/output/digea.csv
+27 */3 * * * cd ~/epg_parsers/current; ./bin/ept_parser --output ~/epg_parsers/shared/output/ept.csv
+37 */3 * * * cd ~/epg_parsers/current; ./bin/star_parser --output ~/epg_parsers/shared/output/star.csv
