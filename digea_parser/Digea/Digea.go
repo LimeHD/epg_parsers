@@ -34,28 +34,38 @@ func (digea *Digea) Parse(doc *goquery.Document, day int) {
 		}
 
 		// У каналов есть только начало телепередачи
-		prev := ""
+		timestart := ""
 		s.Find("ul.epg-list > li.list-group-item").Each(func(ii int, ss *goquery.Selection) {
-			times := ss.Find("span.time").Text()
+			timestop := ss.Find("span.time").Text()
 			title := ss.Find("span.tv-show").Text()
 
-			times = digea.LocalTime.RFC3339local(strings.TrimSpace(times), day)
+			_safeTimestop := timestop
+			timestop = digea.LocalTime.RFC3339local(strings.TrimSpace(timestop), day)
 
-			if prev == "" {
-				prev = times
+			if timestart == "" {
+				timestart = timestop
+			}
+
+			if timestop < timestart {
+				// tomorrow
+				timestop = digea.LocalTime.RFC3339local(strings.TrimSpace(_safeTimestop), day+1)
 			}
 
 			// интересная особенность, передачи могут заканчиваться в то же время, что и начинаются
 			// парадоксально, однако
-			if prev != times {
+			if timestart != timestop {
+				if timestop < timestart {
+					digea.HandleWrongTime(true, channelName, title, timestart, timestop)
+				}
+
 				digea.AppendProgramm(channelName, base.Programm{
-					Timestart: prev,
-					Timestop:  times,
+					Timestart: timestart,
+					Timestop:  timestop,
 					Title:     title,
 				})
 			}
 
-			prev = times
+			timestart = timestop
 		})
 	})
 }
