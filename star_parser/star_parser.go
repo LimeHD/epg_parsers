@@ -3,6 +3,7 @@ package main
 import (
 	base "epg_parsers/parser"
 	"epg_parsers/star_parser/Star"
+	"epg_parsers/utils"
 	"fmt"
 	"github.com/bugsnag/bugsnag-go"
 	"github.com/urfave/cli"
@@ -45,7 +46,7 @@ func main() {
 
 		epg := base.Epg{Days: map[string]*base.Day{}}
 		parser := &base.Parser{}
-		base.PrintMeta("Star", "0.0.1", output)
+		utils.PrintMeta("Star", "0.0.1", output)
 		location, _ := time.LoadLocation("Europe/Athens")
 		currentTime := time.Now().In(location)
 

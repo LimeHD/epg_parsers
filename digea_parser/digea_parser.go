@@ -3,6 +3,7 @@ package main
 import (
 	"epg_parsers/digea_parser/Digea"
 	"epg_parsers/parser"
+	"epg_parsers/utils"
 	"fmt"
 	"github.com/blacked/go-zabbix"
 	"github.com/bugsnag/bugsnag-go"
@@ -77,7 +78,7 @@ func main() {
 
 		epg := base.Epg{Days: map[string]*base.Day{}}
 		parser := &base.Parser{}
-		base.PrintMeta("Digea", VERSION, output)
+		utils.PrintMeta("Digea", VERSION, output)
 
 		// 5 - это для теста, сколько дней вперед парсить, включая текущий день
 		for i := 0; i <= 5; i++ {

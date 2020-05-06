@@ -17,13 +17,13 @@ func (s *Star) GetLocalTime() string {
 func (s *Star) Parse(doc *goquery.Document, day int) {
 	s.Channels = make(map[string]*base.Channel)
 	s.AppendChannel("Star", &base.Channel{
-		Name:      "Star",
-		Icon:      "https://www.star.gr/tv/faviconnew.ico",
-		Programms: nil,
+		Name:     "Star",
+		Icon:     "https://www.star.gr/tv/faviconnew.ico",
+		Programs: nil,
 	})
 
 	prev := ""
-	tmp := map[int]base.Programm{}
+	tmp := map[int]base.Program{}
 
 	doc.Find("div.list > div.row").Each(func(i int, selection *goquery.Selection) {
 		// mark now as "ΤΩΡΑ" label
@@ -33,7 +33,7 @@ func (s *Star) Parse(doc *goquery.Document, day int) {
 		title := strings.TrimSpace(item.Find("h3 > a").Text())
 		desc := strings.TrimSpace(item.Find("h5").Text())
 
-		tmp[i] = base.Programm{
+		tmp[i] = base.Program{
 			Timestart:   s.LocalTime.RFC3339local(time, day),
 			Timestop:    prev,
 			Title:       title,
@@ -44,7 +44,7 @@ func (s *Star) Parse(doc *goquery.Document, day int) {
 	})
 
 	for k, v := range tmp {
-		s.AppendProgramm("Star", base.Programm{
+		s.AppendProgram("Star", base.Program{
 			Timestart:   v.Timestart,
 			Timestop:    tmp[k+1].Timestart,
 			Title:       v.Title,
