@@ -13,7 +13,7 @@ func (d *Day) ToTSV() []string {
 
 	// надо как-то разрулить этот O(N^2) на более высоком уровне дойдет и до куба...
 	for _, c := range d.Common.Channels {
-		for _, p := range c.Programms {
+		for _, p := range c.Programs {
 			csv = append(csv, fmt.Sprintf("%s\t%s\t%s\t%s\t%s\t%s",
 				strings.TrimSpace(p.Timestart),
 				strings.TrimSpace(p.Timestop),

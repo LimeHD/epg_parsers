@@ -1,7 +1,7 @@
 package base
 
 type (
-	Programm struct {
+	Program struct {
 		Timestart   string `json:"timestart"`
 		Timestop    string `json:"timestop"`
 		Title       string `json:"title"`
@@ -9,9 +9,9 @@ type (
 	}
 
 	Channel struct {
-		Name      string     `json:"name"`
-		Icon      string     `json:"icon"`
-		Programms []Programm `json:"programms"`
+		Name     string    `json:"name"`
+		Icon     string    `json:"icon"`
+		Programs []Program `json:"programs"`
 	}
 
 	Day struct {

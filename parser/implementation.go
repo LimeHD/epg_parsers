@@ -15,8 +15,8 @@ type Common struct {
 	Channels      map[string]*Channel `json:"channels"`
 }
 
-func (common *Common) AppendProgramm(name string, programm Programm) {
-	common.Channels[name].Programms = append(common.Channels[name].Programms, programm)
+func (common *Common) AppendProgram(name string, program Program) {
+	common.Channels[name].Programs = append(common.Channels[name].Programs, program)
 }
 
 func (common *Common) AppendChannel(name string, channel *Channel) {

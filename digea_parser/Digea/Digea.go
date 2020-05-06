@@ -26,9 +26,9 @@ func (digea *Digea) Parse(doc *goquery.Document, day int) {
 
 		if !digea.ChannelExist(channelName) {
 			digea.AppendChannel(channelName, &base.Channel{
-				Name:      channelName,
-				Icon:      icon,
-				Programms: []base.Programm{},
+				Name:     channelName,
+				Icon:     icon,
+				Programs: []base.Program{},
 			})
 
 		}
@@ -58,7 +58,7 @@ func (digea *Digea) Parse(doc *goquery.Document, day int) {
 					digea.HandleWrongTime(true, channelName, title, timestart, timestop)
 				}
 
-				digea.AppendProgramm(channelName, base.Programm{
+				digea.AppendProgram(channelName, base.Program{
 					Timestart: timestart,
 					Timestop:  timestop,
 					Title:     title,

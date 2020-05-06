@@ -20,9 +20,9 @@ func (digea *Ept) GetLocalTime() string {
 func (ept *Ept) Parse(doc *goquery.Document, day int) {
 	ept.Channels = make(map[string]*base.Channel)
 	ept.AppendChannel("EPT1", &base.Channel{
-		Name:      "EPT1",
-		Icon:      "https://program.ert.gr/images/ChannelLogo-ERT1.png",
-		Programms: nil,
+		Name:     "EPT1",
+		Icon:     "https://program.ert.gr/images/ChannelLogo-ERT1.png",
+		Programs: nil,
 	})
 
 	a := map[int]map[string]string{}
@@ -57,7 +57,7 @@ func (ept *Ept) Parse(doc *goquery.Document, day int) {
 		// todo get meta from url
 		desc := a[i+1]["meta"]
 
-		ept.AppendProgramm("EPT1", base.Programm{
+		ept.AppendProgram("EPT1", base.Program{
 			Timestart:   time,
 			Timestop:    timestop,
 			Title:       title,
