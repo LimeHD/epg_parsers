@@ -231,3 +231,11 @@ func WriteTSV(output string, days map[string]*Day) {
 func WriteHeader(w *bufio.Writer) {
 	_, _ = w.WriteString("datetime_start\tdatetime_finish\tchannel\ttitle\tchannel_logo_url\tdescription\n")
 }
+
+func (c *Common) HandleWrongTime(inConsole bool, channel, tv, start, stop string) {
+	if inConsole {
+		fmt.Println(fmt.Sprintf("Wrong datetime in channel %s: \t %s - %s", channel, start, stop))
+	}
+
+	// do stuff
+}

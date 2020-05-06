@@ -11,9 +11,8 @@ type Digea struct {
 	base.Common
 }
 
-// берем по UTC +0, а не по локальной ТЗ
 func (digea *Digea) GetLocalTime() string {
-	return "Etc/UTC"
+	return "Europe/Athens"
 }
 
 func (digea *Digea) Parse(doc *goquery.Document, day int) {
@@ -40,35 +39,23 @@ func (digea *Digea) Parse(doc *goquery.Document, day int) {
 			timestop := ss.Find("span.time").Text()
 			title := ss.Find("span.tv-show").Text()
 
+			_safeTimestop := timestop
 			timestop = digea.LocalTime.RFC3339local(strings.TrimSpace(timestop), day)
 
 			if timestart == "" {
 				timestart = timestop
 			}
 
+			if timestop < timestart {
+				// tomorrow
+				timestop = digea.LocalTime.RFC3339local(strings.TrimSpace(_safeTimestop), day+1)
+			}
+
 			// интересная особенность, передачи могут заканчиваться в то же время, что и начинаются
 			// парадоксально, однако
 			if timestart != timestop {
-
-				/* 	из-за того что на сайте повторяются врмененные промежутки передач происходит сбой алгоритма на границе перехода дней
-				пример дневной телепрограммы из телеканала "TVM"
-
-				06:00 TVM
-				06:00 TVM
-				06:00 TVM
-				12:00 TVM
-				12:00 TVM
-				12:00 TVM
-				18:00 TVM
-				18:00 TVM
-				18:00 TVM
-				00:00 TVM
-				00:00 TVM
-				00:00 TVM
-				*/
 				if timestop < timestart {
-					// handle wrong datetime
-					fmt.Println(fmt.Sprintf("Wrong datetime: %s \t %s in channel: %s tv program is: %s", timestart, timestop, channelName, title))
+					digea.HandleWrongTime(true, channelName, title, timestart, timestop)
 				}
 
 				digea.AppendProgramm(channelName, base.Programm{
