@@ -6,23 +6,14 @@ import (
 	"time"
 )
 
-type (
-	Common struct {
-		baseUrl       string
-		BaseName      string
-		Version       string
-		localTimeBase string
-		LocalTime     Time
-		Channels      map[string]*Channel `json:"channels"`
-	}
-
-	Time struct {
-		Location *time.Location
-		Year     int
-		Month    time.Month
-		Day      int
-	}
-)
+type Common struct {
+	baseUrl       string
+	BaseName      string
+	Version       string
+	localTimeBase string
+	LocalTime     Time
+	Channels      map[string]*Channel `json:"channels"`
+}
 
 func (common *Common) AppendProgramm(name string, programm Programm) {
 	common.Channels[name].Programms = append(common.Channels[name].Programms, programm)
