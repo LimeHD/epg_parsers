@@ -5,6 +5,11 @@ all: clean build
 
 build: bin/digea_parser bin/ept_parser bin/star_parser
 
+parse_all:
+	./bin/star_parser
+	./bin/ept_parser
+	./bin/digea_parser
+
 clean:
 	rm -f bin/*
 
