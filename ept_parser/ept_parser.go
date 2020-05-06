@@ -3,6 +3,7 @@ package main
 import (
 	parsers "epg_parsers/ept_parser/Ept"
 	base "epg_parsers/parser"
+	"epg_parsers/utils"
 	"fmt"
 	"github.com/bugsnag/bugsnag-go"
 	"github.com/urfave/cli"
@@ -46,7 +47,7 @@ func main() {
 
 		epg := base.Epg{Days: map[string]*base.Day{}}
 		parser := &base.Parser{}
-		base.PrintMeta("Ept", "0.0.1", output)
+		utils.PrintMeta("Ept", "0.0.1", output)
 
 		// загружаем локальное время
 		location, _ := time.LoadLocation("Europe/Athens")

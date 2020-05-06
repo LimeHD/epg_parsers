@@ -72,12 +72,6 @@ func (epg *Epg) DayExist(day string) bool {
 	return exist
 }
 
-func PrintMeta(name string, version string, output string) {
-	fmt.Println(fmt.Sprintf("Run parser: %s", name))
-	fmt.Println(fmt.Sprintf("Parser version: %s", version))
-	fmt.Println(fmt.Sprintf("Output to: %s", output))
-}
-
 func (t *Time) RFC3339local(times string, day int) string {
 	layout := fmt.Sprintf("%d-%02d-%02dT%s:00Z",
 		t.Year,
