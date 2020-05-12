@@ -33,6 +33,10 @@ php php/index.php -l login -p password` парсер XML основной тел
 ./bin/digea_parser --output ./output/digea_parser.csv --bugsnag_api_key {key}
 ```
 
+# Сохранение в базу данных
+
+`php store/index.php -h localhost -l username -p password -d limehd_test -i ../mega_parser/mega.csv -g ./log/standard.log`
+
 # TODO
 
 * [x] После запуска парсера писать в STDOUT название парсера, время и что он
