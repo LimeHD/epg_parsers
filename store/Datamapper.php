@@ -7,7 +7,8 @@ class Datamapper
      * @param string $file
      * @return array
      */
-    public static function readTSVtoArray(string $file) : array {
+    public static function readTSVtoArray(string $file) : array
+    {
         $fp = fopen($file, 'r');
 
         $datastructure = [

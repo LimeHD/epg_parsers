@@ -13,7 +13,7 @@ class Query
     public function __construct(array $options)
     {
         try {
-            $this->builder = $this->connect($options);
+            $this->builder = $this->createQueryBuilder($options);
         } catch (Exception $e) {
             Fmt::fatal($e->getMessage());
         }
@@ -24,7 +24,8 @@ class Query
      * @return \Pixie\QueryBuilder\QueryBuilderHandler
      * @throws \Pixie\Exception
      */
-    public function connect(array $options) : QueryBuilderHandler {
+    public function createQueryBuilder(array $options) : QueryBuilderHandler
+    {
         $config = [
             'driver'    => 'mysql',
             'host'      => $options['h'],
