@@ -46,8 +46,27 @@ class Datamapper
         return $datastructure;
     }
 
+    /**
+     * @param array $items
+     * @return array
+     */
     public static function batches(array $items) : array
     {
         return array_chunk(array_values($items), 10);
+    }
+
+    /**
+     * @param array $items
+     * @return string
+     */
+    public static function implode(array $items) : string
+    {
+        $string = 'Stored identifiers in database:';
+
+        foreach ($items as $k => $item) {
+            $string .= PHP_EOL . "{$k} batch: " . implode(',', $item);
+        }
+
+        return $string;
     }
 }

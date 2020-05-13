@@ -40,13 +40,4 @@ class Query
         $connection = new Connection('mysql', $config);
         return new QueryBuilderHandler($connection);
     }
-
-    public function store(array $items)
-    {
-        $insertIds = [];
-
-        foreach (Datamapper::batches($items) as $batch) {
-            $insertIds[] = $this->builder->table('broadcasters')->insert($batch);
-        }
-    }
 }
