@@ -69,4 +69,34 @@ class Datamapper
 
         return $string;
     }
+
+    public static function groupByDay(array $items) : array
+    {
+        $grouped = [];
+
+        foreach ($items as $item) {
+            // чтобы не конвертировать по 100500 раз просто выдергиваем дату из даты и времени
+            $day = explode(' ', $item['start_at'])[0];
+            $grouped[$day][] = $item;
+        }
+
+        return $grouped;
+    }
+
+    public static function isEqualMaps(array $a, array $b) : bool
+    {
+        $diff = count($a) != count($b);
+
+        if (!$diff) {
+            // simple deep check is equal array
+            foreach ($a as $k => $v) {
+                if (count(array_diff($v, $b[$k]))) {
+                    $diff = true;
+                    break;
+                }
+            }
+        }
+
+        return !$diff;
+    }
 }
