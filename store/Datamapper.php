@@ -70,6 +70,10 @@ class Datamapper
         return $string;
     }
 
+    /**
+     * @param array $items
+     * @return array
+     */
     public static function groupByDay(array $items) : array
     {
         $grouped = [];
@@ -83,6 +87,11 @@ class Datamapper
         return $grouped;
     }
 
+    /**
+     * @param array $a
+     * @param array $b
+     * @return bool
+     */
     public static function isEqualMaps(array $a, array $b) : bool
     {
         $diff = count($a) != count($b);
@@ -98,5 +107,20 @@ class Datamapper
         }
 
         return !$diff;
+    }
+
+    /**
+     * @param array $batches
+     * @return int
+     */
+    public static function innerCount(array $batches) : int
+    {
+        $counter = 0;
+
+        foreach ($batches as $batch) {
+            $counter += count($batch);
+        }
+
+        return $counter;
     }
 }

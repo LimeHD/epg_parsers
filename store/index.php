@@ -30,7 +30,7 @@ foreach ($grouped as $day => $group) {
             $storedIds = $storage->store($grouped[$day]);
             $count = $common['count'];
             Fmt::info("Total rows read from file: {$count}");
-            Fmt::info(sprintf("Total rows inserted to database: %d", count($storedIds)));
+            Fmt::info(sprintf("Total rows inserted to database: %d", Datamapper::innerCount($storedIds)));
             Fmt::info(Datamapper::implode($storedIds));
         }
     }
