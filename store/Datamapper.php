@@ -37,7 +37,7 @@ class Datamapper
                 'finish_at' => $stop->format('Y-m-d H:i:s'),
                 'title'     => $item[3],
                 'detail'    => $item[5],
-                'rating'    => 0
+                'rating'    => null
             ];
             $datastructure['count']++;
         }
