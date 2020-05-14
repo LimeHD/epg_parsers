@@ -1,0 +1,8 @@
+{
+    "name": "qwx/store",
+    "type": "project",
+    "minimum-stability": "dev",
+    "require": {
+        "usmanhalalit/pixie": "2.*@dev"
+    }
+}
