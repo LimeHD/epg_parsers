@@ -97,6 +97,14 @@ class Datamapper
      */
     public static function readTSVtoArray(string $file) : array
     {
+        if (FileHelper::isExist($file) === false) {
+            throw new Exception("Файла не существует или указан неверный путь к файлу");
+        }
+
+        if (FileHelper::is($file, 'xml') === false) {
+            throw new Exception("Кажется вы пытаетесь загрузить недопустимый файл, пожалуйста выберите файл с расширением .xml");
+        }
+
         $fp = fopen($file, 'r');
 
         $datastructure = [
