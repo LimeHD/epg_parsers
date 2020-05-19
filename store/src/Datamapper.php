@@ -94,6 +94,7 @@ class Datamapper
     /**
      * @param string $file
      * @return array
+     * @throws Exception
      */
     public static function readTSVtoArray(string $file) : array
     {
