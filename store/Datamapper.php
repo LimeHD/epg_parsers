@@ -6,6 +6,94 @@ class Datamapper
     /**
      * @param string $file
      * @return array
+     * @throws Exception
+     */
+    public static function readXMLtoArray(string $file) : array
+    {
+        if (FileHelper::isExist($file) === false) {
+            throw new Exception("Файла не существует или указан неверный путь к файлу");
+        }
+
+        if (FileHelper::is($file, 'xml') === false) {
+            throw new Exception("Кажется вы пытаетесь загрузить недопустимый файл, пожалуйста выберите файл с расширением .xml");
+        }
+
+        $xml = simplexml_load_string(file_get_contents($file));
+        $today = date('Y-m-d');
+        $datastructure = [
+            'count' => 0,
+            'items' => []
+        ];
+
+        foreach ($xml->programme as $row) {
+            $attr = $row->attributes();
+
+            $id = (string)$attr['channel'];
+
+            $start = DateTime::createFromFormat('YmdHis O', (string)$attr['start']);
+            $stop = DateTime::createFromFormat('YmdHis O', (string)$attr['stop']);
+            // приведение к MSK для нового поставщика
+            $start->setTimezone(new \DateTimeZone('Europe/Moscow'));
+            $stop->setTimezone(new \DateTimeZone('Europe/Moscow'));
+
+            $subTitle = (isset($row->{'sub-title'})) ? '. ' . (string)$row->{'sub-title'} : '';
+            $title = sprintf('%s%s', (string) $row->title, $subTitle);
+            $desc = (string)$row->desc;
+            $rating = isset($row->rating) && isset($row->rating->value) ? (int)$row->rating->value : null;
+
+            $programDate = $start->format('Y-m-d');
+
+            if ($programDate >= $today) {
+                $timeStart = $start->format('Y-m-d H:i:s');
+                $timeStop = $stop->format('Y-m-d H:i:s');
+
+                $day = $start->format('Y-m-d');
+
+                if (!isset($datastructure['items'][$day])) {
+                    $datastructure['items'][$day] = [];
+                }
+
+                if (!isset($datastructure['items'][$day][$id])) {
+                    $datastructure['items'][$day][$id] = [];
+                }
+
+                $datastructure['items'][$day][$id][] = [
+                    'epg_id'        => $id,
+                    'time_zone'     => sprintf("UTC%s", $start->format('P')),
+                    'start_at'      => $timeStart,
+                    'finish_at'     => $timeStop,
+                    'title'         => $title,
+                    'detail'        => $desc,
+                    'rating'        => $rating,
+                ];
+                $datastructure['count']++;
+            }
+        }
+
+        unset($xml);
+
+        $cut = [
+            'items' => []
+        ];
+
+        for ($i = 0; $i <= 2; $i++) {
+            $day = date("Y-m-d", strtotime("+" . $i . " day"));
+
+            if (!isset($cut['items'][$day])) {
+                $cut['items'][$day] = [];
+            }
+
+            $cut['items'][$day] = $datastructure['items'][$day];
+        }
+
+        unset($datastructure);
+
+        return $cut;
+    }
+
+    /**
+     * @param string $file
+     * @return array
      */
     public static function readTSVtoArray(string $file) : array
     {
