@@ -33,7 +33,7 @@ foreach ($days['items'] as $key => $day) {
             continue;
         }
 
-        Fmt::info(sprintf("Not deprecated items in day: %s and channel %d", $key, $channel));
+        Fmt::info(sprintf("Not deprecated items in day: %s and broadcast id: %d", $key, $channel));
     }
 }
 
