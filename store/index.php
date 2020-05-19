@@ -1,4 +1,4 @@
-<?php
+<?php ini_set('memory_limit','2048M');
 
 require_once 'vendor/autoload.php';
 require_once 'StorageInterface.php';
@@ -6,33 +6,34 @@ require_once 'Fmt.php';
 require_once 'Datamapper.php';
 require_once 'Query.php';
 require_once 'Storage.php';
+require_once 'FileHelper.php';
 
 $options    = getopt("h:l:d:p:i:g");
 $connection = new Query($options);
 $storage    = new Storage($connection);
 
-$common = Datamapper::readTSVtoArray($options['i']);
-$grouped = Datamapper::groupByDay($common['items']);
-$groupedDb = $storage->getEqualItemsFor($grouped);
+$days       = Datamapper::readXMLtoArray($options['i']);
+$groupedDb  = $storage->getEqualItemsFor($days['items']);
 
-foreach ($grouped as $day => $group) {
-    if (!Datamapper::isEqualMaps($grouped[$day], $groupedDb[$day])) {
-        Fmt::info(sprintf('Different program in day: %s', $day));
+foreach ($days['items'] as $key => $day) {
+    foreach ($day as $channel => $programs) {
+        
+        if (!Datamapper::isEqualMaps($programs, $groupedDb[$key][$channel])) {
+            {
+                Fmt::info("Delete deprecated epg...");
+                $deleteIds = $storage->deleteDay($key, $channel);
+            }
 
-        // todo delete deprecated tv program
-        {
-            Fmt::info("Delete deprecated epg...");
-            $deleteIds = $storage->deleteDay($day);
+            {
+                $storedIds = $storage->store($programs);
+                Fmt::info(sprintf("Total rows inserted to database: %d", Datamapper::innerCount($storedIds)));
+                Fmt::info(Datamapper::implode($storedIds));
+            }
+
+            continue;
         }
 
-        // todo save new program
-        {
-            $storedIds = $storage->store($grouped[$day]);
-            $count = $common['count'];
-            Fmt::info("Total rows read from file: {$count}");
-            Fmt::info(sprintf("Total rows inserted to database: %d", Datamapper::innerCount($storedIds)));
-            Fmt::info(Datamapper::implode($storedIds));
-        }
+        Fmt::info(sprintf("Not deprecated items in day: %s and channel %d", $key, $channel));
     }
 }
 
