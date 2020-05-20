@@ -1,1 +1,1 @@
-php php/index.php -l ${FTP_LOGIN} -p ${FTP_PASSWORD} -h ${FTP_SERVER} -f TV_Pack.xml
+php store/index.php -h ${MYSQL_HOST} -l ${MYSQL_USER} -p ${MYSQL_PASSWORD} -d ${MYSQL_DATABASE} -i ./TV_Pack.xml -g ./log/standard.log

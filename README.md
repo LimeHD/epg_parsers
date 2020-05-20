@@ -12,19 +12,13 @@
 - `./bin/digea_parser` парсит https://www.digea.gr
 - `./bin/ept_parser` парсит http://program.ert.gr
 - `./bin/star_parser` парсит https://www.star.gr
-- `./bin/standard_parser` парсет стандартюу xml с локального FTP-сервера
-
-# Стандартный парсер
-
-```
-php php/index.php -l login -p password` парсер XML основной телепрограммы, обязательные аргументы: `-h`, `-l`, `-p`, ftp хост, логин и пароль соответственно, опционально: `-o`, `-d` выходной файл, и директория куда скачивается xml
-```
+- `./bin/standard_parser` парсит скачанную стандартную XML и скидывает в базу
 
 # Сборка
 
 - `make build`
 
-# Запуск
+# Пример запуска парсера
 
 Собирает и выводит в файл digea_parser.csv
 
@@ -32,10 +26,6 @@ php php/index.php -l login -p password` парсер XML основной тел
 ./bin/digea_parser # Собирает данные и сбрасывает в ./digea_parser.csv
 ./bin/digea_parser --output ./output/digea_parser.csv --bugsnag_api_key {key}
 ```
-
-# Сохранение в базу данных
-
-`php store/index.php -h localhost -l username -p password -d limehd_test -i ../mega_parser/mega.csv -g ./log/standard.log`
 
 # TODO
 
