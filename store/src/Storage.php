@@ -53,12 +53,13 @@ class Storage implements StorageInterface
         return $this->storageConnection;
     }
 
-    public function deleteDay(string $day)
+    public function deleteDay(string $day, int $id)
     {
         $tomorrow = date('Y-m-d', strtotime('+1 day', strtotime($day)));
 
-        $this->builder()->transaction(function (QueryBuilderHandler $db) use($day, $tomorrow) {
+        $this->builder()->transaction(function (QueryBuilderHandler $db) use($day, $tomorrow, $id) {
             $db->table('broadcasters')
+                ->where('epg_id', '=', $id)
                 ->where('start_at', '>=', $day)
                 ->where('start_at', '<', $tomorrow)
                 ->delete();
@@ -69,15 +70,25 @@ class Storage implements StorageInterface
     {
         $dbItems = [];
 
-        foreach ($items as $day => $_) {
-            $tomorrow = date('Y-m-d', strtotime('+1 day', strtotime($day)));
-            $rows = $this->find()
-                ->where('start_at', '>=', $day)
-                ->where('start_at', '<', $tomorrow)
-                ->get();
+        foreach ($items as $day => $broadcasts) {
+            if (!isset($dbItems[$day])) {
+                $dbItems[$day] = [];
+            }
 
-            $dbItems[$day] = json_decode(json_encode($rows), true);
+            foreach ($broadcasts as $id => $_) {
+                if (!isset($dbItems[$day][$id])) {
+                    $dbItems[$day][$id] = [];
+                }
 
+                $tomorrow = date('Y-m-d', strtotime('+1 day', strtotime($day)));
+                $rows = $this->find()
+                    ->where('epg_id', '=', $id)
+                    ->where('start_at', '>=', $day)
+                    ->where('start_at', '<', $tomorrow)
+                    ->get();
+
+                $dbItems[$day][$id] = json_decode(json_encode($rows), true);
+            }
         }
 
         return $dbItems;
