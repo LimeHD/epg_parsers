@@ -61,6 +61,7 @@ class Datamapper
                     'epg_id'        => $id,
                     'time_zone'     => sprintf("UTC%s", $start->format('P')),
                     'start_at'      => $timeStart,
+                    'date'          => $timeStart,
                     'finish_at'     => $timeStop,
                     'title'         => $title,
                     'detail'        => $desc,

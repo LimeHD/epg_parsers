@@ -19,7 +19,7 @@ class Storage implements StorageInterface
      */
     public function getBroadcasterStorage() : QueryBuilderHandler
     {
-        return $this->builder()->table('broadcasters');
+        return $this->builder()->table('broadcasts');
     }
 
     /**
@@ -58,7 +58,7 @@ class Storage implements StorageInterface
         $tomorrow = date('Y-m-d', strtotime('+1 day', strtotime($day)));
 
         $this->builder()->transaction(function (QueryBuilderHandler $db) use($day, $tomorrow, $id) {
-            $db->table('broadcasters')
+            $db->table('broadcasts')
                 ->where('epg_id', '=', $id)
                 ->where('start_at', '>=', $day)
                 ->where('start_at', '<', $tomorrow)
