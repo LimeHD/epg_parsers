@@ -60,11 +60,11 @@ class Datamapper
                 $datastructure['items'][$day][$id][] = [
                     'epg_id'        => $id,
                     'time_zone'     => sprintf("UTC%s", $start->format('P')),
-                    'start_at'      => $timeStart,
-                    'date'          => $timeStart,
-                    'finish_at'     => $timeStop,
+                    'timestart'     => $timeStart,
+                    'date'          => $day,
+                    'timestop'      => $timeStop,
                     'title'         => $title,
-                    'detail'        => $desc,
+                    'desc'          => $desc,
                     'rating'        => $rating,
                 ];
                 $datastructure['count']++;
@@ -131,10 +131,11 @@ class Datamapper
             $datastructure['items'][] = [
                 'epg_id'    => 0,
                 'time_zone' => sprintf("UTC%s", $start->getTimezone()->getName()),
-                'start_at'  => $start->format('Y-m-d H:i:s'),
-                'finish_at' => $stop->format('Y-m-d H:i:s'),
+                'timestart' => $start->format('Y-m-d H:i:s'),
+                'timestop'  => $stop->format('Y-m-d H:i:s'),
                 'title'     => $item[3],
-                'detail'    => $item[5]
+                'desc'      => $item[5],
+                'date'      => $start->format('Y-m-d'),
             ];
             $datastructure['count']++;
         }
@@ -177,7 +178,7 @@ class Datamapper
 
         foreach ($items as $item) {
             // чтобы не конвертировать по 100500 раз просто выдергиваем дату из даты и времени
-            $day = explode(' ', $item['start_at'])[0];
+            $day = explode(' ', $item['timestart'])[0];
             $grouped[$day][] = $item;
         }
 
