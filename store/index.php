@@ -7,10 +7,19 @@ require_once 'src/Datamapper.php';
 require_once 'src/Query.php';
 require_once 'src/Storage.php';
 require_once 'src/FileHelper.php';
+require_once 'src/DownloadCredentials.php';
+require_once 'src/Downloader.php';
 
-$options    = getopt("h:l:d:p:i:g");
+$options    = getopt("h:l:d:p:i:g:a:b:c:");
 $connection = new Query($options);
 $storage    = new Storage($connection);
+
+Downloader::download(new DownloadCredentials(
+    $options['a'],
+    $options['b'],
+    $options['c'],
+    $options['i']
+));
 
 $days       = Datamapper::readXMLtoArray($options['i']);
 $groupedDb  = $storage->getEqualItemsFor($days['items']);
