@@ -31,7 +31,11 @@ class Storage implements StorageInterface
         $insertIds = [];
 
         foreach (Datamapper::batches($items) as $batch) {
-            $insertIds[] = $this->getBroadcasterStorage()->insert($batch);
+            try {
+                $insertIds[] = $this->getBroadcasterStorage()->insert($batch);
+            } catch (Exception $e) {
+                // todo to bugsnag
+            }
         }
 
         return $insertIds;
