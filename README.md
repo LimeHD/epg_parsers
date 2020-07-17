@@ -9,9 +9,14 @@
 
 # Парсеры
 
+## Скидывают в CSV
+
 - `./bin/digea_parser` парсит https://www.digea.gr
 - `./bin/ept_parser` парсит http://program.ert.gr
 - `./bin/star_parser` парсит https://www.star.gr
+
+## Складывают прямо в базу
+
 - `./bin/standard_parser` парсит скачанную стандартную XML и скидывает в базу
 
 # Сборка
