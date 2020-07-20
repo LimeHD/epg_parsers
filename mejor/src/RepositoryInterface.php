@@ -5,5 +5,5 @@
  */
 interface RepositoryInterface
 {
-    public function save();
+    public function save($rawData);
 }

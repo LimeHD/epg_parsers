@@ -1,5 +1,7 @@
 <?php 
 
+require_once("RepositoryInterface.php");
+
 /**
  * Класс для для работы с репозиторием типа TSV
  */
@@ -14,7 +16,7 @@ class RepositoryTSV implements RepositoryInterface
             return;
         }
         
-        $this->$fileName = $fileName;
+        $this->fileName = $fileName;
     }
 
 
@@ -23,16 +25,16 @@ class RepositoryTSV implements RepositoryInterface
      */
     public function save($rawData) :void
     {
-        $fp = fopen($this->fileName, 'a');
+        $fp = fopen($this->fileName, 'w+');
 
         foreach ($rawData as $line) {
             $fields = [
-                $line['start'],
-                $line['stop'],
+                $line['timestart'],
+                $line['timestop'],
                 $line['channel'],
                 $line['titleEs'],
                 '',
-                $line['descriptionES']
+                $line['descriptionEs']
             ];
 
             fputcsv($fp, $fields, "\t");

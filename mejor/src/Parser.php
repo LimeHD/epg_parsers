@@ -1,7 +1,7 @@
 <?php
 
-use \XMLDocument;
-use \DOMDocument;
+use \XMLDocument as XMLDocument;
+use \DOMDocument as DOMDocument;
 
 class Parser
 {
@@ -30,15 +30,15 @@ class Parser
      * @param string $xmlFile Путь к xml файлу
      * @return array
      */
-    public function parserXML(string $xmlFile) :array
+    public function parserXML() :array
     {
         $program = [];
         
-        $this->xmlReader->open($xmlFile);
+        $this->xmlReader->open($this->xmlFile);
 
-        while ($reader->read()) {
-            if ($reader->nodeType == XMLReader::ELEMENT && $reader->name == 'programme') {
-                $list = $this->domNodeAsArray($reader);
+        while ($this->xmlReader->read()) {
+            if ($this->xmlReader->nodeType == XMLReader::ELEMENT && $this->xmlReader->name == 'programme') {
+                $list = $this->domNodeAsArray($this->xmlReader);
                 
                 $start = DateTime::createFromFormat('YmdHis O', (string)$list['start']);
                 $stop = DateTime::createFromFormat('YmdHis O', (string)$list['stop']);
@@ -50,7 +50,8 @@ class Parser
                 $timeStop = $stop->format('Y-m-d H:i:s');
                 $channel = $list['channel'];
                 
-                $program[$programDate][$channel][] = [
+                $program[] = [
+                    'channel'           => $channel,
                     'timestart'         => $timeStart,
                     'timestop'          => $timeStop,                    
                     'titleEs'           => $this->replaceKyrilicTextToNull($list['titleEs']),
