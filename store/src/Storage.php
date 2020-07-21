@@ -61,7 +61,7 @@ class Storage implements StorageInterface
     {
         $dt = date('Y-m-d', strtotime($day));
         $this->builder()->transaction(function (QueryBuilderHandler $db) use($day, $dt, $id) {
-            $db->table('broadcasts')
+            $db->table('epg')
                 ->where('epg_id', '=', $id)
                 ->where('date', '=', $dt)
                 ->delete();
