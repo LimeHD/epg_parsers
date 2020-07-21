@@ -29,11 +29,11 @@ class ParserCards
         return $program;
     }
 
-    public function save($program)
+    public function save($program, $output)
     {
-        $fp = fopen("test.csv", "a+");
+        $fp = fopen($output, "a+");
         $fields = [];
-        
+
         foreach($program[0]["items"] as $line) {
 
             $title = (sizeof($line['title']) > 0) ? $line['title']['ca'] : '';
