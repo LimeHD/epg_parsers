@@ -14,11 +14,11 @@
 - `./bin/digea_parser` парсит https://www.digea.gr
 - `./bin/ept_parser` парсит http://program.ert.gr
 - `./bin/star_parser` парсит https://www.star.gr
-- `./download_stv ./bin/mejor_parser` парсит xml от поставщика s-tv.ru
+- `./download_stv && ./bin/mejor_parser` парсит xml от поставщика s-tv.ru
 
 ## Складывают прямо в базу
 
-- `./bin/standard_parser` парсит скачанную стандартную XML и скидывает в базу (в
+- `./download_tv_pack && ./bin/standard_parser` парсит скачанную стандартную XML и скидывает в базу (в
   таблицу `epg`)
 
 # Сборка
