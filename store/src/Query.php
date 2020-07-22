@@ -16,6 +16,8 @@ class Query
             $this->builder = $this->createQueryBuilder($options);
         } catch (Exception $e) {
             Fmt::fatal($e->getMessage());
+
+            exit;
         }
     }
 
