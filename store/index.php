@@ -10,13 +10,17 @@ require_once 'src/FileHelper.php';
 
 Fmt::info("Инициализирую соединение с базой данных...");
 
-$options    = getopt("h:l:d:p:i:g");
+$options    = getopt("h:l:d:p:i:g:f:c:");
 $connection = new Query($options);
 $storage    = new Storage($connection);
 
 Fmt::info("Начинаю читать файл XML...");
 
-$days       = Datamapper::readXMLtoArray($options['i']);
+$days = Datamapper::readXMLtoArray(
+    $options['i'],
+    $options['f'] ?? '',
+    $options['c'] ?? 5
+);
 
 Fmt::info("Получаю аналогичные данные из базы данных...");
 

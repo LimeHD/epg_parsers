@@ -21,6 +21,13 @@
 - `./download_tv_pack && ./bin/standard_parser` парсит скачанную стандартную XML и скидывает в базу (в
   таблицу `epg`)
 
+### Ручной запуск стандартного парсера
+
+- `php store/index.php -h {MYSQL_HOST} -l {MYSQL_USER} -p {MYSQL_PASSWORD} -d {MYSQL_DATABASE} -i ./TV_Pack.xml -f 2020-07-19 -g ./log/log.log -c 2`, **где** опциональные параметры:
+- [x] `-f` - с какой даты начинать сканировать: default `today`, 
+- [x] `-c` - сколько дней от текущего дня добавлять в БД: default `5`, 
+- [x] `-g` - куда складывать логи: default `null`.
+
 # Сборка
 
 - `make build`

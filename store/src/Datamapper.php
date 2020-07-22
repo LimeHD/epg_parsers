@@ -5,10 +5,11 @@ class Datamapper
 {
     /**
      * @param string $file
+     * @param string $from
      * @return array
      * @throws Exception
      */
-    public static function readXMLtoArray(string $file) : array
+    public static function readXMLtoArray(string $file, string $from = '', $countOfDays = 3) : array
     {
         if (FileHelper::isExist($file) === false) {
             throw new Exception("Файла не существует или указан неверный путь к файлу");
@@ -20,6 +21,15 @@ class Datamapper
 
         $xml = simplexml_load_string(file_get_contents($file));
         $today = date('Y-m-d');
+        $loopStartDay = 0;
+
+        if (static::isValisDate($from)) {
+            Fmt::info(sprintf('Указана дата %s начинаю сканировать с этой даты', $from));
+            $today =  date('Y-m-d', strtotime($from));
+
+            $loopStartDay = static::countDaysBetweenDates(date('Y-m-d'),  $today);
+        }
+
         $datastructure = [
             'count' => 0,
             'items' => []
@@ -77,7 +87,7 @@ class Datamapper
             'items' => []
         ];
 
-        for ($i = 0; $i <= 2; $i++) {
+        for ($i = $loopStartDay; $i <= $countOfDays; $i++) {
             $day = date("Y-m-d", strtotime("+" . $i . " day"));
 
             if (!isset($cut['items'][$day])) {
@@ -142,6 +152,18 @@ class Datamapper
 
         fclose($fp);
         return $datastructure;
+    }
+
+    private static function isValisDate(string $date, $format = 'Y-m-d') : bool
+    {
+        $d = DateTime::createFromFormat($format, $date);
+        return $d && $d->format($format) === $date;
+    }
+
+    private static function countDaysBetweenDates(string $a, string $b) : int
+    {
+        $timeDiff = strtotime($b) - strtotime($a);
+        return $timeDiff / 86400;
     }
 
     /**
