@@ -12,7 +12,7 @@ $parser = new Parser($outputFile);
 $epgData = $parser->parserXML();
 
 if ($options["format"] == "csv") {
-    $repository = new RepositoryTSV("test.xml");
+    $repository = new RepositoryTSV("stv_epg.xml");
     $repository->save($epgData);
 }
 
