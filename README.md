@@ -86,3 +86,15 @@ datetime_start;datetime_finish;channel;title;channel_logo_url;description
 Не понял зачем это и для чего [dapi]
 
 - [List of tz database time zones](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones)
+
+## Парсеры для mejor
+
+Первый ресурс:
+
+Можно получить список идентификаторов epg отсюда http://hls.mejor.tv:81/api/v1/playlist
+Получаем epg по каждому телеканалу подставляя epg_id в ссылке http://hls.mejor.tv:81/api/v1/epg?epg=a015
+
+Второй ресурсу:
+
+http://xmltv.s-tv.ru/xmltvInOne.php?login=tv9037&pass=UwPwewGZGg
+В файле имеется блок со списком каналов с id. А так же блок с телепрограммами
