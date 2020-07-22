@@ -9,7 +9,8 @@ parse_all:
 	./bin/star_parser
 	./bin/ept_parser
 	./bin/digea_parser
-	./bin/mejor_parser
+	./download_stv && ./bin/mejor_parser
+	./download_tv_pack && ./bin/standard_parser
 
 clean:
 	rm -f bin/*

@@ -19,7 +19,7 @@ class Storage implements StorageInterface
      */
     public function getBroadcasterStorage() : QueryBuilderHandler
     {
-        return $this->builder()->table('broadcasts');
+        return $this->builder()->table('epg');
     }
 
     /**
@@ -59,13 +59,11 @@ class Storage implements StorageInterface
 
     public function deleteDay(string $day, int $id)
     {
-        $tomorrow = date('Y-m-d', strtotime('+1 day', strtotime($day)));
-
-        $this->builder()->transaction(function (QueryBuilderHandler $db) use($day, $tomorrow, $id) {
-            $db->table('broadcasts')
+        $dt = date('Y-m-d', strtotime($day));
+        $this->builder()->transaction(function (QueryBuilderHandler $db) use($day, $dt, $id) {
+            $db->table('epg')
                 ->where('epg_id', '=', $id)
-                ->where('start_at', '>=', $day)
-                ->where('start_at', '<', $tomorrow)
+                ->where('date', '=', $dt)
                 ->delete();
         });
     }
@@ -84,11 +82,10 @@ class Storage implements StorageInterface
                     $dbItems[$day][$id] = [];
                 }
 
-                $tomorrow = date('Y-m-d', strtotime('+1 day', strtotime($day)));
+                $dt = date('Y-m-d', strtotime($day));
                 $rows = $this->find()
                     ->where('epg_id', '=', $id)
-                    ->where('start_at', '>=', $day)
-                    ->where('start_at', '<', $tomorrow)
+                    ->where('date', '=', $dt)
                     ->get();
 
                 $dbItems[$day][$id] = json_decode(json_encode($rows), true);
