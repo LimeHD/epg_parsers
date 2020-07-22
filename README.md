@@ -14,6 +14,7 @@
 - `./bin/digea_parser` парсит https://www.digea.gr
 - `./bin/ept_parser` парсит http://program.ert.gr
 - `./bin/star_parser` парсит https://www.star.gr
+- `./bin/mejor_parser` парсит xml от поставщика s-tv.ru
 
 ## Складывают прямо в базу
 
