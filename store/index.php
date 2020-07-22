@@ -8,32 +8,41 @@ require_once 'src/Query.php';
 require_once 'src/Storage.php';
 require_once 'src/FileHelper.php';
 
+Fmt::info("Инициализирую соединение с базой данных...");
+
 $options    = getopt("h:l:d:p:i:g");
 $connection = new Query($options);
 $storage    = new Storage($connection);
 
+Fmt::info("Начинаю читать файл XML...");
+
 $days       = Datamapper::readXMLtoArray($options['i']);
+
+Fmt::info("Получаю аналогичные данные из базы данных...");
+
 $groupedDb  = $storage->getEqualItemsFor($days['items']);
+
+Fmt::info("Начинаю процесс сравнения данных и их обновления...");
 
 foreach ($days['items'] as $key => $day) {
     foreach ($day as $channel => $programs) {
 
         if (!Datamapper::isEqualMaps($programs, $groupedDb[$key][$channel])) {
             {
-                Fmt::info("Delete deprecated epg...");
+                Fmt::info("Обнаружены устаревшие данные в БД, удаляю...");
                 $deleteIds = $storage->deleteDay($key, $channel);
             }
 
             {
                 $storedIds = $storage->store($programs);
-                Fmt::info(sprintf("Total rows inserted to database: %d", Datamapper::innerCount($storedIds)));
+                Fmt::info(sprintf("Добавляю новые данные..., количество вставленных строк составляет: %d", Datamapper::innerCount($storedIds)));
                 Fmt::info(Datamapper::implode($storedIds));
             }
 
             continue;
         }
 
-        Fmt::info(sprintf("Not deprecated items in day: %s and broadcast id: %d", $key, $channel));
+        Fmt::info(sprintf("Нет устаревшей телепрограммы для даты %s и для ЕПГ id: %d", $key, $channel));
     }
 }
 
