@@ -24,7 +24,7 @@ bin/digea_parser:
 	go get && go build -o ./bin ./digea_parser
 
 bin/mejor_paser:
-	./bin/mejor_parser
+	./download_stv ./bin/mejor_parser
 
 help:
 	@echo "make all  		: Build all parsers"
