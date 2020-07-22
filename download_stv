@@ -1,0 +1,1 @@
+wget 'http://${HTTP_STV_SERVER}/xmltvInOne.php?login=${HTTP_STV_LOGIN}&pass=${HTTP_STV_PASSWORD}' -O stv_epg.xml

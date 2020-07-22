@@ -1,5 +1,5 @@
 SCRIPT_AUTHOR=Andrey Kapitonov <andrey.kapitonov.96@gmail.com>
-SCRIPT_VERSION=0.0.1.dev
+SCRIPT_VERSION=0.0.2.dev
 
 all: clean build
 
@@ -9,6 +9,7 @@ parse_all:
 	./bin/star_parser
 	./bin/ept_parser
 	./bin/digea_parser
+	./download_stv && ./bin/mejor_parser
 	./download_tv_pack && ./bin/standard_parser
 
 clean:
@@ -22,6 +23,9 @@ bin/ept_parser:
 
 bin/digea_parser:
 	go get && go build -o ./bin ./digea_parser
+
+bin/mejor_paser:
+	./download_stv ./bin/mejor_parser
 
 help:
 	@echo "make all  		: Build all parsers"
