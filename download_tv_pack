@@ -1,2 +1,1 @@
 wget --user=$FTP_LOGIN --password=$FTP_PASSWORD ftp://${FTP_SERVER}/TV_Pack.xml
-wget 'http://${HTTP_STV_SERVER}/xmltvInOne.php?login=${HTTP_STV_LOGIN}&pass=${HTTP_STV_PASSWORD}' -O epg.xml
