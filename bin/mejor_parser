@@ -1,1 +1,0 @@
-php mejor/index.php --format csv --output ./epg.xml
