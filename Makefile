@@ -12,6 +12,7 @@ parse_all:
 	./download_stv && ./bin/stv_parser
 	./bin/mejor_cards_parser
 	./download_tv_pack && ./bin/standard_parser
+	./bin/alfaomega
 
 clean:
 	rm -f bin/*
