@@ -33,14 +33,17 @@ foreach ($days['items'] as $key => $day) {
 
         if (!Datamapper::isEqualMaps($programs, $groupedDb[$key][$channel])) {
             {
-                Fmt::info("Обнаружены устаревшие данные в БД, удаляю...");
+                Fmt::info(sprintf("Обнаружены устаревшие данные в БД для даты %s и для ЕПГ id: %d, удаляю...", $key, $channel));
                 $deleteIds = $storage->deleteDay($key, $channel);
             }
 
             {
                 $storedIds = $storage->store($programs);
-                Fmt::info(sprintf("Добавляю новые данные..., количество вставленных строк составляет: %d", Datamapper::innerCount($storedIds)));
-                Fmt::info(Datamapper::implode($storedIds));
+
+                if ($storedIds && count($storedIds)) {
+                    Fmt::info(sprintf("Добавляю новые данные..., количество вставленных строк составляет: %d", Datamapper::innerCount($storedIds)));
+                    Fmt::info(Datamapper::implode($storedIds));
+                }
             }
 
             continue;
