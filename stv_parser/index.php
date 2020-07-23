@@ -4,15 +4,27 @@ require_once("vendor/autoload.php");
 require_once("src/Parser.php");
 require_once("src/RepositoryTSV.php");
 
-$options = getopt("f:h:",["format:","output:"]);
+$version = "v0.0.1";
+
+$options = getopt("fmt:f:o:h",["format:","file:","output:","help"]);
 
 $outputFile = $options["output"];
+$xmlFile = $options["file"];
 
-$parser = new Parser($outputFile);
+echo "Парсер stv_parser $version" . PHP_EOL;
+
+if (!file_exists($xmlFile)) {
+    echo "Не могу найти файл $xmlFile" . PHP_EOL;
+    exit;
+}
+
+echo "Начинаю парсить файл $xmlFile" . PHP_EOL;
+$parser = new Parser($xmlFile);
 $epgData = $parser->parserXML();
 
 if ($options["format"] == "csv") {
-    $repository = new RepositoryTSV("stv_epg.xml");
+    echo "Сохраняю данные в $outputFile" . PHP_EOL;
+    $repository = new RepositoryTSV($outputFile);
     $repository->save($epgData);
 }
-
+ echo "Работа парсера завершена" . PHP_EOL;
