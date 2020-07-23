@@ -25,12 +25,6 @@ bin/ept_parser:
 bin/digea_parser:
 	go get && go build -o ./bin ./digea_parser
 
-bin/mejor_paser:
-	./download_stv && ./bin/mejor_parser
-
-bin/mejor_cards_parser:
-	./bin/mejor_cards_parser
-
 help:
 	@echo "make all  		: Build all parsers"
 	@echo "Written by $(SCRIPT_AUTHOR), version $(SCRIPT_VERSION)"
