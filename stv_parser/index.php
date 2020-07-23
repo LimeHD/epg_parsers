@@ -3,10 +3,16 @@
 require_once("vendor/autoload.php");
 require_once("src/Parser.php");
 require_once("src/RepositoryTSV.php");
+require_once("src/Help.php");
 
 $version = "v0.0.1";
 
 $options = getopt("fmt:f:o:h",["format:","file:","output:","help"]);
+
+if (isset($options["help"])) {
+    Help::Print();
+    exit;
+}
 
 $outputFile = $options["output"];
 $xmlFile = $options["file"];
