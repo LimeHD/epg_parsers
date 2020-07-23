@@ -1,0 +1,1 @@
+php stv_parser/index.php --format csv --output ./epg.xml
