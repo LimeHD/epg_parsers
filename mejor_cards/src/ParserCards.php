@@ -2,10 +2,20 @@
 
 class ParserCards
 {
+    private $urlKeepEpgIds;
 
     private $spanishChannelList = [];
 
-    public function readEpgFromJson($channels = [])
+    public function __construct($urlKeepEpgIds)
+    {
+        $this->urlKeepEpgIds = $urlKeepEpgIds;
+    }
+
+    /**
+     * Парсим телепрограмму и возвращаем его ввиде массива
+     * @return array
+     */
+    public function readEpgFromJson($channels = []) :array
     {
         $program = [];
 
@@ -29,7 +39,11 @@ class ParserCards
         return $program;
     }
 
-    public function save($program, $output)
+    /**
+     * Сохраняем в csv
+     * @return void
+     */
+    public function save($program, $output) :void
     {
         $fp = fopen($output, "w+");
         $fields = [];
@@ -53,5 +67,22 @@ class ParserCards
         }
 
         fclose($fp);
+    }
+
+    /**
+     * Получаем список всех epg_id
+     * @return array 
+     */
+    public function getAllEpgIDs() :array
+    {
+        $epgIDs = [];
+
+        $data = file_get_contents($this->urlKeepEpgIds);
+        $dataInArray = json_decode($data);
+        foreach ($dataInArray->channels  as $channel) {
+            $epgIDs[] = $channel->epg_id;
+        }
+
+        return $epgIDs;
     }
 }
