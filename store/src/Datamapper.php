@@ -181,7 +181,7 @@ class Datamapper
      */
     public static function implode(array $items) : string
     {
-        $string = 'Stored identifiers in database:';
+        $string = 'Идентификаторы новых записей:';
 
         foreach ($items as $k => $item) {
             $string .= PHP_EOL . "{$k} batch: " . implode(',', $item);
