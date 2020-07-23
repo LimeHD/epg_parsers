@@ -46,8 +46,8 @@ class Parser
                 $programDate = $start->format('Y-m-d');
                 $start = $start->setTimezone(new \DateTimeZone('Europe/Madrid'));
                 $stop = $stop->setTimezone(new \DateTimeZone('Europe/Madrid'));
-                $timeStart = $start->format('Y-m-d H:i:s'); 
-                $timeStop = $stop->format('Y-m-d H:i:s');
+                $timeStart = $start->format(DateTime::RFC3339_EXTENDED); 
+                $timeStop = $stop->format(DateTime::RFC3339_EXTENDED);
                 $channel = $list['channel'];
                 
                 $program[] = [

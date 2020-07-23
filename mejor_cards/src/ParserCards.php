@@ -31,17 +31,19 @@ class ParserCards
 
     public function save($program, $output)
     {
-        $fp = fopen($output, "a+");
+        $fp = fopen($output, "w+");
         $fields = [];
 
         foreach($program[0]["items"] as $line) {
 
             $title = (sizeof($line['title']) > 0) ? $line['title']['ca'] : '';
             $desc = (sizeof($line['desc']) > 0) ? $line['desc']['ca'] : '';
+            $start = DateTime::createFromFormat('U', (string)$line['start_ut']);
+            $stop = DateTime::createFromFormat('U', (string)$line['stop_ut']);
 
             $fields = [
-                $line['start_ut'],
-                $line['stop_ut'],
+                $start->format(DateTime::RFC3339_EXTENDED),
+                $stop->format(DateTime::RFC3339_EXTENDED),
                 $line['channel'],
                 $title,
                 '',

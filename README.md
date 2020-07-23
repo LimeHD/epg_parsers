@@ -15,6 +15,7 @@
 - `./bin/ept_parser` парсит http://program.ert.gr
 - `./bin/star_parser` парсит https://www.star.gr
 - `./download_stv && ./bin/mejor_parser` парсит xml от поставщика s-tv.ru
+- `./bin/mejor_cards` парсит с карт
 
 ## Складывают прямо в базу
 
