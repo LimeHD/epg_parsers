@@ -1,8 +1,14 @@
 <?php
 
 require_once("src/ParserCards.php");
+require_once("src/Help.php");
 
-$options = getopt("o:r:", ["output:", "resource:"]);
+$options = getopt("o:r:h", ["output:", "resource:", "help"]);
+
+if (isset($options["help"])) {
+    Help::Print();
+    exit;
+}
 
 if (isset($options["output"])) {
     $output = $options["output"];
