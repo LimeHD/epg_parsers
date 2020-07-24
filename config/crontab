@@ -3,3 +3,4 @@ MAILTO="servers@limehd.tv"
 27 */3 * * * cd ~/epg_parsers/current; ./bin/ept_parser --output ~/epg_parsers/shared/output/ept.csv
 37 */3 * * * cd ~/epg_parsers/current; ./bin/star_parser --output ~/epg_parsers/shared/output/star.csv
 47 */3 * * * cd ~/epg_parsers/current; ./bin/alfaomega --output ~/epg_parsers/shared/output/alfaomega.csv
+57 */3 * * * cd ~/epg_parsers/current; ./bin/stv_parser --output ~/epg_parsers/shared/output/stv.csv
