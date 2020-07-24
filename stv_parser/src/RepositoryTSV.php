@@ -27,6 +27,9 @@ class RepositoryTSV implements RepositoryInterface
     {
         $fp = fopen($this->fileName, 'w+');
 
+        $head = ['datetime_start', 'datetime_finish', 'channel', 'title','channel_logo_url', 'description'];
+        fputcsv($fp, $head, "\t"); 
+
         foreach ($rawData as $line) {
             $fields = [
                 $line['timestart'],
