@@ -58,20 +58,20 @@ class ParserCards
 
                 $esTitle = isset($line['title']['es']) ? $line['title']['es'] : null;
                 $caTitle = isset($line['title']['ca']) ? $line['title']['ca'] : null;
-
+                
                 if(!is_null($esTitle)) {
                     $title = trim($esTitle);
                 } elseif (!is_null($caTitle)) {
-                    $title = trim($esTitle);
+                    $title = trim($caTitle);
                 }
                 
                 $esDesc = isset($line['desc']['es']) ? $line['desc']['es'] : null;
                 $caDesc = isset($line['desc']['ca']) ? $line['desc']['ca'] : null;
 
                 if(!is_null($esDesc)) {
-                    $desc = trim($esDesc);
+                    $desc = trim(str_replace("\n", " ", $esDesc));
                 } elseif (!is_null($caDesc)) {
-                    $desc = trim($caDesc);
+                    $desc = trim(str_replace("\n", " ", $caDesc));
                 }
 
                 $start = DateTime::createFromFormat('U', (string)$line['start_ut']);
