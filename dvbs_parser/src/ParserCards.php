@@ -48,11 +48,14 @@ class ParserCards
     {
         $fp = fopen($output, "w+");
         $fields = [];
-        $title = '';
-        $desc = '';
-
+        $head = ['datetime_start', 'datetime_finish', 'channel', 'title','channel_logo_url', 'description'];
+        fputcsv($fp, $head, "\t"); 
+        
         foreach($program as $lines) { 
             foreach ($lines as $line)  {
+                $title = '';
+                $desc = '';
+
                 $esTitle = isset($line['title']['es']) ? $line['title']['es'] : null;
                 $caTitle = isset($line['title']['ca']) ? $line['title']['ca'] : null;
 
