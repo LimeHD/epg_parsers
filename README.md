@@ -57,7 +57,7 @@
 
 # Вывод парсера
 
-Вывод в формате CSV, separated by ";". 1 - строка - одна передача.
+Вывод в формате CSV, разделитель - табуляция. 1 - строка - одна передача.
 
 Следующие строки:
 
@@ -71,28 +71,24 @@
 Обязательный заголовок:
 
 ```csv
-datetime_start;datetime_finish;channel;title;channel_logo_url;description
+datetime_start	datetime_finish	channel	title	channel_logo_url	description
 ```
 
 Пример (10 строк):
 
 ```csv
-2020-04-17T09:00:00+03:00;2020-04-17T09:30:00+03:00;-STAR K.E.-;;https://www.digea.gr//images/channel-icons/STAR KENTIKHS ELLADAS.jpg;[K] Be Μy Guest;
-2020-04-17T09:30:00+03:00;2020-04-17T10:00:00+03:00;-STAR K.E.-;;https://www.digea.gr//images/channel-icons/STAR KENTIKHS ELLADAS.jpg;[K] Παιδικό Πρόγραμμα;
-2020-04-17T10:00:00+03:00;2020-04-17T11:00:00+03:00;-STAR K.E.-;;https://www.digea.gr//images/channel-icons/STAR KENTIKHS ELLADAS.jpg;[K] 24 Ώρες Ρεπορτάζ (Ε);
-2020-04-17T11:00:00+03:00;2020-04-17T11:30:00+03:00;-STAR K.E.-;;https://www.digea.gr//images/channel-icons/STAR KENTIKHS ELLADAS.jpg;[K] Όρεξη Να ΄Χεις (Ε);
-2020-04-17T11:30:00+03:00;2020-04-17T12:00:00+03:00;-STAR K.E.-;;https://www.digea.gr//images/channel-icons/STAR KENTIKHS ELLADAS.jpg;[K] Αποκαθήλωση (Μ. Παρασκευή);
-2020-04-17T12:00:00+03:00;2020-04-17T14:30:00+03:00;-STAR K.E.-;;https://www.digea.gr//images/channel-icons/STAR KENTIKHS ELLADAS.jpg;[K] The Jesus Life;
-2020-04-17T14:30:00+03:00;2020-04-17T17:30:00+03:00;-STAR K.E.-;;https://www.digea.gr//images/channel-icons/STAR KENTIKHS ELLADAS.jpg;[K] Μεσημβρινό Δελτίο Ειδήσεων;
-2020-04-17T17:30:00+03:00;2020-04-17T18:30:00+03:00;-STAR K.E.-;;https://www.digea.gr//images/channel-icons/STAR KENTIKHS ELLADAS.jpg;[K] In Style;
-2020-04-17T18:30:00+03:00;2020-04-17T19:30:00+03:00;-STAR K.E.-;;https://www.digea.gr//images/channel-icons/STAR KENTIKHS ELLADAS.jpg;[K] Παιδικό Πρόγραμμα;
-2020-04-17T19:30:00+03:00;2020-04-17T20:55:00+03:00;-STAR K.E.-;;https://www.digea.gr//images/channel-icons/STAR KENTIKHS ELLADAS.jpg;[K] Σύντομα Γεγονότα;
-2020-04-17T20:55:00+03:00;2020-04-17T21:00:00+03:00;-STAR K.E.-;;https://www.digea.gr//images/channel-icons/STAR KENTIKHS ELLADAS.jpg;[K] Ακολουθία Επιταφίου;
+2020-04-17T09:00:00+03:00	2020-04-17T09:30:00+03:00	-STAR K.E.-		https://www.digea.gr//images/channel-icons/STAR KENTIKHS ELLADAS.jpg	[K] Be Μy Guest	
+2020-04-17T09:30:00+03:00	2020-04-17T10:00:00+03:00	-STAR K.E.-		https://www.digea.gr//images/channel-icons/STAR KENTIKHS ELLADAS.jpg	[K] Παιδικό Πρόγραμμα	
+2020-04-17T10:00:00+03:00	2020-04-17T11:00:00+03:00	-STAR K.E.-		https://www.digea.gr//images/channel-icons/STAR KENTIKHS ELLADAS.jpg	[K] 24 Ώρες Ρεπορτάζ (Ε)	
+2020-04-17T11:00:00+03:00	2020-04-17T11:30:00+03:00	-STAR K.E.-		https://www.digea.gr//images/channel-icons/STAR KENTIKHS ELLADAS.jpg	[K] Όρεξη Να ΄Χεις (Ε)	
+2020-04-17T11:30:00+03:00	2020-04-17T12:00:00+03:00	-STAR K.E.-		https://www.digea.gr//images/channel-icons/STAR KENTIKHS ELLADAS.jpg	[K] Αποκαθήλωση (Μ. Παρασκευή)	
+2020-04-17T12:00:00+03:00	2020-04-17T14:30:00+03:00	-STAR K.E.-		https://www.digea.gr//images/channel-icons/STAR KENTIKHS ELLADAS.jpg	[K] The Jesus Life	
+2020-04-17T14:30:00+03:00	2020-04-17T17:30:00+03:00	-STAR K.E.-		https://www.digea.gr//images/channel-icons/STAR KENTIKHS ELLADAS.jpg	[K] Μεσημβρινό Δελτίο Ειδήσεων	
+2020-04-17T17:30:00+03:00	2020-04-17T18:30:00+03:00	-STAR K.E.-		https://www.digea.gr//images/channel-icons/STAR KENTIKHS ELLADAS.jpg	[K] In Style	
+2020-04-17T18:30:00+03:00	2020-04-17T19:30:00+03:00	-STAR K.E.-		https://www.digea.gr//images/channel-icons/STAR KENTIKHS ELLADAS.jpg	[K] Παιδικό Πρόγραμμα	
+2020-04-17T19:30:00+03:00	2020-04-17T20:55:00+03:00	-STAR K.E.-		https://www.digea.gr//images/channel-icons/STAR KENTIKHS ELLADAS.jpg	[K] Σύντομα Γεγονότα	
+2020-04-17T20:55:00+03:00	2020-04-17T21:00:00+03:00	-STAR K.E.-		https://www.digea.gr//images/channel-icons/STAR KENTIKHS ELLADAS.jpg	[K] Ακολουθία Επιταφίου	
 ```
-
-Внимание!
-
-Насмотря на пример в качестве символа разделителя используется табуляция.
 
 ## Ядро которое собирает спарсенные данные и складывает в базу.
 
