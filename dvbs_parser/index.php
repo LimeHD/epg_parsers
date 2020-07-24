@@ -13,7 +13,7 @@ if (isset($options["help"])) {
 if (isset($options["output"])) {
     $output = $options["output"];
 } else {
-    $output = sprintf("mejor_%s.csv", date("Y-m-d"));
+    $output = sprintf("%s.csv",basename(dirname(__FILE__))) ;
 }
 
 $urlKeepEpgIds = $options["resource"];
