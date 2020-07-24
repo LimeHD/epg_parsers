@@ -15,7 +15,7 @@
 - `./bin/ept_parser` парсит http://program.ert.gr
 - `./bin/star_parser` парсит https://www.star.gr
 - `./download_stv && ./bin/stv_parser` парсит xml от поставщика s-tv.ru
-- `./bin/mejor_cards` парсит с карт
+- `./bin/dvbs_parser` парсит с dvbs
 - `./bin/alfaomega` парсит с https://alfaomega.tv/canal-tv/programul-tv
 
 ## Складывают прямо в базу

@@ -10,7 +10,7 @@ parse_all:
 	./bin/ept_parser
 	./bin/digea_parser
 	./download_stv && ./bin/stv_parser
-	./bin/mejor_cards_parser
+	./bin/dvbs_parser
 	./download_tv_pack && ./bin/standard_parser
 	./bin/alfaomega
 
