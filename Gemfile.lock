@@ -10,6 +10,8 @@ GEM
       sshkit (>= 1.9.0)
     capistrano-composer (0.0.6)
       capistrano (>= 3.0.0.pre)
+    capistrano-git-with-submodules (2.0.4)
+      capistrano (~> 3.7)
     capistrano-shell (0.2.0)
       capistrano (~> 3.1)
     concurrent-ruby (1.1.6)
@@ -29,6 +31,7 @@ PLATFORMS
 DEPENDENCIES
   capistrano
   capistrano-composer
+  capistrano-git-with-submodules
   capistrano-shell
 
 BUNDLED WITH
