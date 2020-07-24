@@ -28,12 +28,13 @@ class ParserCards
             $data = substr_replace($data, '', -4, 1);
             
             $array = json_decode($data, true);
-
-            if (!isset($array['items']) || sizeof($array['items']) == 0) {
+            
+            if (!isset($array['items']) || sizeof($array['items']) == 0) { 
                 continue;
             }
 
-            $program[] = $array;
+            $program[] = $array['items'];
+
         }
 
         return $program;
@@ -47,23 +48,42 @@ class ParserCards
     {
         $fp = fopen($output, "w+");
         $fields = [];
+        $title = '';
+        $desc = '';
 
-        foreach($program[0]["items"] as $line) {
+        foreach($program as $lines) { 
+            foreach ($lines as $line)  {
+                $esTitle = isset($line['title']['es']) ? $line['title']['es'] : null;
+                $caTitle = isset($line['title']['ca']) ? $line['title']['ca'] : null;
 
-            $title = (sizeof($line['title']) > 0) ? $line['title']['ca'] : '';
-            $desc = (sizeof($line['desc']) > 0) ? $line['desc']['ca'] : '';
-            $start = DateTime::createFromFormat('U', (string)$line['start_ut']);
-            $stop = DateTime::createFromFormat('U', (string)$line['stop_ut']);
+                if(!is_null($esTitle)) {
+                    $title = trim($esTitle);
+                } elseif (!is_null($caTitle)) {
+                    $title = trim($esTitle);
+                }
+                
+                $esDesc = isset($line['desc']['es']) ? $line['desc']['es'] : null;
+                $caDesc = isset($line['desc']['ca']) ? $line['desc']['ca'] : null;
 
-            $fields = [
-                $start->format(DateTime::RFC3339_EXTENDED),
-                $stop->format(DateTime::RFC3339_EXTENDED),
-                $line['channel'],
-                $title,
-                '',
-                $desc
-            ];
-            fputcsv($fp, $fields, "\t");
+                if(!is_null($esDesc)) {
+                    $desc = trim($esDesc);
+                } elseif (!is_null($caDesc)) {
+                    $desc = trim($caDesc);
+                }
+
+                $start = DateTime::createFromFormat('U', (string)$line['start_ut']);
+                $stop = DateTime::createFromFormat('U', (string)$line['stop_ut']);
+                
+                $fields = [
+                    $start->format(DateTime::RFC3339_EXTENDED),
+                    $stop->format(DateTime::RFC3339_EXTENDED),
+                    $line['channel'],
+                    $title,
+                    '',
+                    $desc
+                ];
+                fputcsv($fp, $fields, "\t");
+            }
         }
 
         fclose($fp);
