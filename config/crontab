@@ -5,4 +5,4 @@ MAILTO="servers@limehd.tv"
 47 3 * * * cd ~/epg_parsers/current; ./bin/alfaomega --output ~/epg_parsers/shared/output/alfaomega.csv
 57 3 * * * cd ~/epg_parsers/current; env $(cat ~/epg_parsers/shared/.env | xargs) ./download_stv; ./bin/stv_parser ~/epg_parsers/shared/output/stv_epg.csv
 07 4 * * * cd ~/epg_parsers/current; env $(cat ~/epg_parsers/shared/.env | xargs) ./download_tv_pack
-17 4 * * * cd ~/epg_parsers/current; env $(cat ~/epg_parsers/shared/.env | xargs) ./bin/dvbs_parser ~/epg_parsers/shared/output/dvb_s.csv
+17 4 * * * cd ~/epg_parsers/current; env $(cat ~/epg_parsers/shared/.env | xargs) ./bin/dvbs_parser ~/epg_parsers/shared/output/dvb_s.csv  http://hls.mejor.tv:81/api/v1/playlist
