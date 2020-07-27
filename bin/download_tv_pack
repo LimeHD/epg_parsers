@@ -1,0 +1,4 @@
+dir=.
+DOWNLOAD_DIR=${1:-dir}
+echo "Скачиваю в файл файла ${DOWNLOAD_DIR}"
+wget --user=$FTP_LOGIN --password=$FTP_PASSWORD -P $DOWNLOAD_DIR ftp://${FTP_SERVER}/TV_Pack.xml
