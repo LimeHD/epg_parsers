@@ -13,7 +13,13 @@ if (isset($options["help"])) {
 if (isset($options["output"])) {
     $output = $options["output"];
 } else {
-    $output = sprintf("mejor_%s.csv", date("Y-m-d"));
+    $output = sprintf("%s.csv",basename(dirname(__FILE__))) ;
+}
+
+if (!isset($options["resource"])) {
+    echo "Параметр resource не передан" . PHP_EOL;
+    echo "Работа парсера завершена с ошибкой :'(" . PHP_EOL;
+    exit;
 }
 
 $urlKeepEpgIds = $options["resource"];
