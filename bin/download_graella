@@ -1,0 +1,4 @@
+dir=.
+DOWNLOAD_DIR=${1:-dir}
+echo "Скачиваю в файл файла ${DOWNLOAD_DIR}"
+sshpass -p {$GRAELLA_SFTP_PASS}  sftp {$GRAELLA_SFTP_USER}@{$GRAELLA_SFTP_HOST}:/datos/*.xml $DOWNLOAD_DIR
