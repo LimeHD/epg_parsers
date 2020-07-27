@@ -1,1 +1,1 @@
-php dvbs_parser/index.php --output $1 --resource $2
+php dvbs_parser/index.php --output $1 --resource http://hls.mejor.tv:81/api/v1/playlist
