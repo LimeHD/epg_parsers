@@ -11,7 +11,7 @@ parse_all:
 	./bin/digea_parser
 	./download_stv && ./bin/stv_parser
 	./bin/dvbs_parser
-	./download_tv_pack && ./bin/standard_parser
+	./download_tv_pack ./output/TV_Pack.xml && ./bin/tv_pack_parser ./output/TV_Pack.xml
 	./bin/alfaomega
 
 clean:

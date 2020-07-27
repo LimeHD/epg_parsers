@@ -14,13 +14,13 @@
 - `./bin/digea_parser` парсит https://www.digea.gr
 - `./bin/ept_parser` парсит http://program.ert.gr
 - `./bin/star_parser` парсит https://www.star.gr
-- `./download_stv && ./bin/stv_parser` парсит xml от поставщика s-tv.ru
+- `./bin/download_stv && ./bin/stv_parser` парсит xml от поставщика s-tv.ru
 - `./bin/dvbs_parser` парсит с dvbs
 - `./bin/alfaomega` парсит с https://alfaomega.tv/canal-tv/programul-tv
 
 ## Складывают прямо в базу
 
-- `./download_tv_pack && ./bin/standard_parser` парсит скачанную стандартную XML и скидывает в базу (в
+- `./bin/download_tv_pack && ./bin/tv_pack_parser` парсит скачанную стандартную XML и скидывает в базу (в
   таблицу `epg`)
 
 ### Ручной запуск стандартного парсера

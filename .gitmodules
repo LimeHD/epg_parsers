@@ -1,3 +1,3 @@
 [submodule "alfaomega_parser"]
 	path = alfaomega_parser
-	url = https://github.com/LimeHD/alfaomega_parser.git
+  url = git@github.com:LimeHD/alfaomega_parser.git
