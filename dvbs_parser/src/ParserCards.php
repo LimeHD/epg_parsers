@@ -85,7 +85,7 @@ class ParserCards
                     '',
                     $desc
                 ];
-                fputcsv($fp, $fields, "\t");
+                fputcsv($fp, $fields, "\t", '"', "\\");
             }
         }
 
