@@ -16,6 +16,12 @@ if (isset($options["output"])) {
     $output = sprintf("%s.csv",basename(dirname(__FILE__))) ;
 }
 
+if (!isset($options["resource"])) {
+    echo "Параметр resource не передан" . PHP_EOL;
+    echo "Работа парсера завершена с ошибкой :'(" . PHP_EOL;
+    exit;
+}
+
 $urlKeepEpgIds = $options["resource"];
 
 $version = "v.0.0.1";
