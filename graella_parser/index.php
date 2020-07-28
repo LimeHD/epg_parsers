@@ -2,22 +2,12 @@
 
 require_once("src/Parser.php");
 require_once("src/RepositoryTSV.php");
+require_once("src/ArgHelper.php");
 
 echo "Graella парсер v0.0.1" . PHP_EOL . PHP_EOL;
 $options = getopt('f:o:',['filesdir:', 'output:']);
-if (!isset($options['filesdir'])) {
-    echo "Аргумент filesdir пустой или отсутствует" . PHP_EOL;
-    exit;
-}
+list($files, $outputFile) = ArgHelper::argChecker($options);
 
-$files = $options['filesdir'];
-
-if (!file_exists($files)) {
-    echo 'Директории $files не существует' . PHP_EOL;
-    exit;
-}
-
-$outputFile = $options["output"];
 echo "Получаю список файлов" . PHP_EOL;
 $filesInDir = new FilesystemIterator($files, FilesystemIterator::KEY_AS_FILENAME | FilesystemIterator::SKIP_DOTS);
 
