@@ -1,53 +1,59 @@
 package base
 
 import (
-	"bufio"
-	"fmt"
+	"encoding/csv"
 	"log"
 	"os"
 	"strings"
 )
 
-func (d *Day) ToTSV() []string {
-	csv := []string{}
+func (d *Day) ToTSV() [][]string {
+	var csvArray [][]string
 
-	// надо как-то разрулить этот O(N^2) на более высоком уровне дойдет и до куба...
 	for _, c := range d.Common.Channels {
 		for _, p := range c.Programs {
-			csv = append(csv, fmt.Sprintf("%s\t%s\t%s\t%s\t%s\t%s",
+			csvArray = append(csvArray, []string{
 				strings.TrimSpace(p.Timestart),
 				strings.TrimSpace(p.Timestop),
 				strings.TrimSpace(c.Name),
 				strings.TrimSpace(p.Title),
 				strings.TrimSpace(c.Icon),
 				p.Description,
-			))
+			})
 		}
 	}
 
-	return csv
+	return csvArray
 }
 
-func WriteTSV(output string, days map[string]*Day) {
-	file, err := os.OpenFile(output, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+func WriteTSV(output string, data map[string]*Day) {
+	file, err := os.Create(output)
 	defer file.Close()
 
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	writer := bufio.NewWriter(file)
+	writer := csv.NewWriter(file)
+	writer.Comma = '\t'
+	defer writer.Flush()
 
-	WriteHeader(writer)
-	for _, day := range days {
-		for _, data := range day.ToTSV() {
-			_, _ = writer.WriteString(data + "\n")
+	_ = writer.Write([]string{
+		"datetime_start",
+		"datetime_finish",
+		"channel",
+		"title",
+		"channel_logo_url",
+		"description",
+	})
+
+	for _, day := range data {
+		for _, value := range day.ToTSV() {
+			err := writer.Write(value)
+
+			if err != nil {
+				log.Fatal(err)
+			}
 		}
 	}
-
-	writer.Flush()
-}
-
-func WriteHeader(w *bufio.Writer) {
-	_, _ = w.WriteString("datetime_start\tdatetime_finish\tchannel\ttitle\tchannel_logo_url\tdescription\n")
 }

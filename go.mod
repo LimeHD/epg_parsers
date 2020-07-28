@@ -10,5 +10,5 @@ require (
 	github.com/gofrs/uuid v3.2.0+incompatible // indirect
 	github.com/kardianos/osext v0.0.0-20190222173326-2bc1f35cddc0 // indirect
 	github.com/urfave/cli v1.22.4
-	golang.org/x/text v0.3.2
+	golang.org/x/text v0.3.3
 )
