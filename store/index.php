@@ -58,9 +58,7 @@ foreach ($days['items'] as $key => $day) {
 }
 
 if (count($updatedIdMap) > 0) {
-    foreach ($updatedIdMap as $id => $_) {
-        $storage->setAsAffectedEpgSection($id);
-    }
+    $storage->setAsAffectedEpgSection(array_keys($updatedIdMap));
 }
 
 

@@ -95,12 +95,11 @@ class Storage implements StorageInterface
         return $dbItems;
     }
 
-    public function setAsAffectedEpgSection(int $id) : void
+    public function setAsAffectedEpgSection(array $ids) : void
     {
-        $this->builder()->transaction(function (QueryBuilderHandler $db) use ($id) {
+        $this->builder()->transaction(function (QueryBuilderHandler $db) use ($ids) {
             $db->table('epg_sections')
-                ->where('id', '=', $id)
-                ->where('source', '=', 'tv_pack')
+                ->whereIn('id', $ids)
                 ->update([
                     'last_success_import_at' => time()
                 ]);
