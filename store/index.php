@@ -28,6 +28,8 @@ $groupedDb  = $storage->getEqualItemsFor($days['items']);
 
 Fmt::info("Начинаю процесс сравнения данных и их обновления...");
 
+$updatedIdMap = [];
+
 foreach ($days['items'] as $key => $day) {
     foreach ($day as $channel => $programs) {
 
@@ -43,6 +45,8 @@ foreach ($days['items'] as $key => $day) {
                 if ($storedIds && count($storedIds)) {
                     Fmt::info(sprintf("Добавляю новые данные..., количество вставленных строк составляет: %d", Datamapper::innerCount($storedIds)));
                     Fmt::info(Datamapper::implode($storedIds));
+
+                    $updatedIdMap[$channel] = 1;
                 }
             }
 
@@ -52,4 +56,9 @@ foreach ($days['items'] as $key => $day) {
         Fmt::info(sprintf("Нет устаревшей телепрограммы для даты %s и для ЕПГ id: %d", $key, $channel));
     }
 }
+
+if (count($updatedIdMap) > 0) {
+    $storage->setAsAffectedEpgSection(array_keys($updatedIdMap));
+}
+
 
