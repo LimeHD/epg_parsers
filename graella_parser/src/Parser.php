@@ -51,8 +51,8 @@ class Parser
                 $stopRawFormat = DateTime::createFromFormat('d/m/Y H:i:s', $nowDate . ' ' . $dom->HFi);
                 $stop = $stopRawFormat->format(DateTime::RFC3339_EXTENDED);
 
-                $title = (string)$dom->TitProg[0];
-                $desc = (string)$dom->Sinopsi[0];
+                $title = str_replace('"',"", (string)$dom->TitProg[0]);
+                $desc = str_replace(["\n", '"'], [" ", ""], (string)$dom->Sinopsi[0]);
 
                 $derecho = ($dom->publicacion->derecho) ? (string)$dom->publicacion->derecho : '';
                 $geolocalizacion = ($dom->publicacion->geolocalizacion) ? (string)$dom->publicacion->geolocalizacion : '';

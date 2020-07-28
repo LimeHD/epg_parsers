@@ -27,7 +27,9 @@ class RepositoryTSV implements RepositoryInterface
         ], "\t"); 
 
         foreach($rawData as $program) {
-            fputcsv($fp, $program, "\t", '"', "\\");
+            fputcsv($fp, $program, "\t");
         }
+
+        fclose($fp);
     }
 }
