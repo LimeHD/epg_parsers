@@ -5,7 +5,7 @@ require_once("src/RepositoryTSV.php");
 require_once("src/ArgHelper.php");
 
 echo "Graella парсер v0.0.1" . PHP_EOL . PHP_EOL;
-$options = getopt('f:o:',['filesdir:', 'output:']);
+$options = getopt('f:o:h',['filesdir:', 'output:', 'help']);
 list($files, $outputFile) = ArgHelper::argChecker($options);
 
 echo "Получаю список файлов" . PHP_EOL;

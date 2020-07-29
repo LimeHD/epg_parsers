@@ -1,5 +1,7 @@
 <?php
 
+require_once("Help.php");
+
 class ArgHelper
 {
     /**
@@ -9,6 +11,11 @@ class ArgHelper
      */
     public static function argChecker(array $options) :array
     {
+        if (isset($options['help'])) {
+            Help::Print();
+            exit;
+        }
+
         if (!isset($options['filesdir'])) {
             echo "Аргумент filesdir пустой или отсутствует" . PHP_EOL;
             exit;
@@ -22,10 +29,7 @@ class ArgHelper
         if (!isset($options["output"])) {
             $options["output"] = sprintf("%s.csv",basename(dirname(__FILE__))) ;
         }
-        $res = [
-            $options['filesdir'],
-            $options['output'],
-        ];
+        $res = array_values($options);
 
         return $res;
     }
