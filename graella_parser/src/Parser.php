@@ -53,9 +53,11 @@ class Parser
 
                 $title = str_replace('"',"", (string)$dom->TitProg[0]);
                 $desc = str_replace(["\n", '"'], [" ", ""], (string)$dom->Sinopsi[0]);
+                
+                $derecho = $this->checkResolution((string)$dom->Publicacion->Derecho);
+                
 
-                $derecho = ($dom->publicacion->derecho) ? (string)$dom->publicacion->derecho : '';
-                $geolocalizacion = ($dom->publicacion->geolocalizacion) ? (string)$dom->publicacion->geolocalizacion : '';
+                $geolocalizacion = $this->checkResolution((string)$dom->Publicacion->Geolocalizacion);
                 
                 $fields = [
                     'start' => $start,
@@ -80,5 +82,25 @@ class Parser
     public function getResult() :array
     {
         return $this->programs;
+    }
+
+    /**
+     * Проверяем и приводим значение к булевому из каталанского si/no
+     * Ну а если ничего нет, то вынуждены вернуть null
+     * 
+     * @var string
+     * @return int|null
+     */
+    private function checkResolution($resolution) :?int
+    {
+        if ($resolution == "") {
+            return null;
+        }
+
+        if ($resolution == "NO") {
+            return 0;
+        }
+
+        return 1;
     }
 }
