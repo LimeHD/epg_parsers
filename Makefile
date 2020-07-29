@@ -3,7 +3,10 @@ SCRIPT_VERSION=0.0.2.dev
 
 all: clean build
 
-build: bin/digea_parser bin/ept_parser bin/star_parser
+build: go_get_all bin/digea_parser bin/ept_parser bin/star_parser
+
+go_get_all:
+	go get -v all
 
 parse_all:
 	./bin/star_parser
@@ -18,13 +21,13 @@ clean:
 	rm -f bin/*
 
 bin/star_parser:
-	go get && go build -o ./bin ./star_parser
+	go build -o ./bin ./star_parser
 
 bin/ept_parser:
-	go get && go build -o ./bin ./ept_parser
+	go build -o ./bin ./ept_parser
 
 bin/digea_parser:
-	go get && go build -o ./bin ./digea_parser
+	go build -o ./bin ./digea_parser
 
 help:
 	@echo "make all  		: Build all parsers"
