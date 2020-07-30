@@ -15,10 +15,10 @@ func (d *Day) ToTSV() [][]string {
 			csvArray = append(csvArray, []string{
 				strings.TrimSpace(p.Timestart),
 				strings.TrimSpace(p.Timestop),
-				strings.TrimSpace(c.Name),
-				strings.TrimSpace(p.Title),
+				strings.Replace(strings.TrimSpace(c.Name), "\n", "", -1),
+				strings.Replace(strings.TrimSpace(p.Title), "\n", "", -1),
 				strings.TrimSpace(c.Icon),
-				p.Description,
+				strings.Replace(strings.TrimSpace(p.Description), "\n", "", -1),
 			})
 		}
 	}
