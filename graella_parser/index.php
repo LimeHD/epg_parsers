@@ -7,6 +7,7 @@ require_once("src/ArgHelper.php");
 echo "Graella парсер v0.0.1" . PHP_EOL . PHP_EOL;
 $options = getopt('f:o:h',['filesdir:', 'output:', 'help']);
 list($files, $outputFile) = ArgHelper::argChecker($options);
+$chlist = ['324', 'TV3', 'ES3'];
 
 echo "Получаю список файлов" . PHP_EOL;
 $filesInDir = new FilesystemIterator($files, FilesystemIterator::KEY_AS_FILENAME | FilesystemIterator::SKIP_DOTS);
@@ -15,6 +16,16 @@ $parser = new Parser();
 
 echo "Начинаю парсить файлы" . PHP_EOL;
 foreach ($filesInDir as $file) {
+    $fileData = explode('_', $file);
+    $ch = $fileData[1];
+
+    if (sizeof($chlist) > 0) {
+        if (!in_array($ch, $chlist)) {
+            continue;
+        }
+        
+
+    }
     $parser->parseXML($file);
 }
 
