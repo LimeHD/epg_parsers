@@ -1,0 +1,1 @@
+php graella_parser/index.php --filesdir $1 --output $2
