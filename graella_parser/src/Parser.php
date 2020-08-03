@@ -66,8 +66,8 @@ class Parser
                     'title' => $title,
                     'logo'  => '',
                     'desc'  => $desc,
-                    'derecho' => $derecho,
-                    'geolocalizacion' => $geolocalizacion
+                    'available_archive' => $derecho,
+                    'available_geolocal' => $geolocalizacion
                 ];
     
                 $this->programs[] = $fields;

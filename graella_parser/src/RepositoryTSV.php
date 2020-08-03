@@ -22,8 +22,8 @@ class RepositoryTSV implements RepositoryInterface
             'title',
             'channel_logo_url',
             'description',
-            'derecho',
-            'geolocalizacion'
+            'available_archive',
+            'available_geolocal'
         ], "\t"); 
 
         foreach($rawData as $program) {
