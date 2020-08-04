@@ -16,6 +16,7 @@
 - `./bin/star_parser` парсит https://www.star.gr
 - `./bin/download_stv && ./bin/stv_parser` парсит xml от поставщика s-tv.ru
 - `./bin/dvbs_parser` парсит с dvbs
+- `./bin/graella_parser` парсит с источника от испанцев
 - `./bin/alfaomega` парсит с https://alfaomega.tv/canal-tv/programul-tv
 
 ## Складывают прямо в базу
@@ -67,11 +68,13 @@
 * Передача (название, строка)
 * Лого канала (URL, строка)
 * Описание передачи (текст)
+* Доступность архива передачи (число 1 или 0, доступно на данный момент только для Испании)
+* Доступность передачи (число 1 или 0, доступно на данный момент только для Испании)
 
 Обязательный заголовок:
 
 ```csv
-datetime_start	datetime_finish	channel	title	channel_logo_url	description
+datetime_start	datetime_finish	channel	title	channel_logo_url	description available_archive available_geolocal
 ```
 
 Пример (10 строк):
