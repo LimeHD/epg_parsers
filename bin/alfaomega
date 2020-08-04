@@ -1,0 +1,1 @@
+python3 alfaomega_parser/parser.py --output $1
