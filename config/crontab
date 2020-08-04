@@ -1,4 +1,5 @@
 MAILTO="servers@limehd.tv"
+10 2 * * * cd ~/epg_parsers/current; ./bin/download_graella ~/epg_parsers/shared/output/graella; ./bin/graella_parser ~/epg_parsers/shared/output/graella
 17 3 * * * cd ~/epg_parsers/current; ./bin/digea_parser --output ~/epg_parsers/shared/output/digea.csv
 27 3 * * * cd ~/epg_parsers/current; ./bin/ept_parser --output ~/epg_parsers/shared/output/ept.csv
 37 3 * * * cd ~/epg_parsers/current; ./bin/star_parser --output ~/epg_parsers/shared/output/star.csv
