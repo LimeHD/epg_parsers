@@ -97,12 +97,11 @@ class Storage implements StorageInterface
 
     public function setAsAffectedEpgSection(array $ids) : void
     {
-        $this->builder()->transaction(function (QueryBuilderHandler $db) use ($ids) {
-            $db->table('epg_sections')
-                ->whereIn('id', $ids)
-                ->update([
-                    'last_success_import_at' => time()
-                ]);
-        });
+        $this->builder()
+            ->table('epg_sections')
+            ->whereIn('id', $ids)
+            ->update([
+                'last_success_import_at' => date('Y-m-d H:i:s')
+            ]);
     }
 }
