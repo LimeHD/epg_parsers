@@ -1,4 +1,4 @@
 dir=.
 DOWNLOAD_DIR=${1:-dir}
 echo "Скачиваю в файл файла ${DOWNLOAD_DIR}"
-lftp -u $GRAELLA_SFTP_USER:$GRAELLA_SFTP_PASS sftp://$GRAELLA_SFTP_HOST -e "mirror --verbose --use-pget-n=8 -c --verbose /datos/ {$DOWNLOAD_DIR}; bye;"
+lftp -u $GRAELLA_SFTP_USER:$GRAELLA_SFTP_PASS sftp://$GRAELLA_SFTP_HOST -e "set ssl:verify-certificate no; set sftp:auto-confirm yes; mirror --verbose --use-pget-n=8 -c --verbose /datos/ {$DOWNLOAD_DIR}; bye;"
