@@ -8,6 +8,8 @@ require_once 'src/Query.php';
 require_once 'src/Storage.php';
 require_once 'src/FileHelper.php';
 
+Fmt::info("Основной парсер EPG на PHP");
+Fmt::info("Версия 0.0.1");
 Fmt::info("Инициализирую соединение с базой данных...");
 
 $options    = getopt("h:l:d:p:i:g:f:c:");
@@ -58,7 +60,12 @@ foreach ($days['items'] as $key => $day) {
 }
 
 if (count($updatedIdMap) > 0) {
+    Fmt::info("Обнаружены изменения в телепрграмме, фиксирую изменения для следующих EPG...");
+    Fmt::info(implode(',', array_keys($updatedIdMap)));
+
     $storage->setAsAffectedEpgSection(array_keys($updatedIdMap));
+} else {
+    Fmt::info("Парсер завершил работу. Нет изменений в телепрограмме");
 }
 
 
