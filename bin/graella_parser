@@ -1,1 +1,9 @@
+if [ "$1" == "--help" ]; then
+    php graella_parser/index.php --help
+    echo "Примеры запуска: "
+    echo "1) Как sh скрипт: ./bin/graella_parser directory_name graella_parser.csv" 
+    echo "2) Как php скрипт: php graella_parser/index.php --filesdir directory_name --output graella_parser.csv"
+    exit 0
+fi
+
 php graella_parser/index.php --filesdir $1 --output $2

@@ -30,7 +30,7 @@ foreach ($filesInDir as $file) {
 }
 
 $data = $parser->getResult();
-echo "Сохраняю в CSV" . PHP_EOL;
+echo "Сохраняю в CSV $outputFile" . PHP_EOL;
 $repository = new RepositoryTSV($outputFile);
 $repository->save($data);
 
