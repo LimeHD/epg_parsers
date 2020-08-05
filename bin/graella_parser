@@ -1,4 +1,4 @@
-if [ "$1" == "--help" ]; then
+if [[ "$1" == "--help" || "$1" == "-h" ]]; then
     php graella_parser/index.php --help
     echo "Примеры запуска: "
     echo "1) Как sh скрипт: ./bin/graella_parser directory_name graella_parser.csv" 

@@ -22,7 +22,7 @@ class ArgHelper
         }
 
         if (!file_exists($options['filesdir'])) {
-            echo 'Директории $files не существует' . PHP_EOL;
+            echo "Директории '{$options['filesdir']}/' не существует или не была передана в аргументах" . PHP_EOL;
             exit;
         }
 
