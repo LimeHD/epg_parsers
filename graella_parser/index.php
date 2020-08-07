@@ -14,6 +14,11 @@ $filesInDir = new FilesystemIterator($files, FilesystemIterator::KEY_AS_FILENAME
 
 $parser = new Parser();
 
+if ($filesInDir->getType() == 'file') {
+    echo "Не удалось найти файлы в папке $files" . PHP_EOL;
+    exit;
+}
+
 echo "Начинаю парсить файлы" . PHP_EOL;
 foreach ($filesInDir as $file) {
     $fileData = explode('_', $file);
