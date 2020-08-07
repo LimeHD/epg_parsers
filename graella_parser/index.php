@@ -14,7 +14,7 @@ $filesInDir = new FilesystemIterator($files, FilesystemIterator::KEY_AS_FILENAME
 
 $parser = new Parser();
 
-if ($filesInDir->getType() == 'file') {
+if ($filesInDir->getType() != 'file') {
     echo "Не удалось найти файлы в папке $files" . PHP_EOL;
     exit;
 }
@@ -24,12 +24,15 @@ foreach ($filesInDir as $file) {
     $fileData = explode('_', $file);
     $ch = $fileData[1];
 
+    if (!$file->isReadable()) {
+        echo "Файл $file недоступен на чтение";
+        exit;
+    }
+
     if (sizeof($chlist) > 0) {
         if (!in_array($ch, $chlist)) {
             continue;
         }
-        
-
     }
     $parser->parseXML($file);
 }
