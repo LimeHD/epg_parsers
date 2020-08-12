@@ -27,7 +27,11 @@ class RepositoryTSV implements RepositoryInterface
         ], "\t"); 
 
         foreach($rawData as $program) {
-            fputcsv($fp, $program, "\t");
+            $writable = fputcsv($fp, $program, "\t");
+            if ($writable = false) {
+                echo "Ошибка записи строки в файл. " . json_encode($program) . PHP_EOL;
+                exit;
+            }
         }
 
         fclose($fp);
