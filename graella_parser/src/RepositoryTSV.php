@@ -28,7 +28,7 @@ class RepositoryTSV implements RepositoryInterface
 
         foreach($rawData as $program) {
             $writable = fputcsv($fp, $program, "\t");
-            if ($writable = false) {
+            if ($writable == false) {
                 echo "Ошибка записи строки в файл. " . json_encode($program) . PHP_EOL;
                 exit;
             }
