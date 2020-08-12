@@ -38,6 +38,12 @@ foreach ($filesInDir as $file) {
 }
 
 $data = $parser->getResult();
+
+if (sizeof($data) == 0) {
+    echo "Не удалось спарсить файлы. Результирующий массив пустой" . PHP_EOL;
+    exit;
+}
+
 echo "Сохраняю в CSV $outputFile" . PHP_EOL;
 $repository = new RepositoryTSV($outputFile);
 $repository->save($data);
