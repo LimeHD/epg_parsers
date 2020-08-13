@@ -4,17 +4,17 @@ require_once("src/Parser.php");
 require_once("src/RepositoryTSV.php");
 require_once("src/ArgHelper.php");
 
-echo "Graella парсер v0.0.2" . PHP_EOL . PHP_EOL;
+echo "Graella парсер v0.0.3" . PHP_EOL . PHP_EOL;
 $options = getopt('f:o:h',['filesdir:', 'output:', 'help']);
 list($files, $outputFile) = ArgHelper::argChecker($options);
 $chlist = ['324', 'TV3', 'ES3'];
 
-echo "Получаю список файлов" . PHP_EOL;
+echo "Получаю список файлов в директории $files" . PHP_EOL;
 $filesInDir = new FilesystemIterator($files, FilesystemIterator::KEY_AS_FILENAME | FilesystemIterator::SKIP_DOTS);
 
 $parser = new Parser();
 
-if ($filesInDir->getType() != 'file') {
+if (!$filesInDir->valid()) {
     echo "Не удалось найти файлы в папке $files" . PHP_EOL;
     exit;
 }
