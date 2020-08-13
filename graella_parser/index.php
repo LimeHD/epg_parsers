@@ -4,7 +4,7 @@ require_once("src/Parser.php");
 require_once("src/RepositoryTSV.php");
 require_once("src/ArgHelper.php");
 
-echo "Graella парсер v0.0.1" . PHP_EOL . PHP_EOL;
+echo "Graella парсер v0.0.2" . PHP_EOL . PHP_EOL;
 $options = getopt('f:o:h',['filesdir:', 'output:', 'help']);
 list($files, $outputFile) = ArgHelper::argChecker($options);
 $chlist = ['324', 'TV3', 'ES3'];
@@ -38,6 +38,12 @@ foreach ($filesInDir as $file) {
 }
 
 $data = $parser->getResult();
+
+if (sizeof($data) == 0) {
+    echo "Не удалось спарсить файлы. Результирующий массив пустой" . PHP_EOL;
+    exit;
+}
+
 echo "Сохраняю в CSV $outputFile" . PHP_EOL;
 $repository = new RepositoryTSV($outputFile);
 $repository->save($data);
