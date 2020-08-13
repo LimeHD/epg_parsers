@@ -21,7 +21,7 @@ if (!$filesInDir->valid()) {
 
 echo "Начинаю парсить файлы" . PHP_EOL;
 foreach ($filesInDir as $file) {
-    $fileData = explode('_', $file);
+    $fileData = explode('_', $file->getFilename());
     $ch = $fileData[1];
 
     if (!$file->isReadable()) {
