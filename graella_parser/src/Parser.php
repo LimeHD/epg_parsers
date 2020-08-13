@@ -29,7 +29,10 @@ class Parser
      */
     public function parseXML(string $filePath) :void
     {
-        $this->xmlReader->open($filePath);
+        $openedXmlFile = $this->xmlReader->open($filePath);
+        if (!$openedXmlFile) {
+            echo "XmlReader: не удалось открыть файл $filePath" . PHP_EOL;
+        }
         
         while ($this->xmlReader->read()) {
             $fields = [];
