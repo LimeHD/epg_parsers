@@ -34,6 +34,7 @@ foreach ($filesInDir as $file) {
             continue;
         }
     }
+    echo "Парсю файл $file " . PHP_EOL;
     $parser->parseXML($file);
 }
 
