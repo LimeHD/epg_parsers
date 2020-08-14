@@ -23,7 +23,7 @@ class RepositoryTSV implements RepositoryInterface
             'channel_logo_url',
             'description',
             'available_archive',
-            'available_geolocal'
+            'geo_regions'
         ], "\t"); 
 
         foreach($rawData as $program) {
