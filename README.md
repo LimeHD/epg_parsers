@@ -74,7 +74,7 @@
 Обязательный заголовок:
 
 ```csv
-datetime_start	datetime_finish	channel	title	channel_logo_url	description available_archive available_geolocal
+datetime_start	datetime_finish	channel	title	channel_logo_url	description available_archive geo_regions
 ```
 
 Пример (10 строк):

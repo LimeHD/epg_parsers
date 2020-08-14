@@ -70,7 +70,7 @@ class Parser
                     'logo'  => '',
                     'desc'  => $desc,
                     'available_archive' => $derecho,
-                    'available_geolocal' => $geolocalizacion
+                    'geo_regions' => $geolocalizacion
                 ];
     
                 $this->programs[] = $fields;
