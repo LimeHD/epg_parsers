@@ -57,10 +57,10 @@ class Parser
                 $title = str_replace('"',"", (string)$dom->TitProg[0]);
                 $desc = str_replace(["\n", '"'], [" ", ""], (string)$dom->Sinopsi[0]);
                 
-                $derecho = $this->checkResolution((string)$dom->Publicacion->Derecho);
+                $derecho = $this->checkArchive((string)$dom->Publicacion->Derecho);
                 
 
-                $geolocalizacion = $this->checkResolution((string)$dom->Publicacion->Geolocalizacion);
+                $geolocalizacion = $this->setGeoRegions((string)$dom->Publicacion->Geolocalizacion);
                 
                 $fields = [
                     'start' => $start,
@@ -70,7 +70,7 @@ class Parser
                     'logo'  => '',
                     'desc'  => $desc,
                     'available_archive' => $derecho,
-                    'available_geolocal' => $geolocalizacion
+                    'geo_regions' => $geolocalizacion
                 ];
     
                 $this->programs[] = $fields;
@@ -89,15 +89,15 @@ class Parser
 
     /**
      * Проверяем и приводим значение к булевому из каталанского si/no
-     * Ну а если ничего нет, то вынуждены вернуть null
+     * Ну а если ничего нет, то возвращаем 0
      * 
      * @var string
-     * @return int|null
+     * @return int
      */
-    private function checkResolution($resolution) :?int
+    private function checkArchive($resolution) :int
     {
         if ($resolution == "") {
-            return null;
+            return 0;
         }
 
         if ($resolution == "NO") {
@@ -105,5 +105,25 @@ class Parser
         }
 
         return 1;
+    }
+
+    /**
+     * Указываем в каких регионах доступна трансляция
+     * Si -- по всей Испании, No -- только по Каталонии
+     * Указываем конкретно регион , а не число, для совместимости с другими парсерами
+     * @var string
+     * @return string
+     */
+    private function setGeoRegions($available) :string
+    {
+        if ($available == "") {
+            return 'ES,CT';
+        }
+
+        if ($available == "NO") {
+            return 'CT';
+        }
+
+        return "ES,CT";
     }
 }
