@@ -34,7 +34,6 @@ $updatedIdMap = [];
 
 foreach ($days['items'] as $key => $day) {
     foreach ($day as $channel => $programs) {
-
         if (!Datamapper::isEqualMaps($programs, $groupedDb[$key][$channel])) {
             {
                 Fmt::info(sprintf("Обнаружены устаревшие данные в БД для даты %s и для ЕПГ id: %d, удаляю...", $key, $channel));
