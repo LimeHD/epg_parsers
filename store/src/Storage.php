@@ -86,6 +86,18 @@ class Storage implements StorageInterface
     {
         $dt = date('Y-m-d', strtotime($day));
         $this->builder()->transaction(function (QueryBuilderHandler $db) use($day, $dt, $id) {
+            $records = $db->setFetchMode(\PDO::FETCH_ASSOC)->select('id')->from('epg')
+                ->where('epg_id', '=', $id)
+                ->where('date', '=', $dt)
+                ->get();
+
+            if ($records) {
+                $ids = array_column(json_decode(json_encode($records), true), 'id');
+                if ($ids) {
+                    $db->table('poster')->whereIn('program_id', $ids)->delete();
+                }
+            }
+
             $db->table('epg')
                 ->where('epg_id', '=', $id)
                 ->where('date', '=', $dt)
