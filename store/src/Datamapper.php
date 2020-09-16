@@ -67,6 +67,12 @@ class Datamapper
                     $datastructure['items'][$day][$id] = [];
                 }
 
+                $icons = [];
+                foreach ($row->icon as $icon) {
+                    $a = $icon->attributes();
+                    $icons[] = $a->src;
+                }
+
                 $datastructure['items'][$day][$id][] = [
                     'epg_id'        => $id,
                     'time_zone'     => sprintf("UTC%s", $start->format('P')),
@@ -76,6 +82,7 @@ class Datamapper
                     'title'         => $title,
                     'desc'          => $desc,
                     'rating'        => $rating,
+                    'images'        => $icons,
                 ];
                 $datastructure['count']++;
             }
@@ -182,10 +189,7 @@ class Datamapper
     public static function implode(array $items) : string
     {
         $string = 'Идентификаторы новых записей:';
-
-        foreach ($items as $k => $item) {
-            $string .= PHP_EOL . "{$k} batch: " . implode(',', $item);
-        }
+        $string .= PHP_EOL . "Insert identifiers: " . implode(',', $items);
 
         return $string;
     }
@@ -236,10 +240,7 @@ class Datamapper
     public static function innerCount(array $batches) : int
     {
         $counter = 0;
-
-        foreach ($batches as $batch) {
-            $counter += count($batch);
-        }
+        $counter += count($batches);
 
         return $counter;
     }

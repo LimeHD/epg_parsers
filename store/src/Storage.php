@@ -22,6 +22,19 @@ class Storage implements StorageInterface
         return $this->builder()->table('epg');
     }
 
+    public function getPosterStorage() : QueryBuilderHandler
+    {
+        return $this->builder()->table('poster');
+    }
+
+    private static function forceImages(&$i) : array
+    {
+        $images = $i['images'];
+        unset($i['images']);
+
+        return $images;
+    }
+
     /**
      * @param array $items
      * @return array
@@ -30,9 +43,21 @@ class Storage implements StorageInterface
     {
         $insertIds = [];
 
-        foreach (Datamapper::batches($items) as $batch) {
+        foreach ($items as $item) {
+            $images = static::forceImages($item);
             try {
-                $insertIds[] = $this->getBroadcasterStorage()->insert($batch);
+                $lastInsertId = $this->getBroadcasterStorage()->insert($item);
+                if ($lastInsertId) {
+                    $insertIds[] = $lastInsertId;
+                    $batches = [];
+                    foreach ($images as $image) {
+                        $batches[] = [
+                            'program_id' => $lastInsertId,
+                            'image' => $image
+                        ];
+                    }
+                    $this->getPosterStorage()->insert($batches);
+                }
             } catch (Exception $e) {
                 // todo to bugsnag
             }
@@ -61,6 +86,18 @@ class Storage implements StorageInterface
     {
         $dt = date('Y-m-d', strtotime($day));
         $this->builder()->transaction(function (QueryBuilderHandler $db) use($day, $dt, $id) {
+            $records = $db->setFetchMode(\PDO::FETCH_ASSOC)->select('id')->from('epg')
+                ->where('epg_id', '=', $id)
+                ->where('date', '=', $dt)
+                ->get();
+
+            if ($records) {
+                $ids = array_column(json_decode(json_encode($records), true), 'id');
+                if ($ids) {
+                    $db->table('poster')->whereIn('program_id', $ids)->delete();
+                }
+            }
+
             $db->table('epg')
                 ->where('epg_id', '=', $id)
                 ->where('date', '=', $dt)
