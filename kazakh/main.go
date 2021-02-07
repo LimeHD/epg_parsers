@@ -32,6 +32,7 @@ func main() {
 	getValues := buildSheetReaders(f, SHEET_ENG, SHEET_NATIVE_AND_RUS)
 	getMultilangs := buildMultilangProgramParser()
 
+	// все, что нужно начинается с 8-ой строки
 	for i := 8; i <= rowCount; i++ {
 		A, E, AA, DD, err := getValues(i)
 
@@ -39,6 +40,7 @@ func main() {
 			log.Fatal(err)
 		}
 
+		// если у нас нет временных меток в виде минут и секунд - значит это хидер
 		if A == "" {
 			//
 			// HEADER
@@ -56,6 +58,8 @@ func main() {
 				date2.String(),
 			)
 
+			// после хидера с датой идет бесполезная строка со следующим содержимым: 00:00-00:00
+			// пропускаем его
 			i++
 		} else {
 			//
