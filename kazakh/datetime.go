@@ -18,7 +18,7 @@ func Date(date string) (time.Time, error) {
 		return time.Time{}, err
 	}
 
-	return _date, nil
+	return _date.UTC(), nil
 }
 
 func AddTime(date time.Time, hours, minutes int) time.Time {
