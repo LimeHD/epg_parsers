@@ -10,7 +10,7 @@ import (
 )
 
 func buildDateParser() func(string) string {
-	re := regexp.MustCompile(`\d{2}.\d{2}.\d{4}`)
+	re := regexp.MustCompile(`\d{2}\.\d{2}\.\d{4}`)
 
 	return func(s string) string {
 		return re.FindString(strings.TrimSpace(s))
