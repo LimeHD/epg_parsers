@@ -67,8 +67,6 @@ func main() {
 			//
 			hours, minutes, err := getTimecodes(A)
 
-			fmt.Println(A)
-
 			if err != nil {
 				log.Fatal(err)
 			}
