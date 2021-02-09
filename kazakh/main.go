@@ -95,7 +95,7 @@ func main() {
 				epg.Days[date].Programs = append(epg.Days[date].Programs, &Program{
 					Timestart:   FormatDatetime(timestart),
 					Timestop:    FormatDatetime(timestop),
-					Title:       resolver(langs),
+					Title:       priority(langs),
 					Description: "",
 				})
 			}
@@ -109,7 +109,7 @@ func main() {
 	}
 }
 
-func resolver(l map[string]string) string {
+func priority(l map[string]string) string {
 	const (
 		RU = "RU"
 		KZ = "KZ"
