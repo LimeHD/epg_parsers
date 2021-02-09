@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"github.com/360EntSecGroup-Skylar/excelize/v2"
 	"github.com/urfave/cli/v2"
 	"log"
@@ -31,77 +30,73 @@ func main() {
 		}
 
 		rowCount := 0
-		rows, err := f.GetRows(SHEET_ENG)
+		rows, err := f.GetRows(SHEET_NATIVE_AND_RUS)
 
 		for _, _ = range rows {
 			rowCount++
 		}
 
 		var date time.Time
-		var date2 time.Time
 
 		getDate := buildDateParser()
 		getTimecodes := buildTimcodesParser()
 		getValues := buildSheetReaders(f, SHEET_ENG, SHEET_NATIVE_AND_RUS)
 		getMultilangs := buildMultilangProgramParser()
 
+		epg := Epg{
+			Channel: "Kazakh",
+			Days:    map[time.Time]*Day{},
+		}
+
 		// все, что нужно начинается с 8-ой строки
 		for i := 8; i <= rowCount; i++ {
-			A, E, AA, DD, err := getValues(i)
+			row, err := getValues(i)
 
 			if err != nil {
 				return err
 			}
 
 			// если у нас нет временных меток в виде минут и секунд - значит это хидер
-			if A == "" {
-				//
-				// HEADER
-				//
-				if date, err = Date(getDate(E)); err != nil {
+			if row.SheetTwo.Time == "" {
+				if date, err = Date(getDate(row.SheetTwo.Title)); err != nil {
 					return err
 				}
 
-				if date2, err = Date(getDate(DD)); err != nil {
-					return err
+				epg.Days[date] = &Day{
+					Programs: []*Program{},
 				}
-
-				fmt.Println("DATE",
-					date.String(),
-					date2.String(),
-				)
 
 				// после хидера с датой идет бесполезная строка со следующим содержимым: 00:00-00:00
 				// пропускаем его
 				i++
 			} else {
-				//
-				// PROGRAMS
-				//
-				hours, minutes, err := getTimecodes(A)
+				hours, minutes, err := getTimecodes(row.SheetTwo.Time)
 
 				if err != nil {
 					return err
 				}
 
-				hours2, minutes2, err := getTimecodes(AA)
+				hours2, minutes2, err := getTimecodes(row.SheetTwo.Duration)
 
 				if err != nil {
 					return err
 				}
 
-				datetime := AddTime(date, hours, minutes)
-				datetime2 := AddTime(date2, hours2, minutes2)
+				timestart := AddTime(date, hours, minutes)
+				timestop := AddTime(timestart, hours2, minutes2)
 
-				fmt.Println(
-					datetime.String(), FormatDatetime(datetime), E,
-				)
+				langs := getMultilangs(row.SheetTwo.Title)
 
-				fmt.Println(
-					datetime2.String(), FormatDatetime(datetime), getMultilangs(DD),
-				)
+				epg.Days[date].Programs = append(epg.Days[date].Programs, &Program{
+					Timestart:   FormatDatetime(timestart),
+					Timestop:    FormatDatetime(timestop),
+					Title:       resolver(langs),
+					Description: "",
+				})
 
-				fmt.Println("======//")
+				/*fmt.Println(
+					FormatDatetime(timestart), FormatDatetime(timestop), getMultilangs(row.SheetTwo.Title),
+				)*/
 			}
 		}
 
@@ -111,4 +106,22 @@ func main() {
 	if err := app.Run(os.Args); err != nil {
 		log.Fatal(err)
 	}
+}
+
+func resolver(l map[string]string) string {
+	const (
+		RU = "RU"
+		KZ = "KZ"
+		EN = "EN"
+	)
+
+	if l[EN] != "" {
+		return l[EN]
+	}
+
+	if l[RU] != "" {
+		return l[RU]
+	}
+
+	return l[KZ]
 }
