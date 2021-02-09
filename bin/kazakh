@@ -1,0 +1,7 @@
+INPUT=$1
+
+output=kazakh.csv
+OUTPUT=${2:-output}
+
+echo "Импортируют из файла ${INPUT}, выведу в ${OUTPUT}"
+go run . --input ${INPUT} --output ${OUTPUT}
