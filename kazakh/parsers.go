@@ -41,15 +41,15 @@ func buildTimcodesParser() func(s string) (int, int, error) {
 	}
 }
 
-func buildSheetReaders(f *excelize.File, sheet1, sheet2 string) func(i int) (string, string, string, string, error) {
+func buildSheetReaders(f *excelize.File, sheet1, sheet2 string) func(i int) (string, string, string, string, string, error) {
 	// пиздец блять, ебаная либа не могет в 24 формат времени, я просто в ахуе
 	// далее творится неописуемый беспредел
 	parseTime := func(sheet, c string) (string, error) {
-		if err := f.SetCellStyle(sheet1, c, c, 0); err != nil {
+		if err := f.SetCellStyle(sheet, c, c, 0); err != nil {
 			return "", err
 		}
 
-		value, err := f.GetCellValue(sheet1, c)
+		value, err := f.GetCellValue(sheet, c)
 
 		if err != nil {
 			return "", err
@@ -75,32 +75,38 @@ func buildSheetReaders(f *excelize.File, sheet1, sheet2 string) func(i int) (str
 		return fmt.Sprintf("%02d:%02d", t.Hour(), t.Minute()), nil
 	}
 
-	return func(i int) (string, string, string, string, error) {
+	return func(i int) (string, string, string, string, string, error) {
 		A, err := parseTime(sheet1, fmt.Sprintf("A%d", i))
 
 		if err != nil {
-			return "", "", "", "", err
+			return "", "", "", "", "", err
 		}
 
 		E, err := f.GetCellValue(sheet1, fmt.Sprintf("E%d", i))
 
 		if err != nil {
-			return "", "", "", "", err
+			return "", "", "", "", "", err
 		}
 
 		AA, err := parseTime(sheet2, fmt.Sprintf("A%d", i))
 
 		if err != nil {
-			return "", "", "", "", err
+			return "", "", "", "", "", err
 		}
 
 		D, err := f.GetCellValue(sheet2, fmt.Sprintf("D%d", i))
 
 		if err != nil {
-			return "", "", "", "", err
+			return "", "", "", "", "", err
 		}
 
-		return A, E, AA, D, nil
+		EE, err := parseTime(sheet2, fmt.Sprintf("E%d", i))
+
+		if err != nil {
+			return "", "", "", "", "", err
+		}
+
+		return A, E, AA, D, EE, nil
 	}
 }
 
