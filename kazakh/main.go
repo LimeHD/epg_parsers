@@ -15,7 +15,7 @@ func main() {
 	app := &cli.App{
 		Flags: []cli.Flag{
 			&cli.StringFlag{
-				Name:     "file",
+				Name:     "input",
 				Usage:    "Filepath to .xlsx file, ./examples/01.02.2021-07.02.2021.xlsx",
 				Required: true,
 			},
@@ -28,7 +28,7 @@ func main() {
 	}
 
 	app.Action = func(c *cli.Context) error {
-		f, err := excelize.OpenFile(c.String("file"))
+		f, err := excelize.OpenFile(c.String("input"))
 
 		if err != nil {
 			return err
