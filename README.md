@@ -18,6 +18,7 @@
 - `./bin/dvbs_parser` парсит с dvbs
 - `./bin/graella_parser` парсит с источника от испанцев
 - `./bin/alfaomega` парсит с https://alfaomega.tv/canal-tv/programul-tv
+- `./bin/kazakh` парсит .xlsx файл Kazakh TV
 
 ## Складывают прямо в базу
 
