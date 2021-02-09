@@ -19,6 +19,11 @@ func main() {
 				Usage:    "Filepath to .xlsx file, ./examples/01.02.2021-07.02.2021.xlsx",
 				Required: true,
 			},
+			&cli.StringFlag{
+				Name:  "output",
+				Usage: "Output CSV file",
+				Value: "./tmp/output.tsv",
+			},
 		},
 	}
 
@@ -93,14 +98,10 @@ func main() {
 					Title:       resolver(langs),
 					Description: "",
 				})
-
-				/*fmt.Println(
-					FormatDatetime(timestart), FormatDatetime(timestop), getMultilangs(row.SheetTwo.Title),
-				)*/
 			}
 		}
 
-		return nil
+		return WriteTSV(c.String("output"), epg.Days)
 	}
 
 	if err := app.Run(os.Args); err != nil {
