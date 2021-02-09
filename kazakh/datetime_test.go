@@ -13,8 +13,8 @@ func TestDatetime(t *testing.T) {
 		}
 
 		t.Run("it should be successfully convert date format", func(t *testing.T) {
-			if FormatDatetime(date) != "01.02.2021 03:00:00" {
-				t.Fatal("Failed, expect datetime: `01.02.2021 03:00:00`")
+			if FormatDatetime(date) != "01.02.2021 01:00:00" {
+				t.Fatal("Failed, expect datetime: `01.02.2021 01:00:00`")
 			}
 		})
 
@@ -47,8 +47,8 @@ func TestDatetime(t *testing.T) {
 		})
 
 		t.Run("it should be successfully convert date format", func(t *testing.T) {
-			if FormatDatetime(datetime) != "07.02.2021 05:05:00" {
-				t.Fatal("Failed, expect datetime: `07.02.2021 05:05:00`")
+			if FormatDatetime(datetime) != "07.02.2021 04:05:00" {
+				t.Fatal("Failed, expect datetime: `07.02.2021 04:05:00`")
 			}
 		})
 	})
