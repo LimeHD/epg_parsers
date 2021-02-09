@@ -26,7 +26,7 @@ func AddTime(date time.Time, hours, minutes int) time.Time {
 }
 
 func FormatDatetime(datetime time.Time) string {
-	location, _ := time.LoadLocation("Europe/Rome")
+	location, _ := time.LoadLocation("Europe/Kaliningrad")
 
 	return datetime.In(location).Format(DateTimeFormat)
 }
