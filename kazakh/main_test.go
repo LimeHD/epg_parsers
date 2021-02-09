@@ -41,20 +41,20 @@ func TestMainParser(t *testing.T) {
 	getValues := buildSheetReaders(f, SHEET_ENG, SHEET_NATIVE_AND_RUS)
 
 	for i := 8; i <= rowCount; i++ {
-		A, _, AA, DD, err := getValues(i)
+		row, err := getValues(i)
 
 		if err != nil {
 			t.Fatal(err)
 		}
 
-		if A == "" {
-			if date, err = Date(getDate(DD)); err != nil {
+		if row.SheetTwo.Time == "" {
+			if date, err = Date(getDate(row.SheetTwo.Title)); err != nil {
 				t.Fatal(err)
 			}
 
 			i++
 		} else {
-			hours, minutes, err := getTimecodes(AA)
+			hours, minutes, err := getTimecodes(row.SheetTwo.Time)
 
 			if err != nil {
 				t.Fatal(err)

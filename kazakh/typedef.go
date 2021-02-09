@@ -17,4 +17,13 @@ type (
 		Title       string `json:"title"`
 		Description string `json:"description"`
 	}
+	Row struct {
+		SheetOne Values
+		SheetTwo Values
+	}
+	Values struct {
+		Time     string
+		Title    string
+		Duration string
+	}
 )
