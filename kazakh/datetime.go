@@ -7,8 +7,8 @@ import (
 
 const (
 	DateTimeFormatRfc = time.RFC3339
-	DateTimeFormat    = "01.02.2006 15:04:05"
-	DateFormat        = "01.02.2006"
+	DateTimeFormat    = "02.01.2006 15:04:05"
+	DateFormat        = "02.01.2006"
 )
 
 func Date(date string) (time.Time, error) {
