@@ -9,6 +9,8 @@ log/*
 bin/*
 !bin/.gitkeep
 !bin/standard_parser
+!bin/download_tv_pack_2
+!bin/tv_pack_parser_2
 *.csv
 tmp/*
 !tmp/.gitkeep

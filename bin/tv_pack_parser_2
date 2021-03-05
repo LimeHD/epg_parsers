@@ -1,0 +1,4 @@
+file=TV_Pack2.xml
+FILE=${1:-file}
+echo "Импортируют из файла ${FILE}"
+php store/index.php -h ${MYSQL_HOST} -l ${MYSQL_USER} -p ${MYSQL_PASSWORD} -d ${MYSQL_DATABASE} -i ${FILE} -g ./log/tv_pack_parser_2.log
