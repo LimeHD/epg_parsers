@@ -63,6 +63,12 @@ if (count($updatedIdMap) > 0) {
     Fmt::info(implode(',', array_keys($updatedIdMap)));
 
     $storage->setAsAffectedEpgSection(array_keys($updatedIdMap));
+    $status = $storage->updateHashSum();
+
+    if (!is_bool($status)) {
+        Fmt::warning(sprintf("Не удалось обновить хешсумму! %s", $status));
+    }
+
 } else {
     Fmt::info("Парсер завершил работу. Нет изменений в телепрограмме");
 }

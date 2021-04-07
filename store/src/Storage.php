@@ -141,4 +141,27 @@ class Storage implements StorageInterface
                 'last_success_import_at' => date('Y-m-d H:i:s')
             ]);
     }
+
+    public function updateHashSum() : bool
+    {
+        try {
+            $this->builder()
+                ->table('setting')
+                ->where('key', 'client_settings_unique_id')
+                ->update([
+                    'value' => uniqid('cs_')
+                ]);
+
+            $this->builder()
+                ->table('setting')
+                ->where('key', 'unique_key_timestamp')
+                ->update([
+                    'value' => (string) time()
+                ]);
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+
+        return true;
+    }
 }
