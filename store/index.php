@@ -12,7 +12,7 @@ Fmt::info("Основной парсер EPG на PHP");
 Fmt::info("Версия 0.0.1");
 Fmt::info("Инициализирую соединение с базой данных...");
 
-$options    = getopt("h:l:d:p:i:g:f:c:");
+$options    = getopt("h:l:d:p:i:g:f:c:u:");
 $connection = new Query($options);
 $storage    = new Storage($connection);
 
@@ -63,9 +63,9 @@ if (count($updatedIdMap) > 0) {
     Fmt::info(implode(',', array_keys($updatedIdMap)));
 
     $storage->setAsAffectedEpgSection(array_keys($updatedIdMap));
-    $status = $storage->updateHashSum();
+    $status = updateHashSum($options['u']);
 
-    if (!is_bool($status)) {
+    if ($status !== true) {
         Fmt::warning(sprintf("Не удалось обновить хешсумму! %s", $status));
     }
 
@@ -73,4 +73,10 @@ if (count($updatedIdMap) > 0) {
     Fmt::info("Парсер завершил работу. Нет изменений в телепрограмме");
 }
 
+function updateHashSum($url) : bool
+{
+    $result = json_decode(file_get_contents($url), true);
+
+    return $result['result'];
+}
 
