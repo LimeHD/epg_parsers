@@ -3,6 +3,8 @@
     "type": "project",
     "minimum-stability": "dev",
     "require": {
-        "usmanhalalit/pixie": "2.*@dev"
+        "usmanhalalit/pixie": "2.*@dev",
+        "ext-xmlreader": "*",
+        "ext-simplexml": "*"
     }
 }
