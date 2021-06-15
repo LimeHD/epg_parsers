@@ -19,7 +19,13 @@ class Datamapper
             throw new Exception("Кажется вы пытаетесь загрузить недопустимый файл, пожалуйста выберите файл с расширением .xml");
         }
 
-        $xml = simplexml_load_string(file_get_contents($file));
+        $reader = new XMLReader();
+        $status = $reader->open($file);
+
+        if (!$status) {
+            throw new Exception("Не удалось загрузить XML файл");
+        }
+
         $today = date('Y-m-d');
         $loopStartDay = 0;
 
@@ -35,60 +41,65 @@ class Datamapper
             'items' => []
         ];
 
-        foreach ($xml->programme as $row) {
-            $attr = $row->attributes();
+        while ($reader->read()) {
+            if ($reader->nodeType == XMLReader::ELEMENT && $reader->name == 'programme') {
+                $element = new SimpleXMLElement($reader->readOuterXML());
+                $attr = $element->attributes();
 
-            $id = (string)$attr['channel'];
+                $id = (string)$attr['channel'];
 
-            $start = DateTime::createFromFormat('YmdHis O', (string)$attr['start']);
-            $stop = DateTime::createFromFormat('YmdHis O', (string)$attr['stop']);
-            // приведение к MSK для нового поставщика
-            $start->setTimezone(new \DateTimeZone('Europe/Moscow'));
-            $stop->setTimezone(new \DateTimeZone('Europe/Moscow'));
+                $start = DateTime::createFromFormat('YmdHis O', (string)$attr['start']);
+                $stop = DateTime::createFromFormat('YmdHis O', (string)$attr['stop']);
+                // приведение к MSK для нового поставщика
+                $start->setTimezone(new \DateTimeZone('Europe/Moscow'));
+                $stop->setTimezone(new \DateTimeZone('Europe/Moscow'));
 
-            $subTitle = (isset($row->{'sub-title'})) ? '. ' . (string)$row->{'sub-title'} : '';
-            $title = sprintf('%s%s', (string) $row->title, $subTitle);
-            $desc = (string)$row->desc;
-            $rating = isset($row->rating) && isset($row->rating->value) ? (int)$row->rating->value : null;
+                $subTitle = (isset($element->{'sub-title'})) ? '. ' . (string)$element->{'sub-title'} : '';
+                $title = sprintf('%s%s', (string) $element->title, $subTitle);
+                $desc = (string)$element->desc;
+                $rating = isset($element->rating) && isset($element->rating->value) ? (int)$element->rating->value : null;
 
-            $programDate = $start->format('Y-m-d');
+                $programDate = $start->format('Y-m-d');
 
-            if ($programDate >= $today) {
-                $timeStart = $start->format('Y-m-d H:i:s');
-                $timeStop = $stop->format('Y-m-d H:i:s');
+                if ($programDate >= $today) {
+                    $timeStart = $start->format('Y-m-d H:i:s');
+                    $timeStop = $stop->format('Y-m-d H:i:s');
 
-                $day = $start->format('Y-m-d');
+                    $day = $start->format('Y-m-d');
 
-                if (!isset($datastructure['items'][$day])) {
-                    $datastructure['items'][$day] = [];
+                    if (!isset($datastructure['items'][$day])) {
+                        $datastructure['items'][$day] = [];
+                    }
+
+                    if (!isset($datastructure['items'][$day][$id])) {
+                        $datastructure['items'][$day][$id] = [];
+                    }
+
+                    $icons = [];
+                    foreach ($element->icon as $icon) {
+                        $a = $icon->attributes();
+                        $icons[] = $a->src;
+                    }
+
+                    $datastructure['items'][$day][$id][] = [
+                        'epg_id'        => $id,
+                        'time_zone'     => sprintf("UTC%s", $start->format('P')),
+                        'timestart'     => $timeStart,
+                        'date'          => $day,
+                        'timestop'      => $timeStop,
+                        'title'         => $title,
+                        'desc'          => $desc,
+                        'rating'        => $rating,
+                        'images'        => $icons,
+                    ];
+                    $datastructure['count']++;
                 }
 
-                if (!isset($datastructure['items'][$day][$id])) {
-                    $datastructure['items'][$day][$id] = [];
-                }
-
-                $icons = [];
-                foreach ($row->icon as $icon) {
-                    $a = $icon->attributes();
-                    $icons[] = $a->src;
-                }
-
-                $datastructure['items'][$day][$id][] = [
-                    'epg_id'        => $id,
-                    'time_zone'     => sprintf("UTC%s", $start->format('P')),
-                    'timestart'     => $timeStart,
-                    'date'          => $day,
-                    'timestop'      => $timeStop,
-                    'title'         => $title,
-                    'desc'          => $desc,
-                    'rating'        => $rating,
-                    'images'        => $icons,
-                ];
-                $datastructure['count']++;
+                unset($element);
             }
         }
 
-        unset($xml);
+        $reader->close();
 
         $cut = [
             'items' => []
