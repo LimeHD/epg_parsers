@@ -1,4 +1,5 @@
-<?php ini_set('memory_limit','2048M');
+<?php 
+ini_set('memory_limit','3072M');
 
 require_once 'vendor/autoload.php';
 require_once 'src/StorageInterface.php';
@@ -10,6 +11,7 @@ require_once 'src/FileHelper.php';
 
 Fmt::info("Основной парсер EPG на PHP");
 Fmt::info("Версия 0.0.1");
+Fmt::info("Выделено памяти: " . ini_get('memory_limit'));
 Fmt::info("Инициализирую соединение с базой данных...");
 
 $options    = getopt("h:l:d:p:i:g:f:c:u:");
