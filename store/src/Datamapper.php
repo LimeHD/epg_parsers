@@ -234,6 +234,7 @@ class Datamapper
         if (!$diff) {
             // simple deep check is equal array
             foreach ($a as $k => $v) {
+                if (isset($v["images"])) unset($v["images"]); // тупо шоб array_diff чисто отрабатывал :|
                 if (count(array_diff($v, $b[$k]))) {
                     $diff = true;
                     break;
